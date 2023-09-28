@@ -44,6 +44,49 @@ public class Controller {
 	 */
 	public void run() {
 		//TODO fill your code
+		while(1==1) {
+			printGame();
+			String[] comandos = prompt();
+			action(comandos);
+			// game.action && game.update
+		}
+	}
+	
+	public void action(String[] comandos) {
+		if (comandos.length == 1) {
+			switch(comandos[0]) {
+				case "help": {
+					System.out.println("""
+							[m]ove <left|lleft|right|rright>: Moves UCM-Ship to the indicated direction.
+							[s]hoot: UCM-Ship launches a laser.
+							shock[W]ave: UCM-Ship releases a shock wave.
+							[l]ist: Prints the list of available ships.
+							[r]eset: Starts a new game.
+							[h]elp: Prints this help message.
+							[e]xit: Terminates the program.
+							[n]one: Skips one cycle.
+							""");
+				}
+					break;
+				case "reset": {
+					
+				}
+					break;
+				case "exit": {
+					
+				}
+					break;
+				case "none":
+				case "": {
+					System.out.println("nonew");
+				}
+					break;
+					
+				
+			}
+		} else {
+			
+		}
 	}
 
 	/**
