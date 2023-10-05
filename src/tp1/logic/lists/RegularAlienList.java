@@ -10,10 +10,46 @@ import tp1.logic.gameobjects.UCMLaser;
  * 
  */
 public class RegularAlienList {
+	private static final int MAX = 8;
 
 	private RegularAlien[] objects;
 	private int num;
 	
-	//TODO fill your code
+	public RegularAlienList() {
+		this.num = 0;
+		objects = new RegularAlien[MAX];
+	}
+	
+	/*public void setNum(int num) {
+	 * FIXME no deberia de hacer falta
+		this.num = num;
+	}*/
+	
+	public int size() { return num; }
+	
+	public RegularAlien get(int pos) {
+		if((pos < 0) || (pos > num - 1)) return null;
+		return objects[pos];
+	}
 
+	
+	public boolean full() { return num == MAX; }
+
+	
+	public boolean add(RegularAlien alien) {
+		// añadimos alien al final de la lista
+		if (full()) return false;
+		objects[num] = alien;
+		num++;
+		return true;
+	}
+	
+	private void remove(int pos){
+		// Eliminamos alien en la posicion pos de la lista
+
+		for(int i=pos; i < num - 1; i++)
+			objects[i] = objects[i+1];
+		
+		num--;
+	}
 }

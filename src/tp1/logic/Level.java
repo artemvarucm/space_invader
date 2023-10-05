@@ -39,6 +39,31 @@ public enum Level {
 	}
 	
 
+	public int getNumRegularAliens() {
+		return numRegularAliens;
+	}
+
+
+	public int getNumRowsRegularAliens() {
+		return numRowsRegularAliens;
+	}
+
+
+	public int getNumDestroyerAliens() {
+		return numDestroyerAliens;
+	}
+
+
+	public int getNumCyclesToMoveOneCell() {
+		return numCyclesToMoveOneCell;
+	}
+
+
+	public double getShootFrequency() {
+		return shootFrequency;
+	}
+
+
 	/**
 	 * Parse a string and return any matching level
 	 * 

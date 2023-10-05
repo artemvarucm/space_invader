@@ -8,8 +8,8 @@ import tp1.logic.gameobjects.*;
 public class Game {
 	private static final String NEW_LINE = System.lineSeparator();
 
-	public static final int DIM_X = 9;
-	public static final int DIM_Y = 8;
+	public static final int DIM_X = 9; // COLUMNAS
+	public static final int DIM_Y = 8; // FILAS
 
 	//TODO fill your code
 	private int currentCycle;
@@ -27,7 +27,10 @@ public class Game {
 	
 	public Game(Level level, long seed) {
 		//TODO fill your code
-		this.player = new UCMShip();
+		this.level = level;
+		this.player = new UCMShip(this);
+		this.alienManager = new AlienManager(this, level);
+		this.regularAliens = alienManager.initializeRegularAliens();
 	}
 
 	public String stateToString() {
@@ -43,6 +46,11 @@ public class Game {
 		
 		return result.toString();
 	}
+	
+	public void move(String direction) {
+		// Mueve player(UCMShip)
+		player.move(direction);
+	}
 
 	public int getCycle() {
 		//TODO fill your code
@@ -55,8 +63,21 @@ public class Game {
 	}
 
 	public String positionToString(int col, int row) {
-		//TODO fill your code
-		return "";
+		StringBuilder str = new StringBuilder();
+		if (player.isOnPoisition(col, row)) {
+			str.append(player.toString());
+		} else {
+			boolean encontrado = false;
+			int i = 0;
+			while (!encontrado && i < regularAliens.size()) {
+				encontrado = regularAliens.get(i).isOnPoisition(col, row);
+				i++;
+			}
+			if (encontrado) {
+				str.append(regularAliens.get(--i).toString());
+			}
+		}
+		return str.toString();
 	}
 
 	public boolean playerWin() {

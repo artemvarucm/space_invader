@@ -53,40 +53,64 @@ public class Controller {
 	}
 	
 	public void action(String[] comandos) {
-		if (comandos.length == 1) {
-			switch(comandos[0]) {
+		//if (comandos.length == 1) {
+			switch(comandos[0].toLowerCase()) {
+				case "m":
+				case "move": {
+					game.move(comandos[1].toLowerCase());
+					}
+					break;
+				case "s":
+				case "shoot": {
+						
+					}
+					break;
+				case "w":
+				case "shockWave": {
+						
+					}
+					break;
+				case "l":
+				case "list": {
+						
+					}
+					break;
+				case "h":
 				case "help": {
 					System.out.println("""
-							[m]ove <left|lleft|right|rright>: Moves UCM-Ship to the indicated direction.
-							[s]hoot: UCM-Ship launches a laser.
-							shock[W]ave: UCM-Ship releases a shock wave.
-							[l]ist: Prints the list of available ships.
-							[r]eset: Starts a new game.
-							[h]elp: Prints this help message.
-							[e]xit: Terminates the program.
-							[n]one: Skips one cycle.
-							""");
+						[m]ove <left|lleft|right|rright>: Moves UCM-Ship to the indicated direction.
+						[s]hoot: UCM-Ship launches a laser.
+						shock[W]ave: UCM-Ship releases a shock wave.
+						[l]ist: Prints the list of available ships.
+						[r]eset: Starts a new game.
+						[h]elp: Prints this help message.
+						[e]xit: Terminates the program.
+						[n]one: Skips one cycle.
+					""");
 				}
 					break;
+				case "r":
 				case "reset": {
 					
 				}
 					break;
+				case "e":
 				case "exit": {
 					
 				}
 					break;
-				case "none":
-				case "": {
-					System.out.println("nonew");
+				case "":
+				case "n":
+				case "none": {
+					System.out.println("none");
 				}
 					break;
-					
-				
+				default:
+					System.out.println("Comando irreconocido");
 			}
-		} else {
+		/*} else {
 			
-		}
+		}*/
 	}
 
 	/**
