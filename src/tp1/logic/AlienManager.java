@@ -40,7 +40,7 @@ public class AlienManager {
 		int num = level.getNumRegularAliens() / 4;  // maximo cuatro en fila (1 en EASY, 2 en HARD)
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < 4; j++) {
-				RegularAlien templateAlien = new RegularAlien(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET, level.getNumCyclesToMoveOneCell());
+				RegularAlien templateAlien = new RegularAlien(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET, level.getNumCyclesToMoveOneCell(), game);
 				list.add(templateAlien);
 			}
 		}

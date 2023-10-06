@@ -3,6 +3,7 @@ package tp1.logic.gameobjects;
 import tp1.logic.Game;
 import tp1.logic.Move;
 import tp1.logic.Position;
+import tp1.view.Messages;
 
 /**
  * 
@@ -10,11 +11,36 @@ import tp1.logic.Position;
  *
  */
 public class UCMLaser {
+	private static int ARMOR = 1;
+	public static int DAMAGE = 1;
 	
 	//TODO fill your code
-	private Move dir;
+	private Move dir = Move.UP;
 	private Game game;
-
+	private Position pos;
+	int life;
+	public UCMLaser(Game game) {
+		this.life = 0;
+		this.pos = new Position(-1, -1); // no esta en el tablero
+		this.game = game;
+	}
+	
+	public boolean isOnPosition(int col, int row) {
+		return pos.getCol() == col && pos.getRow() == row;
+	}
+	
+	public Position getPosition() {
+		return this.pos;
+	}
+	
+	public String toString() {
+		return Messages.LASER_SYMBOL;
+	}
+	
+	public void isAlive(int col, int row) {
+		this.pos = new Position(col, row);
+		this.life = ARMOR;
+	}
 
 	/**
 	 *  Method called when the laser disappears from the board
@@ -40,15 +66,19 @@ public class UCMLaser {
 	
 	private void die() {
 		//TODO fill your code
+		this.life = 0;
+		this.pos.setCol(-1);
+		this.pos.setRow(-1);
 	}
 
 	private boolean isOut() {
 		//TODO fill your code
-		return false;
+		return !pos.validate();
 	}
 
 	private void performMovement(Move dir) {
 		//TODO fill your code
+		dir.apply(pos);
 	}
 
 	/**

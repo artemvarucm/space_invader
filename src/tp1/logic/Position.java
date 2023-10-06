@@ -29,4 +29,10 @@ public class Position {
 	public void setRow(int row) {
 		this.row = row;
 	}
+	public boolean validate() {
+		return 
+		col >= 0 && row >= 0
+			&&
+		col < Game.DIM_X && row < Game.DIM_Y;
+	}
 }

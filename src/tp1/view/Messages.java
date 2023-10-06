@@ -157,5 +157,9 @@ public class Messages {
 	public static final String ucmShipDescription(String ucmShipDescription, int damage, int endurance) {
 		return Messages.UCM_DESCRIPTION.formatted(ucmShipDescription, damage, endurance);
 	}
+	
+	public static final String invalidPosition(int col, int row) {
+		return Messages.INVALID_POSITION.formatted(col, row);
+	}
 
 }

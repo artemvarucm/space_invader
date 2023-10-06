@@ -48,6 +48,7 @@ public class Controller {
 			printGame();
 			String[] comandos = prompt();
 			action(comandos);
+			game.automaticMove();
 			// game.action && game.update
 		}
 	}
@@ -57,12 +58,18 @@ public class Controller {
 			switch(comandos[0].toLowerCase()) {
 				case "m":
 				case "move": {
-					game.move(comandos[1].toLowerCase());
+					if (!game.move(comandos[1].toLowerCase())) {
+						comandos = prompt();
+						action(comandos);
 					}
+				}
 					break;
 				case "s":
 				case "shoot": {
-						
+						if (!game.shootLaser()) {
+							comandos = prompt();
+							action(comandos);
+						}
 					}
 					break;
 				case "w":
@@ -77,16 +84,9 @@ public class Controller {
 					break;
 				case "h":
 				case "help": {
-					System.out.println("""
-						[m]ove <left|lleft|right|rright>: Moves UCM-Ship to the indicated direction.
-						[s]hoot: UCM-Ship launches a laser.
-						shock[W]ave: UCM-Ship releases a shock wave.
-						[l]ist: Prints the list of available ships.
-						[r]eset: Starts a new game.
-						[h]elp: Prints this help message.
-						[e]xit: Terminates the program.
-						[n]one: Skips one cycle.
-					""");
+					System.out.println(Messages.HELP);
+					comandos = prompt();
+					action(comandos);
 				}
 					break;
 				case "r":
@@ -106,7 +106,7 @@ public class Controller {
 				}
 					break;
 				default:
-					System.out.println("Comando irreconocido");
+					System.out.println(Messages.UNKNOWN_COMMAND);
 			}
 		/*} else {
 			

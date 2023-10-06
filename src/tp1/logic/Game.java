@@ -28,6 +28,8 @@ public class Game {
 	public Game(Level level, long seed) {
 		//TODO fill your code
 		this.level = level;
+		this.currentCycle = 0;
+		this.laser = new UCMLaser(this);
 		this.player = new UCMShip(this);
 		this.alienManager = new AlienManager(this, level);
 		this.regularAliens = alienManager.initializeRegularAliens();
@@ -47,14 +49,18 @@ public class Game {
 		return result.toString();
 	}
 	
-	public void move(String direction) {
+	public boolean move(String direction) {
 		// Mueve player(UCMShip)
-		player.move(direction);
+		return player.move(direction);
+	}
+	
+	public boolean shootLaser() {
+		return player.shootLaser(laser);
 	}
 
 	public int getCycle() {
 		//TODO fill your code
-		return 0;
+		return currentCycle;
 	}
 
 	public int getRemainingAliens() {
@@ -66,17 +72,20 @@ public class Game {
 		StringBuilder str = new StringBuilder();
 		if (player.isOnPoisition(col, row)) {
 			str.append(player.toString());
-		} else {
-			boolean encontrado = false;
-			int i = 0;
-			while (!encontrado && i < regularAliens.size()) {
-				encontrado = regularAliens.get(i).isOnPoisition(col, row);
-				i++;
-			}
-			if (encontrado) {
-				str.append(regularAliens.get(--i).toString());
-			}
+		} 
+		if (laser.isOnPosition(col, row)) {
+			str.append(laser.toString());
 		}
+		boolean encontrado = false;
+		int i = 0;
+		while (!encontrado && i < regularAliens.size()) {
+			encontrado = regularAliens.get(i).isOnPoisition(col, row);
+			i++;
+		}
+		if (encontrado) {
+			str.append(regularAliens.get(--i).toString());
+		}
+		
 		return str.toString();
 	}
 
@@ -91,7 +100,8 @@ public class Game {
 	}
 
 	public void enableLaser() {
-		//TODO fill your code		
+		//TODO fill your code
+		player.enableLaser();
 	}
 
 	public Random getRandom() {
@@ -102,6 +112,11 @@ public class Game {
 	public Level getLevel() {
 		//TODO fill your code
 		return null;
+	}
+	
+	public void automaticMove() {
+		laser.automaticMove();
+		currentCycle++;
 	}
 
 }

@@ -4,6 +4,7 @@ import tp1.logic.AlienManager;
 import tp1.logic.Game;
 import tp1.logic.Move;
 import tp1.logic.Position;
+import tp1.view.Messages;
 
 /**
  * 
@@ -15,7 +16,6 @@ public class RegularAlien {
 	public static final int COL_INI_OFFSET = 2; // donde empezamos a dibujarles (columnas)
 	private static final int ARMOR = 2;
 	private static final int POINTS = 5;
-	private static final String representation  = "R";
 	//TODO fill your code
 	private int cyclesToMove; // cuantos quedan para moverse (cambia cada jugada)
 	private int speed; // constante a la cual se reinicia despues de moverse
@@ -27,15 +27,16 @@ public class RegularAlien {
 	private AlienManager alienManager;
 
 	//TODO fill your code
-	public RegularAlien (int col, int row, int speed) {
+	public RegularAlien (int col, int row, int speed, Game game) {
 		this.pos = new Position(col, row);
 		this.life = ARMOR;
 		this.cyclesToMove = speed;
 		this.speed = speed;
+		this.game = game;
 	}
 	
 	public String toString() {
-		return representation + "[" + String.valueOf(ARMOR) + "]";
+		return Messages.REGULAR_ALIEN_SYMBOL + "[" + String.valueOf(life) + "]";
 	}
 	
 	public boolean isOnPoisition(int col, int row) {
