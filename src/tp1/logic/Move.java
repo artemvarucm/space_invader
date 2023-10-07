@@ -27,7 +27,7 @@ public enum Move {
 	//TODO fill your code
 	public boolean validate(Position pos) {
 		apply(pos);
-		boolean val = pos.validate();
+		boolean val = pos.isOnBoard();
 		if (!val) {
 			inverse(pos);
 		}

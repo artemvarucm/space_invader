@@ -19,9 +19,9 @@ public class UCMLaser {
 	private Game game;
 	private Position pos;
 	int life;
-	public UCMLaser(Game game) {
-		this.life = 0;
-		this.pos = new Position(-1, -1); // no esta en el tablero
+	public UCMLaser(Game game, Position pos) {
+		this.life = ARMOR;
+		this.pos = new Position(pos);
 		this.game = game;
 	}
 	
@@ -37,9 +37,8 @@ public class UCMLaser {
 		return Messages.LASER_SYMBOL;
 	}
 	
-	public void isAlive(int col, int row) {
-		this.pos = new Position(col, row);
-		this.life = ARMOR;
+	public boolean isAlive() {
+		return this.life > 0;
 	}
 
 	/**
@@ -54,8 +53,10 @@ public class UCMLaser {
 	 */
 	public void automaticMove () {
 		performMovement(dir);
-		if(isOut())
+		if(isOut()) {
 			die();
+			game.enableLaser();
+		}
 	}
 
 	
@@ -67,18 +68,16 @@ public class UCMLaser {
 	private void die() {
 		//TODO fill your code
 		this.life = 0;
-		this.pos.setCol(-1);
-		this.pos.setRow(-1);
 	}
 
 	private boolean isOut() {
 		//TODO fill your code
-		return !pos.validate();
+		return !pos.isOnBoard();
 	}
 
 	private void performMovement(Move dir) {
 		//TODO fill your code
-		dir.apply(pos);
+		pos.move(dir);
 	}
 
 	/**
@@ -90,7 +89,13 @@ public class UCMLaser {
 	 */
 	public boolean performAttack(RegularAlien other) {
 		//TODO fill your code
-		return false;
+		boolean res = false;
+		if (isAlive() && other.isAlive() && other.isOnPoisition(pos.getCol(), pos.getRow())) {
+			res = other.receiveAttack(this);
+			die();
+			game.enableLaser();
+		}
+		return res;
 	}
 
 	/**

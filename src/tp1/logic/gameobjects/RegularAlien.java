@@ -23,16 +23,22 @@ public class RegularAlien {
 	private Position pos;
 	private int life;
 	private Game game;
-	
 	private AlienManager alienManager;
-
+	private boolean readyToDescend;
 	//TODO fill your code
-	public RegularAlien (int col, int row, int speed, Game game) {
+	public RegularAlien (int col, int row, int speed, Game game, AlienManager alienManager) {
 		this.pos = new Position(col, row);
+		this.dir = Move.LEFT;
 		this.life = ARMOR;
 		this.cyclesToMove = speed;
 		this.speed = speed;
 		this.game = game;
+		this.alienManager = alienManager;
+		this.readyToDescend = false;
+	}
+	
+	public boolean isAlive() {
+		return life > 0;
 	}
 	
 	public String toString() {
@@ -48,27 +54,55 @@ public class RegularAlien {
 	 */
 	public void automaticMove() {
 		//TODO fill your code
+		if (cyclesToMove == 0) {
+			dir = alienManager.movement();
+			if (alienManager.readyToDescend()) {
+				descend();
+				alienManager.decreaseOnBorder();
+			} else {
+				performMovement(dir);
+				if (isInBorder()) {
+					alienManager.shipOnBorder();
+				}
+			}
+			cyclesToMove = speed;
+		} else {
+			cyclesToMove--;
+		}
 	}
 
-	private void descent() {
+	private void descend() {
 		//TODO fill your code
-		
+		pos.move(Move.DOWN);
+		readyToDescend = false;
 	}
 
 	private void performMovement(Move dir) {
 		//TODO fill your code
-		
+		pos.move(dir);
 	}
 
 	private boolean isInBorder() {
 		//TODO fill your code
-		return false;
+		return (dir.equals(Move.RIGHT) && pos.getCol() == Game.DIM_X - 1) 
+				|| 
+				(dir.equals(Move.LEFT) && pos.getCol() == 0);
+	}
+	
+	public boolean isInFinalRow() {
+		return pos.getRow() == Game.DIM_Y - 1;
 	}
 
 	public boolean receiveAttack(UCMLaser laser) {
 		//TODO fill your code
-		return false;
+		receiveDamage(UCMLaser.DAMAGE);
+		if (!isAlive()) {
+			alienManager.alienDead();
+		}
+		return true;
 	}
 	
-
+	public void receiveDamage(int dam) {
+		this.life -= dam;
+	}
 }

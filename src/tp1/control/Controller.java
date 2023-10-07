@@ -48,7 +48,7 @@ public class Controller {
 			printGame();
 			String[] comandos = prompt();
 			action(comandos);
-			game.automaticMove();
+			game.update();
 			// game.action && game.update
 		}
 	}

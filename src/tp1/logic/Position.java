@@ -13,6 +13,10 @@ public class Position {
 		this.col = col;
 		this.row = row;
 	}
+	public Position(Position pos) {
+		this.col = pos.getCol();
+		this.row = pos.getRow();
+	}
 	//TODO fill your code
 	public int getCol() {
 		return col;
@@ -29,10 +33,15 @@ public class Position {
 	public void setRow(int row) {
 		this.row = row;
 	}
-	public boolean validate() {
+	public boolean isOnBoard() {
 		return 
 		col >= 0 && row >= 0
 			&&
 		col < Game.DIM_X && row < Game.DIM_Y;
+	}
+	
+	public void move(Move dir) {
+		col += dir.getX();
+		row += dir.getY();
 	}
 }

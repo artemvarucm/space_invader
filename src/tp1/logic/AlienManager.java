@@ -16,7 +16,11 @@ public class AlienManager {
 	private Level level;
 	private Game game;
 	private int remainingAliens;
-	
+	//
+	private Move dir;
+	private int movedAliens;
+	private boolean readyToDescend;
+	//
 	private boolean squadInFinalRow;
 	private int shipsOnBorder;
 	private boolean onBorder;
@@ -25,6 +29,14 @@ public class AlienManager {
 		this.level = level;
 		this.game = game;
 		this.remainingAliens = 0;
+		this.movedAliens = 0;
+		this.onBorder = true;
+		this.readyToDescend = false;
+		this.dir = Move.LEFT;
+	}
+	
+	public int getRemainingAliens() {
+		return this.remainingAliens;
 	}
 		
 	// INITIALIZER METHODS
@@ -40,10 +52,11 @@ public class AlienManager {
 		int num = level.getNumRegularAliens() / 4;  // maximo cuatro en fila (1 en EASY, 2 en HARD)
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < 4; j++) {
-				RegularAlien templateAlien = new RegularAlien(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET, level.getNumCyclesToMoveOneCell(), game);
+				RegularAlien templateAlien = new RegularAlien(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET, level.getNumCyclesToMoveOneCell(), game, this);
 				list.add(templateAlien);
 			}
 		}
+		remainingAliens += level.getNumRegularAliens();
 		return list;
 	}
 
@@ -54,9 +67,40 @@ public class AlienManager {
 //	protected  DestroyerAlienList initializeDestroyerAliens() {
 //		//TODO fill your code
 //	}
+	public boolean allAlienDead() {
+		return remainingAliens == 0;
+	}
+	
+	public void alienDead() {
+		remainingAliens--;
+	}
 
 	
 	// CONTROL METHODS
+	public Move movement() {
+		if (shipsOnBorder == 0) {
+			onBorder = false;
+			readyToDescend = false;
+		}
+		if (movedAliens == remainingAliens) {
+			movedAliens = 0;
+			if (onBorder()) {
+				readyToDescend = true;
+				if (this.dir.equals(Move.LEFT)) {
+					this.dir = Move.RIGHT;
+				} else {
+					this.dir = Move.LEFT;
+				}
+			}
+		}
+		movedAliens++;
+		return dir;
+	}
+	
+	
+	public boolean readyToDescend() {
+		return readyToDescend;
+	}
 		
 	public void shipOnBorder() {
 		if(!onBorder) {
@@ -64,10 +108,18 @@ public class AlienManager {
 			shipsOnBorder = remainingAliens;
 		}
 	}
+	
+	public void decreaseOnBorder() {
+		shipsOnBorder--;
+	}
 
 	public boolean onBorder() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.onBorder;
+	}
+	
+	public boolean finalRowReached() {
+		return squadInFinalRow;
 	}
 
 }

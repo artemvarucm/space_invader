@@ -65,7 +65,7 @@ public class UCMShip {
 		}
 		if (moved) {
 			if (move.validate(pos)) {
-				move.apply(pos);
+				pos.move(move);
 			} else {
 				moved = false;
 				System.out.println(Messages.invalidPosition(pos.getCol() + move.getX(), pos.getRow()));
@@ -141,12 +141,15 @@ public class UCMShip {
 		this.canShoot = true;
 	}
 
-	public boolean shootLaser(UCMLaser laser) {
+	public boolean shootLaser(Game game) {
 		boolean res = false;
 		if (canShoot) {
 			res = true;
-			laser.isAlive(pos.getCol(), pos.getRow());
+			UCMLaser laser = new UCMLaser(game, pos);
+			game.addObject(laser);
 			this.canShoot = false;
+		} else {
+			System.out.println(Messages.LASER_ERROR);
 		}
 		return res;
 	}

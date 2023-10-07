@@ -32,12 +32,17 @@ public class RegularAlienList {
 		return objects[pos];
 	}
 
+	public void automaticMoves() {
+		for (int i = 0; i < num; i++) {
+			objects[i].automaticMove();
+		}
+	}
 	
 	public boolean full() { return num == MAX; }
 
 	
 	public boolean add(RegularAlien alien) {
-		// añadimos alien al final de la lista
+		// aï¿½adimos alien al final de la lista
 		if (full()) return false;
 		objects[num] = alien;
 		num++;
@@ -51,5 +56,15 @@ public class RegularAlienList {
 			objects[i] = objects[i+1];
 		
 		num--;
+	}
+	
+	public boolean checkAttacks(UCMLaser laser) {
+		int i = 0;
+		boolean collapsed = false;
+		while (!collapsed && i < num) {
+			collapsed = laser.performAttack(objects[i]);
+			i++;
+		}
+		return collapsed;
 	}
 }

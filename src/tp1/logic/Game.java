@@ -29,10 +29,10 @@ public class Game {
 		//TODO fill your code
 		this.level = level;
 		this.currentCycle = 0;
-		this.laser = new UCMLaser(this);
 		this.player = new UCMShip(this);
 		this.alienManager = new AlienManager(this, level);
 		this.regularAliens = alienManager.initializeRegularAliens();
+		this.rand = new Random(seed);
 	}
 
 	public String stateToString() {
@@ -55,7 +55,7 @@ public class Game {
 	}
 	
 	public boolean shootLaser() {
-		return player.shootLaser(laser);
+		return player.shootLaser(this);
 	}
 
 	public int getCycle() {
@@ -65,7 +65,7 @@ public class Game {
 
 	public int getRemainingAliens() {
 		//TODO fill your code
-		return 0;
+		return alienManager.getRemainingAliens();
 	}
 
 	public String positionToString(int col, int row) {
@@ -73,13 +73,13 @@ public class Game {
 		if (player.isOnPoisition(col, row)) {
 			str.append(player.toString());
 		} 
-		if (laser.isOnPosition(col, row)) {
+		if (laser != null && laser.isAlive() && laser.isOnPosition(col, row)) {
 			str.append(laser.toString());
 		}
 		boolean encontrado = false;
 		int i = 0;
 		while (!encontrado && i < regularAliens.size()) {
-			encontrado = regularAliens.get(i).isOnPoisition(col, row);
+			encontrado = regularAliens.get(i).isAlive() && regularAliens.get(i).isOnPoisition(col, row);
 			i++;
 		}
 		if (encontrado) {
@@ -106,17 +106,33 @@ public class Game {
 
 	public Random getRandom() {
 		//TODO fill your code
-		return null;
+		return this.rand;
 	}
 
 	public Level getLevel() {
 		//TODO fill your code
-		return null;
+		return this.level;
 	}
 	
-	public void automaticMove() {
-		laser.automaticMove();
+	public void update() {
 		currentCycle++;
+		automaticMoves();
+		if (laser != null)
+			performAttack(laser);
+	}
+	
+	public void automaticMoves() {
+		if (laser != null)
+			laser.automaticMove();
+		regularAliens.automaticMoves();
+	}
+	
+	public void addObject(UCMLaser laser) {
+		this.laser = laser;
+	}
+	
+	public void performAttack(UCMLaser laser) {
+		regularAliens.checkAttacks(laser);
 	}
 
 }
