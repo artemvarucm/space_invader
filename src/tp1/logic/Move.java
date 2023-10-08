@@ -28,9 +28,7 @@ public enum Move {
 	public boolean validate(Position pos) {
 		apply(pos);
 		boolean val = pos.isOnBoard();
-		if (!val) {
-			inverse(pos);
-		}
+		inverse(pos);
 		return val;
 	}
 	

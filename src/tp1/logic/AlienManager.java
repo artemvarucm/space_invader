@@ -30,7 +30,7 @@ public class AlienManager {
 		this.game = game;
 		this.remainingAliens = 0;
 		this.movedAliens = 0;
-		this.onBorder = true;
+		this.onBorder = false;
 		this.readyToDescend = false;
 		this.dir = Move.LEFT;
 	}
@@ -115,11 +115,19 @@ public class AlienManager {
 
 	public boolean onBorder() {
 		// TODO Auto-generated method stub
+		if (shipsOnBorder == 0) { 
+			this.onBorder = false;
+		}
 		return this.onBorder;
 	}
 	
-	public boolean finalRowReached() {
+	public void finalRowReached() {
+		squadInFinalRow = true;
+	}
+	
+	public boolean haveLanded() {
 		return squadInFinalRow;
 	}
+	
 
 }

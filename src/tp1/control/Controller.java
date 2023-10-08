@@ -1,11 +1,11 @@
 package tp1.control;
 
 import static tp1.view.Messages.debug;
+import tp1.logic.gameobjects.RegularAlien;
 
 import java.util.Scanner;
 
 import tp1.logic.Game;
-import tp1.logic.Move;
 import tp1.view.GamePrinter;
 import tp1.view.Messages;
 
@@ -44,17 +44,21 @@ public class Controller {
 	 */
 	public void run() {
 		//TODO fill your code
-		while(1==1) {
+		boolean end = false;
+		while(!end && !game.playerWin() && !game.aliensWin()) {
 			printGame();
 			String[] comandos = prompt();
-			action(comandos);
+			end = action(comandos);
 			game.update();
 			// game.action && game.update
 		}
+		printGame();
+		printEndMessage();
 	}
 	
-	public void action(String[] comandos) {
+	public boolean action(String[] comandos) {
 		//if (comandos.length == 1) {
+			boolean exit = false;
 			switch(comandos[0].toLowerCase()) {
 				case "m":
 				case "move": {
@@ -67,6 +71,7 @@ public class Controller {
 				case "s":
 				case "shoot": {
 						if (!game.shootLaser()) {
+							System.out.println(Messages.LASER_ERROR);
 							comandos = prompt();
 							action(comandos);
 						}
@@ -74,12 +79,18 @@ public class Controller {
 					break;
 				case "w":
 				case "shockWave": {
-						
+						if (!game.shockWave()) {
+							System.out.println(Messages.SHOCKWAVE_ERROR);
+							comandos = prompt();
+							action(comandos);
+						}
 					}
 					break;
 				case "l":
 				case "list": {
-						
+						printGameObjectsList();
+						comandos = prompt();
+						action(comandos); // FIXME reemplaar por skip update
 					}
 					break;
 				case "h":
@@ -96,7 +107,7 @@ public class Controller {
 					break;
 				case "e":
 				case "exit": {
-					
+					exit = true;
 				}
 					break;
 				case "":
@@ -111,6 +122,7 @@ public class Controller {
 		/*} else {
 			
 		}*/
+			return exit;
 	}
 
 	/**
@@ -125,6 +137,10 @@ public class Controller {
 	 */
 	public void printEndMessage() {
 		System.out.println(printer.endMessage());
+	}
+	
+	public void printGameObjectsList() {
+		System.out.println(printer.gameObjectsList());
 	}
 	
 }

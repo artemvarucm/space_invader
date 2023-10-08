@@ -31,6 +31,7 @@ public class Game {
 		this.currentCycle = 0;
 		this.player = new UCMShip(this);
 		this.alienManager = new AlienManager(this, level);
+		this.ufo = new Ufo(this);
 		this.regularAliens = alienManager.initializeRegularAliens();
 		this.rand = new Random(seed);
 	}
@@ -57,6 +58,10 @@ public class Game {
 	public boolean shootLaser() {
 		return player.shootLaser(this);
 	}
+	
+	public boolean shockWave() {
+		return player.executeShockWave();
+	}
 
 	public int getCycle() {
 		//TODO fill your code
@@ -79,11 +84,14 @@ public class Game {
 		boolean encontrado = false;
 		int i = 0;
 		while (!encontrado && i < regularAliens.size()) {
-			encontrado = regularAliens.get(i).isAlive() && regularAliens.get(i).isOnPoisition(col, row);
+			encontrado = regularAliens.get(i).isAlive() && regularAliens.get(i).isOnPosition(col, row);
 			i++;
 		}
 		if (encontrado) {
 			str.append(regularAliens.get(--i).toString());
+		}
+		if (ufo != null && ufo.isAlive() && ufo.isOnPosition(col, row)) {
+			str.append(ufo.toString());
 		}
 		
 		return str.toString();
@@ -91,17 +99,22 @@ public class Game {
 
 	public boolean playerWin() {
 		//TODO fill your code
-		return false;
+		return player.isAlive() && alienManager.allAlienDead();
 	}
 
 	public boolean aliensWin() {
 		//TODO fill your code
-		return false;
+		return !player.isAlive() || alienManager.haveLanded();
 	}
 
 	public void enableLaser() {
 		//TODO fill your code
 		player.enableLaser();
+	}
+	
+	public void enableShockWave() {
+		//TODO fill your code
+		player.enableShockWave();
 	}
 
 	public Random getRandom() {
@@ -116,15 +129,21 @@ public class Game {
 	
 	public void update() {
 		currentCycle++;
+		computerActions();
 		automaticMoves();
 		if (laser != null)
 			performAttack(laser);
+	}
+	
+	public void computerActions() {
+		ufo.computerAction();
 	}
 	
 	public void automaticMoves() {
 		if (laser != null)
 			laser.automaticMove();
 		regularAliens.automaticMoves();
+		ufo.automaticMove();
 	}
 	
 	public void addObject(UCMLaser laser) {
@@ -133,6 +152,9 @@ public class Game {
 	
 	public void performAttack(UCMLaser laser) {
 		regularAliens.checkAttacks(laser);
+		if (laser.performAttack(ufo)) {
+			enableShockWave();
+		}
 	}
 
 }

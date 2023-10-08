@@ -90,7 +90,18 @@ public class UCMLaser {
 	public boolean performAttack(RegularAlien other) {
 		//TODO fill your code
 		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPoisition(pos.getCol(), pos.getRow())) {
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos.getCol(), pos.getRow())) {
+			res = other.receiveAttack(this);
+			die();
+			game.enableLaser();
+		}
+		return res;
+	}
+	
+	public boolean performAttack(Ufo other) {
+		//TODO fill your code
+		boolean res = false;
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos.getCol(), pos.getRow())) {
 			res = other.receiveAttack(this);
 			die();
 			game.enableLaser();

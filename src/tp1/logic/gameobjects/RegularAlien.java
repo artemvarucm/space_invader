@@ -14,8 +14,8 @@ import tp1.view.Messages;
 public class RegularAlien {
 	public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
 	public static final int COL_INI_OFFSET = 2; // donde empezamos a dibujarles (columnas)
-	private static final int ARMOR = 2;
-	private static final int POINTS = 5;
+	public static final int ARMOR = 2;
+	public static final int POINTS = 5;
 	//TODO fill your code
 	private int cyclesToMove; // cuantos quedan para moverse (cambia cada jugada)
 	private int speed; // constante a la cual se reinicia despues de moverse
@@ -45,7 +45,7 @@ public class RegularAlien {
 		return Messages.REGULAR_ALIEN_SYMBOL + "[" + String.valueOf(life) + "]";
 	}
 	
-	public boolean isOnPoisition(int col, int row) {
+	public boolean isOnPosition(int col, int row) {
 			return pos.getCol() == col && pos.getRow() == row;
 	}
 
@@ -54,11 +54,14 @@ public class RegularAlien {
 	 */
 	public void automaticMove() {
 		//TODO fill your code
-		if (cyclesToMove == 0) {
+		if (cyclesToMove == 0 || alienManager.onBorder()) {
 			dir = alienManager.movement();
 			if (alienManager.readyToDescend()) {
 				descend();
 				alienManager.decreaseOnBorder();
+				if (isInFinalRow()) {
+					alienManager.finalRowReached();
+				}
 			} else {
 				performMovement(dir);
 				if (isInBorder()) {
@@ -73,7 +76,7 @@ public class RegularAlien {
 
 	private void descend() {
 		//TODO fill your code
-		pos.move(Move.DOWN);
+		performMovement(Move.DOWN);
 		readyToDescend = false;
 	}
 

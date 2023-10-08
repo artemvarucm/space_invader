@@ -4,8 +4,8 @@ import tp1.logic.*;
 import tp1.view.Messages;
 
 public class UCMShip {
-	private static final int ARMOR = 3;
-	private static final int DAMAGE = 1;
+	public static final int ARMOR = 3;
+	public static final int DAMAGE = 1;
 	private Position pos;
 	private int life;
 	private Game game;
@@ -40,7 +40,6 @@ public class UCMShip {
 
 	public boolean move(String direction) {
 		// a�adir check si esta dentro del tablero NxM
-		int prevCol = pos.getCol();
 		Move move = Move.NONE;
 		boolean moved = true;
 		switch (direction) {
@@ -76,7 +75,13 @@ public class UCMShip {
 		return moved;
 	}
 
-	public void executeShockWave() {
+	public boolean executeShockWave() {
+		boolean res = false;
+		if (hasShockWave()) {
+			
+			res = true;
+		}
+		return res;
 	}
 
 	public void receiveAttack() {
@@ -148,8 +153,6 @@ public class UCMShip {
 			UCMLaser laser = new UCMLaser(game, pos);
 			game.addObject(laser);
 			this.canShoot = false;
-		} else {
-			System.out.println(Messages.LASER_ERROR);
 		}
 		return res;
 	}
@@ -166,11 +169,11 @@ public class UCMShip {
 		return hasShockWave;
 	}
 
-	public void enableHasShockWave() {
+	public void enableShockWave() {
 		this.hasShockWave = true;
 	}
 
-	public void disableHasShockWave() {
+	public void disableShockWave() {
 		this.hasShockWave = false;
 	}
 
