@@ -14,7 +14,7 @@ import tp1.view.Messages;
 public class RegularAlien {
 	public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
 	public static final int COL_INI_OFFSET = 2; // donde empezamos a dibujarles (columnas)
-	public static final int ARMOR = 2;
+	public static final int ARMOR = 1;
 	public static final int POINTS = 5;
 	//TODO fill your code
 	private int cyclesToMove; // cuantos quedan para moverse (cambia cada jugada)
@@ -24,7 +24,6 @@ public class RegularAlien {
 	private int life;
 	private Game game;
 	private AlienManager alienManager;
-	private boolean readyToDescend;
 	//TODO fill your code
 	public RegularAlien (int col, int row, int speed, Game game, AlienManager alienManager) {
 		this.pos = new Position(col, row);
@@ -34,7 +33,6 @@ public class RegularAlien {
 		this.speed = speed;
 		this.game = game;
 		this.alienManager = alienManager;
-		this.readyToDescend = false;
 	}
 	
 	public boolean isAlive() {
@@ -58,7 +56,6 @@ public class RegularAlien {
 			dir = alienManager.movement();
 			if (alienManager.readyToDescend()) {
 				descend();
-				alienManager.decreaseOnBorder();
 				if (isInFinalRow()) {
 					alienManager.finalRowReached();
 				}
@@ -77,7 +74,7 @@ public class RegularAlien {
 	private void descend() {
 		//TODO fill your code
 		performMovement(Move.DOWN);
-		readyToDescend = false;
+		alienManager.decreaseOnBorder();
 	}
 
 	private void performMovement(Move dir) {

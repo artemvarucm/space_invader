@@ -34,7 +34,8 @@ public class RegularAlienList {
 
 	public void automaticMoves() {
 		for (int i = 0; i < num; i++) {
-			objects[i].automaticMove();
+			if (objects[i].isAlive()) // FIXME: eliminar de la lista
+				objects[i].automaticMove();
 		}
 	}
 	

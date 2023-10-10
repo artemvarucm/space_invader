@@ -73,6 +73,7 @@ public class AlienManager {
 	
 	public void alienDead() {
 		remainingAliens--;
+		movedAliens--;
 	}
 
 	
@@ -84,7 +85,7 @@ public class AlienManager {
 		}
 		if (movedAliens == remainingAliens) {
 			movedAliens = 0;
-			if (onBorder()) {
+			if (onBorder) {
 				readyToDescend = true;
 				if (this.dir.equals(Move.LEFT)) {
 					this.dir = Move.RIGHT;
@@ -111,13 +112,13 @@ public class AlienManager {
 	
 	public void decreaseOnBorder() {
 		shipsOnBorder--;
+		if (shipsOnBorder == 0) { 
+			this.onBorder = false;
+		}
 	}
 
 	public boolean onBorder() {
 		// TODO Auto-generated method stub
-		if (shipsOnBorder == 0) { 
-			this.onBorder = false;
-		}
 		return this.onBorder;
 	}
 	
