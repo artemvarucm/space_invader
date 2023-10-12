@@ -22,19 +22,21 @@ public class Ufo {
 		this.life = 0;
 	}
 	
-	public String toString() {
-		return Messages.UFO_SYMBOL + "[" + ARMOR + "]";
+	public String toString(Position pos) {
+		String str = "";
+		if (isAlive() && isOnPosition(pos)) {
+			str = Messages.UFO_SYMBOL + "[" + String.valueOf(life) + "]";
+		}
+		return str;
 	}
 	
 	//TODO fill your code
-	public boolean isOnPosition(int col, int row) {
-		return pos.getCol() == col && pos.getRow() == row;
+	public boolean receiveAttack(UCMLaser laser) {
+		//TODO fill your code
+		receiveDamage(UCMLaser.DAMAGE);
+		return !isAlive();
 	}
 	
-	public boolean isAlive() {
-		return life > 0;
-	}
-
 	public void computerAction() {
 		if(!enabled && canGenerateRandomUfo()) {
 			enable();
@@ -49,20 +51,23 @@ public class Ufo {
 		}
 	}
 	
-	private void die() {
-		this.life = 0;
-		enabled = false;
-	}
-	
 	private void enable() {
 		//TODO fill your code
 		life = ARMOR;
 		this.pos = new Position(Game.DIM_X, 0); // FIXME: invalid position esquina superior derecha
 		enabled = true;
 	}
-
-	public void onDelete() {
-		//TODO fill your code
+	
+	public void receiveDamage(int dam) {
+		this.life -= dam;
+	}
+	
+	public boolean isAlive() {
+		return life > 0;
+	}
+	
+	public boolean isOnPosition(Position pos) {
+		return pos.equals(this.pos);
 	}
 	
 	private boolean isOut() {
@@ -70,21 +75,20 @@ public class Ufo {
 		return !pos.isOnBoard();
 	}
 	
-	public boolean receiveAttack(UCMLaser laser) {
-		//TODO fill your code
-		receiveDamage(UCMLaser.DAMAGE);
-		return !isAlive();
-	}
-	
-	public void receiveDamage(int dam) {
-		this.life -= dam;
-	}
-	
 	private void performMovement(Move dir) {
 		//TODO fill your code
 		pos.move(dir);
 	}
-
+	
+	private void die() {
+		this.life = 0;
+		enabled = false;
+	}
+	
+	public void onDelete() {
+		//TODO fill your code
+	}
+	
 	/**
 	 * Checks if the game should generate an ufo.
 	 * 

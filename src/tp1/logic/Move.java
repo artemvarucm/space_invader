@@ -25,21 +25,10 @@ public enum Move {
 
 
 	//TODO fill your code
-	public boolean validate(Position pos) {
-		apply(pos);
-		boolean val = pos.isOnBoard();
-		inverse(pos);
-		return val;
-	}
 	
 	public void apply(Position pos) {
 		pos.setCol(pos.getCol() + x);
 		pos.setRow(pos.getRow() + y);
-	}
-	
-	public void inverse(Position pos) {
-		pos.setCol(pos.getCol() - x);
-		pos.setRow(pos.getRow() - y);
 	}
 	
 }

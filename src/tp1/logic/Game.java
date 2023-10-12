@@ -50,9 +50,59 @@ public class Game {
 		return result.toString();
 	}
 	
+	public String positionToString(int col, int row) {
+		StringBuilder str = new StringBuilder();
+		Position pos = new Position(col, row);
+		
+		str.append(player.toString(pos));
+		str.append(regularAliens.toString(pos));
+		if (laser != null) {
+			str.append(laser.toString(pos));
+		}
+		str.append(ufo.toString(pos));
+		
+		return str.toString();
+	}
+	
+	public void update() {
+		currentCycle++;
+		computerActions();
+		automaticMoves();
+		if (laser != null)
+			// despues de que todos se han movido, vemos si el lase coincide con alguien en la posicion
+			performAttack(laser);
+		removeDead();
+	}
+	
+	public void computerActions() {
+		// FIXME anadir computer actions de todos
+		ufo.computerAction();
+	}
+	
+	public void automaticMoves() {
+		if (laser != null) {
+			// al mover el laser, intentamos matar a alguien
+			laser.automaticMove();
+			performAttack(laser);
+		}
+		regularAliens.automaticMoves();
+		ufo.automaticMove();
+	}
+	
+	public void performAttack(UCMLaser laser) {
+		regularAliens.checkAttacks(laser);
+		if (laser.performAttack(ufo)) {
+			enableShockWave();
+		}
+	}
+	
 	public boolean move(String direction) {
 		// Mueve player(UCMShip)
 		return player.move(direction);
+	}
+	
+	public void receivePoints(int points) {
+		player.receivePoints(points);
 	}
 	
 	public boolean shootLaser() {
@@ -72,31 +122,7 @@ public class Game {
 		//TODO fill your code
 		return alienManager.getRemainingAliens();
 	}
-
-	public String positionToString(int col, int row) {
-		StringBuilder str = new StringBuilder();
-		if (player.isOnPoisition(col, row)) {
-			str.append(player.toString());
-		} 
-		if (laser != null && laser.isAlive() && laser.isOnPosition(col, row)) {
-			str.append(laser.toString());
-		}
-		boolean encontrado = false;
-		int i = 0;
-		while (!encontrado && i < regularAliens.size()) {
-			encontrado = regularAliens.get(i).isAlive() && regularAliens.get(i).isOnPosition(col, row);
-			i++;
-		}
-		if (encontrado) {
-			str.append(regularAliens.get(--i).toString());
-		}
-		if (ufo != null && ufo.isAlive() && ufo.isOnPosition(col, row)) {
-			str.append(ufo.toString());
-		}
-		
-		return str.toString();
-	}
-
+	
 	public boolean playerWin() {
 		//TODO fill your code
 		return player.isAlive() && alienManager.allAlienDead();
@@ -105,6 +131,10 @@ public class Game {
 	public boolean aliensWin() {
 		//TODO fill your code
 		return !player.isAlive() || alienManager.haveLanded();
+	}
+	
+	public boolean isFinished() {
+		return doExit || playerWin() || aliensWin();
 	}
 
 	public void enableLaser() {
@@ -127,34 +157,25 @@ public class Game {
 		return this.level;
 	}
 	
-	public void update() {
-		currentCycle++;
-		computerActions();
-		automaticMoves();
-		if (laser != null)
-			performAttack(laser);
-	}
-	
-	public void computerActions() {
-		ufo.computerAction();
-	}
-	
-	public void automaticMoves() {
-		if (laser != null)
-			laser.automaticMove();
-		regularAliens.automaticMoves();
-		ufo.automaticMove();
+	public void removeDead() {
+		regularAliens.removeDead();
 	}
 	
 	public void addObject(UCMLaser laser) {
 		this.laser = laser;
 	}
 	
-	public void performAttack(UCMLaser laser) {
-		regularAliens.checkAttacks(laser);
-		if (laser.performAttack(ufo)) {
-			enableShockWave();
-		}
+	public void exit() {
+		doExit = true;
 	}
-
+	
+	public void reset() {
+		this.currentCycle = 0;
+		this.player = new UCMShip(this);
+		this.alienManager = new AlienManager(this, level);
+		this.ufo = new Ufo(this);
+		this.regularAliens = alienManager.initializeRegularAliens();
+		this.rand = new Random(seed);
+		this.laser = null;
+	}
 }

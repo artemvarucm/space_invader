@@ -14,7 +14,7 @@ import tp1.view.Messages;
 public class RegularAlien {
 	public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
 	public static final int COL_INI_OFFSET = 2; // donde empezamos a dibujarles (columnas)
-	public static final int ARMOR = 1;
+	public static final int ARMOR = 2;
 	public static final int POINTS = 5;
 	//TODO fill your code
 	private int cyclesToMove; // cuantos quedan para moverse (cambia cada jugada)
@@ -35,21 +35,23 @@ public class RegularAlien {
 		this.alienManager = alienManager;
 	}
 	
+	public String toString() {
+		// Hasta aqui solo llegan los vivos, no hace falta isAlive()
+		return Messages.REGULAR_ALIEN_SYMBOL + "[" + String.valueOf(life) + "]";
+	}
+	
 	public boolean isAlive() {
 		return life > 0;
 	}
 	
-	public String toString() {
-		return Messages.REGULAR_ALIEN_SYMBOL + "[" + String.valueOf(life) + "]";
-	}
-	
-	public boolean isOnPosition(int col, int row) {
-			return pos.getCol() == col && pos.getRow() == row;
+	public boolean isOnPosition(Position pos) {
+			return pos.equals(this.pos);
 	}
 
 	/**
 	 *  Implements the automatic movement of the regular alien	
 	 */
+	
 	public void automaticMove() {
 		//TODO fill your code
 		if (cyclesToMove == 0 || alienManager.onBorder()) {
@@ -70,7 +72,7 @@ public class RegularAlien {
 			cyclesToMove--;
 		}
 	}
-
+	
 	private void descend() {
 		//TODO fill your code
 		performMovement(Move.DOWN);
@@ -81,7 +83,7 @@ public class RegularAlien {
 		//TODO fill your code
 		pos.move(dir);
 	}
-
+	
 	private boolean isInBorder() {
 		//TODO fill your code
 		return (dir.equals(Move.RIGHT) && pos.getCol() == Game.DIM_X - 1) 
@@ -91,15 +93,15 @@ public class RegularAlien {
 	
 	public boolean isInFinalRow() {
 		return pos.getRow() == Game.DIM_Y - 1;
-	}
-
+	}	
+	
 	public boolean receiveAttack(UCMLaser laser) {
 		//TODO fill your code
 		receiveDamage(UCMLaser.DAMAGE);
 		if (!isAlive()) {
 			alienManager.alienDead();
 		}
-		return true;
+		return !isAlive();
 	}
 	
 	public void receiveDamage(int dam) {

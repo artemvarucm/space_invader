@@ -25,16 +25,30 @@ public class UCMLaser {
 		this.game = game;
 	}
 	
-	public boolean isOnPosition(int col, int row) {
-		return pos.getCol() == col && pos.getRow() == row;
+	public String toString(Position pos) {
+		String str = "";
+		if (isAlive() && isOnPosition(pos)) {
+			str = Messages.LASER_SYMBOL;
+		}
+		return str;
+	}
+	
+	/**
+	 *  Implements the automatic movement of the laser	
+	 */
+	public void automaticMove () {
+		performMovement(dir);
+		if(isOut()) {
+			die();
+		}
+	}
+	
+	public boolean isOnPosition(Position pos) {
+		return pos.equals(this.pos);
 	}
 	
 	public Position getPosition() {
 		return this.pos;
-	}
-	
-	public String toString() {
-		return Messages.LASER_SYMBOL;
 	}
 	
 	public boolean isAlive() {
@@ -48,26 +62,12 @@ public class UCMLaser {
 		game.enableLaser();
 	}
 
-	/**
-	 *  Implements the automatic movement of the laser	
-	 */
-	public void automaticMove () {
-		performMovement(dir);
-		if(isOut()) {
-			die();
-			game.enableLaser();
-		}
-	}
-
-	
 	// PERFORM ATTACK METHODS
-	
-	
-	
 	
 	private void die() {
 		//TODO fill your code
 		this.life = 0;
+		onDelete();
 	}
 
 	private boolean isOut() {
@@ -90,10 +90,13 @@ public class UCMLaser {
 	public boolean performAttack(RegularAlien other) {
 		//TODO fill your code
 		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos.getCol(), pos.getRow())) {
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			res = other.receiveAttack(this);
+			if (res) {
+				// Si ha muerto la nave
+				game.receivePoints(RegularAlien.POINTS);
+			}
 			die();
-			game.enableLaser();
 		}
 		return res;
 	}
@@ -101,10 +104,13 @@ public class UCMLaser {
 	public boolean performAttack(Ufo other) {
 		//TODO fill your code
 		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos.getCol(), pos.getRow())) {
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			res = other.receiveAttack(this);
+			if (res) {
+				// Si ha muerto la nave
+				game.receivePoints(Ufo.POINTS);
+			}
 			die();
-			game.enableLaser();
 		}
 		return res;
 	}

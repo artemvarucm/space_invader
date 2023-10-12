@@ -34,10 +34,6 @@ public class AlienManager {
 		this.readyToDescend = false;
 		this.dir = Move.LEFT;
 	}
-	
-	public int getRemainingAliens() {
-		return this.remainingAliens;
-	}
 		
 	// INITIALIZER METHODS
 	
@@ -67,15 +63,6 @@ public class AlienManager {
 //	protected  DestroyerAlienList initializeDestroyerAliens() {
 //		//TODO fill your code
 //	}
-	public boolean allAlienDead() {
-		return remainingAliens == 0;
-	}
-	
-	public void alienDead() {
-		remainingAliens--;
-		movedAliens--;
-	}
-
 	
 	// CONTROL METHODS
 	public Move movement() {
@@ -98,25 +85,19 @@ public class AlienManager {
 		return dir;
 	}
 	
-	
-	public boolean readyToDescend() {
-		return readyToDescend;
-	}
-		
-	public void shipOnBorder() {
-		if(!onBorder) {
-			onBorder = true;
-			shipsOnBorder = remainingAliens;
-		}
+	public int getRemainingAliens() {
+		return this.remainingAliens;
 	}
 	
-	public void decreaseOnBorder() {
-		shipsOnBorder--;
-		if (shipsOnBorder == 0) { 
-			this.onBorder = false;
-		}
+	public boolean allAlienDead() {
+		return remainingAliens == 0;
 	}
-
+	
+	public void alienDead() {
+		remainingAliens--;
+		movedAliens--;
+	}
+	
 	public boolean onBorder() {
 		// TODO Auto-generated method stub
 		return this.onBorder;
@@ -130,5 +111,21 @@ public class AlienManager {
 		return squadInFinalRow;
 	}
 	
-
+	public boolean readyToDescend() {
+		return readyToDescend;
+	}
+	
+	public void shipOnBorder() {
+		if(!onBorder) {
+			onBorder = true;
+			shipsOnBorder = remainingAliens;
+		}
+	}
+	
+	public void decreaseOnBorder() {
+		shipsOnBorder--;
+		if (shipsOnBorder == 0) { 
+			this.onBorder = false;
+		}
+	}
 }

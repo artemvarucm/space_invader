@@ -12,8 +12,8 @@ import tp1.view.Messages;
 /**
  *  Accepts user input and coordinates the game execution logic
  */
-public class Controller {
 
+public class Controller {
 	private Game game;
 	private Scanner scanner;
 	private GamePrinter printer;
@@ -44,36 +44,31 @@ public class Controller {
 	 */
 	public void run() {
 		//TODO fill your code
-		boolean end = false;
-		while(!end && !game.playerWin() && !game.aliensWin()) {
-			printGame();
+		boolean skipUpdate = false;
+		while(!game.isFinished()) {
+			if (!skipUpdate) {
+				printGame();
+			}
 			String[] comandos = prompt();
-			end = action(comandos);
-			game.update();
-			// game.action && game.update
+			skipUpdate = action(comandos);
+			
+			if (!skipUpdate) {
+				game.update();
+			}
 		}
 		printGame();
 		printEndMessage();
 	}
 	
 	public boolean action(String[] comandos) {
-		//if (comandos.length == 1) {
-			boolean exit = false;
+		boolean skipUpdate = false;
+		if (comandos.length == 1) {
 			switch(comandos[0].toLowerCase()) {
-				case "m":
-				case "move": {
-					if (!game.move(comandos[1].toLowerCase())) {
-						comandos = prompt();
-						action(comandos);
-					}
-				}
-					break;
 				case "s":
 				case "shoot": {
 						if (!game.shootLaser()) {
 							System.out.println(Messages.LASER_ERROR);
-							comandos = prompt();
-							action(comandos);
+							skipUpdate = true;
 						}
 					}
 					break;
@@ -81,48 +76,58 @@ public class Controller {
 				case "shockWave": {
 						if (!game.shockWave()) {
 							System.out.println(Messages.SHOCKWAVE_ERROR);
-							comandos = prompt();
-							action(comandos);
+							skipUpdate = true;
 						}
 					}
 					break;
 				case "l":
 				case "list": {
 						printGameObjectsList();
-						comandos = prompt();
-						action(comandos); // FIXME reemplaar por skip update
+						skipUpdate = true;
 					}
 					break;
 				case "h":
 				case "help": {
 					System.out.println(Messages.HELP);
-					comandos = prompt();
-					action(comandos);
+					skipUpdate = true;
 				}
 					break;
 				case "r":
 				case "reset": {
-					
+					game.reset();
+					skipUpdate = true;
 				}
 					break;
 				case "e":
 				case "exit": {
-					exit = true;
+					game.exit();
+					skipUpdate = true;
 				}
 					break;
 				case "":
 				case "n":
 				case "none": {
-					System.out.println("none");
+					// NO HACER NADA
 				}
 					break;
 				default:
 					System.out.println(Messages.UNKNOWN_COMMAND);
+					skipUpdate = true;
 			}
-		/*} else {
-			
-		}*/
-			return exit;
+		} else {
+			if (comandos.length > 2) {
+				System.out.println(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+			} else if (comandos[0].toLowerCase().equals("move") || comandos[0].toLowerCase().equals("m")) {
+				if (!game.move(comandos[1].toUpperCase())) {
+					skipUpdate = true;
+				}
+			} else {
+				System.out.println(Messages.UNKNOWN_COMMAND);
+				skipUpdate = true;
+			}
+		
+		}
+		return skipUpdate;
 	}
 
 	/**

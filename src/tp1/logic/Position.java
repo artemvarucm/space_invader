@@ -41,7 +41,10 @@ public class Position {
 	}
 	
 	public void move(Move dir) {
-		col += dir.getX();
-		row += dir.getY();
+		dir.apply(this);
+	}
+	
+	public boolean equals(Position pos) {
+		return this.col == pos.getCol() && this.row == pos.getRow();
 	}
 }

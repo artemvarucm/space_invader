@@ -20,28 +20,54 @@ public class RegularAlienList {
 		objects = new RegularAlien[MAX];
 	}
 	
-	/*public void setNum(int num) {
-	 * FIXME no deberia de hacer falta
-		this.num = num;
-	}*/
-	
-	public int size() { return num; }
-	
-	public RegularAlien get(int pos) {
-		if((pos < 0) || (pos > num - 1)) return null;
-		return objects[pos];
+	public String toString(Position pos) {
+		String str = "";
+		boolean encontrado = false;
+		int i = 0;
+		while (!encontrado && i < num) {
+			if (objects[i].isOnPosition(pos)) {
+				encontrado = true;
+				str = objects[i].toString();
+			} else {
+				i++;
+			}
+		}
+		return str;
 	}
-
+	
 	public void automaticMoves() {
 		for (int i = 0; i < num; i++) {
-			if (objects[i].isAlive()) // FIXME: eliminar de la lista
-				objects[i].automaticMove();
+			objects[i].automaticMove();
 		}
 	}
 	
+	public boolean checkAttacks(UCMLaser laser) {
+		int i = 0;
+		boolean collapsed = false;
+		while (!collapsed && i < num) {
+			collapsed = laser.performAttack(objects[i]);
+			i++;
+		}
+		return collapsed;
+	}
+	
+	public void removeDead() {
+		for (int i = num - 1; i >= 0; i--) {
+			if (!objects[i].isAlive()) {
+				remove(i);
+			}
+		}
+	}
+	
+	public int size() { return num; }
+	
+	/*public RegularAlien get(int pos) {
+		if((pos < 0) || (pos > num - 1)) return null;
+		return objects[pos];
+	}*/
+	
 	public boolean full() { return num == MAX; }
 
-	
 	public boolean add(RegularAlien alien) {
 		// a�adimos alien al final de la lista
 		if (full()) return false;
@@ -57,15 +83,5 @@ public class RegularAlienList {
 			objects[i] = objects[i+1];
 		
 		num--;
-	}
-	
-	public boolean checkAttacks(UCMLaser laser) {
-		int i = 0;
-		boolean collapsed = false;
-		while (!collapsed && i < num) {
-			collapsed = laser.performAttack(objects[i]);
-			i++;
-		}
-		return collapsed;
 	}
 }

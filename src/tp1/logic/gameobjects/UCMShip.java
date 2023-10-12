@@ -20,106 +20,89 @@ public class UCMShip {
 		this.game = game;
 		this.canShoot = true;
 	}
-	// UNKNOWN START
-
-	public void performMovement() {
-
+	
+	public String toString(Position pos) {
+		String str = "";
+		if (isOnPosition(pos)) {
+			str = getSymbol();
+		}
+		return str;
 	}
-
-	public String toString() {
-		return Messages.UCMSHIP_SYMBOL;
-	}
-
-	public String stateToString() {
-		return null;
-	}
-
-	public void onDelete() {
-
-	}
-
-	public boolean move(String direction) {
-		// a�adir check si esta dentro del tablero NxM
-		Move move = Move.NONE;
-		boolean moved = true;
-		switch (direction) {
-		case "left": {
-			move = Move.LEFT;
-		}
-			break;
-		case "right": {
-			move = Move.RIGHT;
-		}
-			break;
-		case "lleft": {
-			move = Move.LLEFT;
-		}
-			break;
-		case "rright": {
-			move = Move.RRIGHT;
-		}
-			break;
-		default:
-			moved = false;
-		}
-		if (moved) {
-			if (move.validate(pos)) {
-				pos.move(move);
-			} else {
-				moved = false;
-				System.out.println(Messages.invalidPosition(pos.getCol() + move.getX(), pos.getRow()));
-			}
+	
+	public String getSymbol() {
+		String res = "";
+		if (isAlive()) {
+			res = Messages.UCMSHIP_SYMBOL;
 		} else {
-			System.out.println(Messages.UNKNOWN_COMMAND);
-		}
-		return moved;
-	}
-
-	public boolean executeShockWave() {
-		boolean res = false;
-		if (hasShockWave()) {
-			
-			res = true;
+			res = Messages.UCMSHIP_DEAD_SYMBOL;
 		}
 		return res;
 	}
 
-	public void receiveAttack() {
-
+	public boolean performMovement(Move dir) {
+		boolean validMove = true;
+		Position hPos = new Position(pos);
+		hPos.move(dir);
+		validMove = hPos.isOnBoard();
+		if (validMove) {
+			setPos(hPos);
+		} else {
+			System.out.println(Messages.invalidPosition(hPos.getCol(), hPos.getRow()));
+		}
+		
+		return validMove;
 	}
-
-	// UNKNOWN END
-
-	// LOGICA START
-	public void computerAction() {
+	
+	public boolean move(String direction) {
+		// a�adir check si esta dentro del tablero NxM
+		boolean validMove = true;
+		Move dir = null;
+		try {
+			dir = Move.valueOf(direction);
+		} catch (IllegalArgumentException e) {
+			validMove = false;
+			System.out.println(Messages.UNKNOWN_COMMAND);
+		}
+		if (validMove) {
+			validMove = performMovement(dir);
+		}
+		return validMove;
 	}
-
-	public void automaticMove() {
+	
+	public boolean shootLaser(Game game) {
+		boolean res = false;
+		if (canShoot) {
+			res = true;
+			UCMLaser laser = new UCMLaser(game, pos);
+			game.addObject(laser);
+			this.canShoot = false;
+		}
+		return res;
 	}
-
-	// LOGICA END
-	public boolean isOnPoisition(int col, int row) {
-		return pos.getCol() == col && pos.getRow() == row;
+	
+	public boolean executeShockWave() {
+		boolean res = false;
+		if (hasShockWave()) {
+			//game.addObject(shockWave);
+			res = true;
+		}
+		return res;
 	}
-
-	public static void getInfo() {
-
+	
+	public boolean isAlive() {
+		return life > 0;
 	}
-
-	public static void getDescription() {
-
+	
+	public boolean isOnPosition(Position pos) {
+		return pos.equals(this.pos);
 	}
-
+	
 	public static int getDamage() {
 		return DAMAGE;
 	}
 
 	public void receiveDamage(int damage) {
 		this.life -= damage;
-	}
-
-	public boolean isAlive() {
-		return life > 0;
 	}
 
 	public void die() {
@@ -145,17 +128,10 @@ public class UCMShip {
 	public void enableLaser() {
 		this.canShoot = true;
 	}
+	
+	/*public void onDelete() {
 
-	public boolean shootLaser(Game game) {
-		boolean res = false;
-		if (canShoot) {
-			res = true;
-			UCMLaser laser = new UCMLaser(game, pos);
-			game.addObject(laser);
-			this.canShoot = false;
-		}
-		return res;
-	}
+	}*/
 
 	public int getPoints() {
 		return points;
@@ -180,5 +156,29 @@ public class UCMShip {
 	public boolean isCanShoot() {
 		return canShoot;
 	}
+/*
+	public String stateToString() {
+		return null;
+	}
+	
 
+	public void receiveAttack() {
+
+	}
+	
+
+	public static void getInfo() {
+
+	}
+
+	public static void getDescription() {
+
+	}
+	
+	public void computerAction() {
+	}
+
+	public void automaticMove() {
+	}
+*/
 }
