@@ -80,13 +80,14 @@ public class Game {
 	}
 	
 	public void automaticMoves() {
-		if (laser != null) {
-			// al mover el laser, intentamos matar a alguien
-			laser.automaticMove();
-			performAttack(laser);
-		}
 		regularAliens.automaticMoves();
 		ufo.automaticMove();
+		if (laser != null) {
+			// antes de mover el laser, intentamos matar a alguien 
+			// (lo hacemos despues del automatic move de los otros para no romper su logica)
+			performAttack(laser);
+			laser.automaticMove();
+		}
 	}
 	
 	public void performAttack(UCMLaser laser) {

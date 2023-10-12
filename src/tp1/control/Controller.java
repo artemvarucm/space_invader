@@ -95,6 +95,7 @@ public class Controller {
 				case "r":
 				case "reset": {
 					game.reset();
+					printGame();
 					skipUpdate = true;
 				}
 					break;
