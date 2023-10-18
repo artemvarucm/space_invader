@@ -96,6 +96,9 @@ public class AlienManager {
 	public void alienDead() {
 		remainingAliens--;
 		movedAliens--;
+		if (shipsOnBorder > 0) {
+			decreaseOnBorder();
+		}
 	}
 	
 	public boolean onBorder() {
