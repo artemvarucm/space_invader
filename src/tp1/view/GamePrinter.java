@@ -3,6 +3,7 @@ package tp1.view;
 
 import static tp1.util.MyStringUtils.repeat;
 import tp1.logic.Game;
+import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.RegularAlien;
 import tp1.logic.gameobjects.UCMShip;
 import tp1.logic.gameobjects.Ufo;
@@ -86,9 +87,10 @@ public class GamePrinter {
 	
 	public String gameObjectsList() {
 		StringBuilder str = new StringBuilder();
+		// FIXME anadir damage a destroyer
 		str.append(Messages.ucmShipDescription(Messages.UCMSHIP_DESCRIPTION, UCMShip.DAMAGE, UCMShip.ARMOR)).append(NEW_LINE);
 		str.append(Messages.alienDescription(Messages.REGULAR_ALIEN_DESCRIPTION, RegularAlien.POINTS, 0, RegularAlien.ARMOR)).append(NEW_LINE);					
-		str.append(Messages.alienDescription(Messages.DESTROYER_ALIEN_DESCRIPTION, RegularAlien.POINTS, 1, RegularAlien.ARMOR)).append(NEW_LINE);
+		str.append(Messages.alienDescription(Messages.DESTROYER_ALIEN_DESCRIPTION, DestroyerAlien.POINTS, 1, DestroyerAlien.ARMOR)).append(NEW_LINE);
 		str.append(Messages.alienDescription(Messages.UFO_DESCRIPTION, Ufo.POINTS, 0, Ufo.ARMOR)).append(NEW_LINE);
 		return str.toString();
 	}

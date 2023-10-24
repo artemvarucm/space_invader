@@ -6,8 +6,6 @@ import tp1.logic.gameobjects.*;
 
 // TODO implementarlo
 public class Game {
-	private static final String NEW_LINE = System.lineSeparator();
-
 	public static final int DIM_X = 9; // COLUMNAS
 	public static final int DIM_Y = 8; // FILAS
 
@@ -40,13 +38,7 @@ public class Game {
 	public String stateToString() {
 		//TODO fill your code
 		StringBuilder result = new StringBuilder();
-		result.append("Life: ").append(player.getLife()).append(NEW_LINE);
-		result.append("Points: ").append(player.getPoints()).append(NEW_LINE);
-		String shock = "OFF"; // ShockWave class
-		if (player.hasShockWave()) {
-			shock = "ON";
-		}
-		result.append("ShockWave: ").append(shock).append(NEW_LINE);
+		result.append(player.stateToString());
 		
 		return result.toString();
 	}
@@ -88,6 +80,7 @@ public class Game {
 			performAttack(laser);
 		}
 		regularAliens.automaticMoves();
+		destroyerAliens.automaticMoves();
 		ufo.automaticMove();
 		
 	}
@@ -114,7 +107,7 @@ public class Game {
 	}
 	
 	public boolean shockWave() {
-		return player.executeShockWave();
+		return player.executeShockWave(this, regularAliens, destroyerAliens);
 	}
 
 	public int getCycle() {
@@ -163,6 +156,7 @@ public class Game {
 	
 	public void removeDead() {
 		regularAliens.removeDead();
+		destroyerAliens.removeDead();
 	}
 	
 	public void addObject(UCMLaser laser) {

@@ -48,7 +48,8 @@ public class AlienManager {
 		int num = level.getNumRegularAliens() / 4;  // maximo cuatro en fila (1 en EASY, 2 en HARD)
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < 4; j++) {
-				RegularAlien templateAlien = new RegularAlien(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET, level.getNumCyclesToMoveOneCell(), game, this);
+				Position pos = new Position(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET);
+				RegularAlien templateAlien = new RegularAlien(pos, level.getNumCyclesToMoveOneCell(), game, this);
 				list.add(templateAlien);
 			}
 		}
@@ -66,16 +67,13 @@ public class AlienManager {
 		int numD = level.getNumDestroyerAliens();
 		int numFilasR = level.getNumRegularAliens() / 4;
 		for (int i = 0; i < numD; i++) { // 2 en EASY
-			DestroyerAlien templateAlien = new DestroyerAlien(i + DestroyerAlien.COL_INI_OFFSET - (level.getNumDestroyerAliens() / 4), 
-			RegularAlien.ROW_INI_OFFSET	+ numFilasR, level.getNumCyclesToMoveOneCell(), game, this);	
+			Position pos = new Position(i + DestroyerAlien.COL_INI_OFFSET - (level.getNumDestroyerAliens() / 4), RegularAlien.ROW_INI_OFFSET + numFilasR);
+			DestroyerAlien templateAlien = new DestroyerAlien(pos , level.getNumCyclesToMoveOneCell(), game, this);	
 			list.add(templateAlien);
 		}
 		remainingAliens += level.getNumDestroyerAliens();
 		return list;
 	}
-//	protected  DestroyerAlienList initializeDestroyerAliens() {
-//		//TODO fill your code
-//	}
 	
 	// CONTROL METHODS
 	public Move movement() {

@@ -25,8 +25,8 @@ public class RegularAlien {
 	private Game game;
 	private AlienManager alienManager;
 	//TODO fill your code
-	public RegularAlien (int col, int row, int speed, Game game, AlienManager alienManager) {
-		this.pos = new Position(col, row);
+	public RegularAlien (Position pos, int speed, Game game, AlienManager alienManager) {
+		this.pos = new Position(pos);
 		this.dir = Move.LEFT;
 		this.life = ARMOR;
 		this.cyclesToMove = speed;
@@ -100,6 +100,15 @@ public class RegularAlien {
 	public boolean receiveAttack(UCMLaser laser) {
 		//TODO fill your code
 		receiveDamage(UCMLaser.DAMAGE);
+		if (!isAlive()) {
+			alienManager.alienDead();
+		}
+		return !isAlive();
+	}
+	
+	public boolean receiveAttack(ShockWave shockWave) {
+		//TODO fill your code
+		receiveDamage(ShockWave.DAMAGE);
 		if (!isAlive()) {
 			alienManager.alienDead();
 		}

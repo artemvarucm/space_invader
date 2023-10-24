@@ -34,6 +34,9 @@ public class Ufo {
 	public boolean receiveAttack(UCMLaser laser) {
 		//TODO fill your code
 		receiveDamage(UCMLaser.DAMAGE);
+		if (!isAlive()) {
+			die();
+		}
 		return !isAlive();
 	}
 	

@@ -25,8 +25,8 @@ public class DestroyerAlien {
 	private Game game;
 	private AlienManager alienManager;
 	//TODO fill your code
-	public DestroyerAlien (int col, int row, int speed, Game game, AlienManager alienManager) {
-		this.pos = new Position(col, row);
+	public DestroyerAlien (Position pos, int speed, Game game, AlienManager alienManager) {
+		this.pos = new Position(pos);
 		this.dir = Move.LEFT;
 		this.life = ARMOR;
 		this.cyclesToMove = speed;
@@ -54,22 +54,24 @@ public class DestroyerAlien {
 	
 	public void automaticMove() {
 		//TODO fill your code
-		if (cyclesToMove == 0 || alienManager.onBorder()) {
-			dir = alienManager.movement();
-			if (alienManager.readyToDescend()) {
-				descend();
-				if (isInFinalRow()) {
-					alienManager.finalRowReached();
+		if (isAlive()) {
+			if (cyclesToMove == 0 || alienManager.onBorder()) {
+				dir = alienManager.movement();
+				if (alienManager.readyToDescend()) {
+					descend();
+					if (isInFinalRow()) {
+						alienManager.finalRowReached();
+					}
+				} else {
+					performMovement(dir);
+					if (isInBorder()) {
+						alienManager.shipOnBorder();
+					}
 				}
+				cyclesToMove = speed;
 			} else {
-				performMovement(dir);
-				if (isInBorder()) {
-					alienManager.shipOnBorder();
-				}
+				cyclesToMove--;
 			}
-			cyclesToMove = speed;
-		} else {
-			cyclesToMove--;
 		}
 	}
 	
@@ -98,6 +100,15 @@ public class DestroyerAlien {
 	public boolean receiveAttack(UCMLaser laser) {
 		//TODO fill your code
 		receiveDamage(UCMLaser.DAMAGE);
+		if (!isAlive()) {
+			alienManager.alienDead();
+		}
+		return !isAlive();
+	}
+	
+	public boolean receiveAttack(ShockWave shockWave) {
+		//TODO fill your code
+		receiveDamage(ShockWave.DAMAGE);
 		if (!isAlive()) {
 			alienManager.alienDead();
 		}

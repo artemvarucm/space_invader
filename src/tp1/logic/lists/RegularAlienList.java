@@ -2,6 +2,7 @@ package tp1.logic.lists;
 
 import tp1.logic.Position;
 import tp1.logic.gameobjects.RegularAlien;
+import tp1.logic.gameobjects.ShockWave;
 import tp1.logic.gameobjects.UCMLaser;
 
 /**
@@ -38,6 +39,12 @@ public class RegularAlienList {
 	public void automaticMoves() {
 		for (int i = 0; i < num; i++) {
 			objects[i].automaticMove();
+		}
+	}
+	
+	public void checkAttacks(ShockWave shockWave) {
+		for (int i = 0; i < num; i++) {
+			shockWave.performAttack(objects[i]);
 		}
 	}
 	

@@ -1,6 +1,8 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.*;
+import tp1.logic.lists.DestroyerAlienList;
+import tp1.logic.lists.RegularAlienList;
 import tp1.view.Messages;
 
 public class UCMShip {
@@ -59,6 +61,9 @@ public class UCMShip {
 		Move dir = null;
 		try {
 			dir = Move.valueOf(direction);
+			if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { // No se puede ir arriba o abajo
+				throw new IllegalArgumentException();
+			}
 		} catch (IllegalArgumentException e) {
 			validMove = false;
 			System.out.println(Messages.UNKNOWN_COMMAND);
@@ -80,10 +85,14 @@ public class UCMShip {
 		return res;
 	}
 	
-	public boolean executeShockWave() {
+	public boolean executeShockWave(Game game, RegularAlienList regularAliens, DestroyerAlienList destroyerAliens) {
 		boolean res = false;
 		if (hasShockWave()) {
 			//game.addObject(shockWave);
+			ShockWave shockWave = new ShockWave(game);
+			regularAliens.checkAttacks(shockWave);
+			destroyerAliens.checkAttacks(shockWave);
+			disableShockWave();
 			res = true;
 		}
 		return res;
@@ -141,7 +150,7 @@ public class UCMShip {
 		this.points += points;
 	}
 
-	public boolean hasShockWave() { // FIXME private
+	private boolean hasShockWave() {
 		return hasShockWave;
 	}
 
@@ -156,11 +165,20 @@ public class UCMShip {
 	public boolean isCanShoot() {
 		return canShoot;
 	}
-/*
+
 	public String stateToString() {
-		return null;
+		StringBuilder result = new StringBuilder();
+		result.append("Life: ").append(life).append(Messages.LINE_SEPARATOR);
+		result.append("Points: ").append(points).append(Messages.LINE_SEPARATOR);
+		String shock = "OFF";
+		if (hasShockWave()) {
+			shock = "ON";
+		}
+		result.append("ShockWave: ").append(shock).append(Messages.LINE_SEPARATOR);
+		
+		return result.toString();
 	}
-	
+/*	
 
 	public void receiveAttack() {
 
