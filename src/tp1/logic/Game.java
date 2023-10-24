@@ -17,7 +17,7 @@ public class Game {
 	private Level level;
 	private long seed;
 	private RegularAlienList regularAliens;
-	//private DestroyerAlienList destroyerAliens;
+	private DestroyerAlienList destroyerAliens;
 	//private BombList bombs;
 	private UCMShip player;
 	private UCMLaser laser;
@@ -33,6 +33,7 @@ public class Game {
 		this.alienManager = new AlienManager(this, level);
 		this.ufo = new Ufo(this);
 		this.regularAliens = alienManager.initializeRegularAliens();
+		this.destroyerAliens = alienManager.initializeDestroyerAliens();
 		this.rand = new Random(seed);
 	}
 
@@ -56,6 +57,7 @@ public class Game {
 		
 		str.append(player.toString(pos));
 		str.append(regularAliens.toString(pos));
+		str.append(destroyerAliens.toString(pos));
 		if (laser != null) {
 			str.append(laser.toString(pos));
 		}
@@ -92,6 +94,7 @@ public class Game {
 	
 	public void performAttack(UCMLaser laser) {
 		regularAliens.checkAttacks(laser);
+		destroyerAliens.checkAttacks(laser);
 		if (laser.performAttack(ufo)) {
 			enableShockWave();
 		}

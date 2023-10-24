@@ -1,8 +1,8 @@
 package tp1.logic;
 
-//import tp1.logic.gameobjects.DestroyerAlien;
+import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.RegularAlien;
-//import tp1.logic.lists.DestroyerAlienList;
+import tp1.logic.lists.DestroyerAlienList;
 import tp1.logic.lists.RegularAlienList;
 
 /**
@@ -60,6 +60,19 @@ public class AlienManager {
 	 * Initializes the list of destroyer aliens
 	 * @return the initial list of destroyer aliens according to the current level
 	 */
+	protected DestroyerAlienList initializeDestroyerAliens() {
+		DestroyerAlienList list = new DestroyerAlienList();
+		 
+		int numD = level.getNumDestroyerAliens();
+		int numFilasR = level.getNumRegularAliens() / 4;
+		for (int i = 0; i < numD; i++) { // 2 en EASY
+			DestroyerAlien templateAlien = new DestroyerAlien(i + DestroyerAlien.COL_INI_OFFSET - (level.getNumDestroyerAliens() / 4), 
+			RegularAlien.ROW_INI_OFFSET	+ numFilasR, level.getNumCyclesToMoveOneCell(), game, this);	
+			list.add(templateAlien);
+		}
+		remainingAliens += level.getNumDestroyerAliens();
+		return list;
+	}
 //	protected  DestroyerAlienList initializeDestroyerAliens() {
 //		//TODO fill your code
 //	}

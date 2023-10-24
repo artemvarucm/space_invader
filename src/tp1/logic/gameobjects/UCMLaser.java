@@ -101,6 +101,20 @@ public class UCMLaser {
 		return res;
 	}
 	
+	public boolean performAttack(DestroyerAlien other) {
+		//TODO fill your code
+		boolean res = false;
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
+			res = other.receiveAttack(this);
+			if (res) {
+				// Si ha muerto la nave
+				game.receivePoints(DestroyerAlien.POINTS);
+			}
+			die();
+		}
+		return res;
+	}
+	
 	public boolean performAttack(Ufo other) {
 		//TODO fill your code
 		boolean res = false;
