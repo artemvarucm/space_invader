@@ -82,6 +82,7 @@ public class Game {
 	public void automaticMoves() {
 		if (laser != null) {
 			// movemos el laser, intentamos matar a alguien			laser.automaticMove();
+			laser.automaticMove();
 			performAttack(laser);
 		}
 		regularAliens.automaticMoves();
