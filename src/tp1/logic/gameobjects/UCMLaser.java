@@ -91,7 +91,7 @@ public class UCMLaser {
 		//TODO fill your code
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			res = other.receiveAttack(this);
+			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
 				game.receivePoints(RegularAlien.POINTS);
@@ -119,7 +119,7 @@ public class UCMLaser {
 		//TODO fill your code
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			res = other.receiveAttack(this);
+			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
 				game.receivePoints(Ufo.POINTS);
@@ -156,6 +156,10 @@ public class UCMLaser {
 	 * @return always returns <code>true</code>
 	 */
 	private boolean weaponAttack(RegularAlien other) {
+		return other.receiveAttack(this);	
+	}
+	
+	private boolean weaponAttack(Ufo other) {
 		return other.receiveAttack(this);	
 	}
 

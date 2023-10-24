@@ -54,22 +54,24 @@ public class RegularAlien {
 	
 	public void automaticMove() {
 		//TODO fill your code
-		if (cyclesToMove == 0 || alienManager.onBorder()) {
-			dir = alienManager.movement();
-			if (alienManager.readyToDescend()) {
-				descend();
-				if (isInFinalRow()) {
-					alienManager.finalRowReached();
+		if (isAlive()) {
+			if (cyclesToMove == 0 || alienManager.onBorder()) {
+				dir = alienManager.movement();
+				if (alienManager.readyToDescend()) {
+					descend();
+					if (isInFinalRow()) {
+						alienManager.finalRowReached();
+					}
+				} else {
+					performMovement(dir);
+					if (isInBorder()) {
+						alienManager.shipOnBorder();
+					}
 				}
+				cyclesToMove = speed;
 			} else {
-				performMovement(dir);
-				if (isInBorder()) {
-					alienManager.shipOnBorder();
-				}
+				cyclesToMove--;
 			}
-			cyclesToMove = speed;
-		} else {
-			cyclesToMove--;
 		}
 	}
 	
