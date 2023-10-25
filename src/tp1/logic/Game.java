@@ -28,6 +28,7 @@ public class Game {
 		this.level = level;
 		this.currentCycle = 0;
 		this.player = new UCMShip(this);
+		this.laser = new UCMLaser(this, player.getPos(), false);
 		this.alienManager = new AlienManager(this, level);
 		this.ufo = new Ufo(this);
 		this.regularAliens = alienManager.initializeRegularAliens();
@@ -50,9 +51,7 @@ public class Game {
 		str.append(player.toString(pos));
 		str.append(regularAliens.toString(pos));
 		str.append(destroyerAliens.toString(pos));
-		if (laser != null) {
-			str.append(laser.toString(pos));
-		}
+		str.append(laser.toString(pos));
 		str.append(ufo.toString(pos));
 		
 		return str.toString();
@@ -62,9 +61,8 @@ public class Game {
 		currentCycle++;
 		computerActions();
 		automaticMoves();
-		if (laser != null)
-			// despues de que todos se han movido, vemos si el lase coincide con alguien en la posicion
-			performAttack(laser);
+		// despues de que todos se han movido, vemos si el lase coincide con alguien en la posicion
+		performAttack(laser);
 		removeDead();
 	}
 	
@@ -74,15 +72,11 @@ public class Game {
 	}
 	
 	public void automaticMoves() {
-		if (laser != null) {
-			// movemos el laser, intentamos matar a alguien			laser.automaticMove();
-			laser.automaticMove();
-			performAttack(laser);
-		}
+		// movemos el laser, intentamos matar a alguien
+		laser.automaticMove();
 		regularAliens.automaticMoves();
 		destroyerAliens.automaticMoves();
 		ufo.automaticMove();
-		
 	}
 	
 	public void performAttack(UCMLaser laser) {
@@ -167,14 +161,14 @@ public class Game {
 		doExit = true;
 	}
 	
-	public void reset() {
+	public void reset() {		
 		this.currentCycle = 0;
 		this.player = new UCMShip(this);
+		this.laser = new UCMLaser(this, player.getPos(), false);
 		this.alienManager = new AlienManager(this, level);
 		this.ufo = new Ufo(this);
 		this.regularAliens = alienManager.initializeRegularAliens();
 		this.destroyerAliens = alienManager.initializeDestroyerAliens();
 		this.rand = new Random(seed);
-		this.laser = null;
 	}
 }

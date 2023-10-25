@@ -10,7 +10,7 @@ import tp1.view.Messages;
  * Class that represents the laser fired by {@link UCMShip}
  *
  */
-public class UCMLaser {
+public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo creamos vivo
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
 	
@@ -19,8 +19,12 @@ public class UCMLaser {
 	private Game game;
 	private Position pos;
 	int life;
-	public UCMLaser(Game game, Position pos) {
-		this.life = ARMOR;
+	public UCMLaser(Game game, Position pos, boolean alive) {
+		if (alive) {
+			this.life = ARMOR;
+		} else {
+			this.life = 0;
+		}
 		this.pos = new Position(pos);
 		this.game = game;
 	}
@@ -40,6 +44,8 @@ public class UCMLaser {
 		performMovement(dir);
 		if(isOut()) {
 			die();
+		} else {
+			game.performAttack(this);
 		}
 	}
 	

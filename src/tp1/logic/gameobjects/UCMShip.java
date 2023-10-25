@@ -77,7 +77,7 @@ public class UCMShip {
 		boolean res = false;
 		if (canShoot) {
 			res = true;
-			UCMLaser laser = new UCMLaser(game, pos);
+			UCMLaser laser = new UCMLaser(game, pos, true);
 			game.addObject(laser);
 			this.canShoot = false;
 		}
