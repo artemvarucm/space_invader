@@ -6,11 +6,11 @@ import tp1.logic.Position;
 import tp1.view.Messages;
 
 
-public class Ufo {
+public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITION, etc o dejarlos encapsulados
 
 	//TODO fill your code
-	public static final int ARMOR = 1;
-	public static final int POINTS = 25;
+	private static final int ARMOR = 1;
+	private static final int POINTS = 25;
 	private int life;
 	private Position pos;
 	private boolean enabled;
@@ -25,9 +25,13 @@ public class Ufo {
 	public String toString(Position pos) {
 		String str = "";
 		if (isAlive() && isOnPosition(pos)) {
-			str = Messages.UFO_SYMBOL + "[" + String.valueOf(life) + "]";
+			str = getSymbol() + "[" + String.format("%02d", life) + "]";
 		}
 		return str;
+	}
+	
+	private String getSymbol() {
+		return Messages.UFO_SYMBOL;
 	}
 	
 	//TODO fill your code
@@ -69,6 +73,22 @@ public class Ufo {
 		return life > 0;
 	}
 	
+	public static int getDamage() {
+		return 0;
+	}
+	
+	public static int getPoints() {
+		return POINTS;
+	}
+	
+	public static String getInfo() {
+		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
+	}
+	
+	private static String getDescription() {
+		return Messages.UFO_DESCRIPTION;
+	}
+	
 	public boolean isOnPosition(Position pos) {
 		return pos.equals(this.pos);
 	}
@@ -80,7 +100,7 @@ public class Ufo {
 	
 	private void performMovement(Move dir) {
 		//TODO fill your code
-		pos.move(dir);
+		pos = pos.move(dir);
 	}
 	
 	private void die() {

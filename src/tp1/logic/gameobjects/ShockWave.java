@@ -11,7 +11,7 @@ import tp1.view.Messages;
  *
  */
 public class ShockWave {
-	public static int DAMAGE = 1;
+	private static int DAMAGE = 1;
 	
 	private Game game;
 	int life;
@@ -27,6 +27,10 @@ public class ShockWave {
 	
 	public boolean isAlive() {
 		return this.life > 0;
+	}
+	
+	public int getDamage() {
+		return DAMAGE;
 	}
 
 	// PERFORM ATTACK METHODS
@@ -54,7 +58,7 @@ public class ShockWave {
 			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
-				game.receivePoints(RegularAlien.POINTS);
+				game.receivePoints(RegularAlien.getPoints());
 			}
 		}
 		return res;
@@ -67,7 +71,7 @@ public class ShockWave {
 			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
-				game.receivePoints(DestroyerAlien.POINTS);
+				game.receivePoints(DestroyerAlien.getPoints());
 			}
 		}
 		return res;

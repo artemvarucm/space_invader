@@ -88,10 +88,10 @@ public class GamePrinter {
 	public String gameObjectsList() {
 		StringBuilder str = new StringBuilder();
 		// FIXME anadir damage a destroyer
-		str.append(Messages.ucmShipDescription(Messages.UCMSHIP_DESCRIPTION, UCMShip.DAMAGE, UCMShip.ARMOR)).append(NEW_LINE);
-		str.append(Messages.alienDescription(Messages.REGULAR_ALIEN_DESCRIPTION, RegularAlien.POINTS, 0, RegularAlien.ARMOR)).append(NEW_LINE);					
-		str.append(Messages.alienDescription(Messages.DESTROYER_ALIEN_DESCRIPTION, DestroyerAlien.POINTS, 1, DestroyerAlien.ARMOR)).append(NEW_LINE);
-		str.append(Messages.alienDescription(Messages.UFO_DESCRIPTION, Ufo.POINTS, 0, Ufo.ARMOR)).append(NEW_LINE);
+		str.append(UCMShip.getInfo()).append(NEW_LINE);
+		str.append(RegularAlien.getInfo()).append(NEW_LINE);					
+		str.append(DestroyerAlien.getInfo()).append(NEW_LINE);
+		str.append(Ufo.getInfo()).append(NEW_LINE);
 		return str.toString();
 	}
 }

@@ -25,10 +25,15 @@ public enum Move {
 
 
 	//TODO fill your code
-	
-	public void apply(Position pos) {
-		pos.setCol(pos.getCol() + x);
-		pos.setRow(pos.getRow() + y);
+	public Move flip() {
+		Move move = null;
+		if (this.equals(LEFT)) {
+			move = RIGHT;
+		} else if (this.equals(RIGHT)){
+			move = LEFT;
+		} else {
+			move = NONE;
+		}
+		return move;
 	}
-	
 }

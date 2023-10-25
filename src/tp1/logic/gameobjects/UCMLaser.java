@@ -77,7 +77,7 @@ public class UCMLaser {
 
 	private void performMovement(Move dir) {
 		//TODO fill your code
-		pos.move(dir);
+		pos = pos.move(dir);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class UCMLaser {
 			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
-				game.receivePoints(RegularAlien.POINTS);
+				game.receivePoints(RegularAlien.getPoints());
 			}
 			die();
 		}
@@ -108,7 +108,7 @@ public class UCMLaser {
 			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
-				game.receivePoints(DestroyerAlien.POINTS);
+				game.receivePoints(DestroyerAlien.getPoints());
 			}
 			die();
 		}
@@ -122,7 +122,7 @@ public class UCMLaser {
 			res = weaponAttack(other);
 			if (res) {
 				// Si ha muerto la nave
-				game.receivePoints(Ufo.POINTS);
+				game.receivePoints(Ufo.getPoints());
 			}
 			die();
 		}

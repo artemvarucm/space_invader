@@ -16,11 +16,6 @@ public class AlienManager {
 	private Level level;
 	private Game game;
 	private int remainingAliens;
-	//
-	private Move dir;
-	private int movedAliens;
-	private boolean readyToDescend;
-	//
 	private boolean squadInFinalRow;
 	private int shipsOnBorder;
 	private boolean onBorder;
@@ -29,10 +24,7 @@ public class AlienManager {
 		this.level = level;
 		this.game = game;
 		this.remainingAliens = 0;
-		this.movedAliens = 0;
 		this.onBorder = false;
-		this.readyToDescend = false;
-		this.dir = Move.LEFT;
 	}
 		
 	// INITIALIZER METHODS
@@ -46,9 +38,11 @@ public class AlienManager {
 		RegularAlienList list = new RegularAlienList();
 		
 		int num = level.getNumRegularAliens() / 4;  // maximo cuatro en fila (1 en EASY, 2 en HARD)
+		// Lo colocamos en el medio
+		int colInitialOffset = Game.DIM_X/2 - 2;
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < 4; j++) {
-				Position pos = new Position(j + RegularAlien.COL_INI_OFFSET, i + RegularAlien.ROW_INI_OFFSET);
+				Position pos = new Position(colInitialOffset + j, RegularAlien.ROW_INI_OFFSET + i);
 				RegularAlien templateAlien = new RegularAlien(pos, level.getNumCyclesToMoveOneCell(), game, this);
 				list.add(templateAlien);
 			}
@@ -66,8 +60,10 @@ public class AlienManager {
 		 
 		int numD = level.getNumDestroyerAliens();
 		int numFilasR = level.getNumRegularAliens() / 4;
-		for (int i = 0; i < numD; i++) { // 2 en EASY
-			Position pos = new Position(i + DestroyerAlien.COL_INI_OFFSET - (level.getNumDestroyerAliens() / 4), RegularAlien.ROW_INI_OFFSET + numFilasR);
+		// Lo colocamos en el medio
+		int colInitialOffset = Game.DIM_X/2 - numD/2;
+		for (int i = 0; i < numD; i++) {
+			Position pos = new Position(colInitialOffset + i, RegularAlien.ROW_INI_OFFSET + numFilasR);
 			DestroyerAlien templateAlien = new DestroyerAlien(pos , level.getNumCyclesToMoveOneCell(), game, this);	
 			list.add(templateAlien);
 		}
@@ -76,26 +72,6 @@ public class AlienManager {
 	}
 	
 	// CONTROL METHODS
-	public Move movement() {
-		if (shipsOnBorder == 0) {
-			onBorder = false;
-			readyToDescend = false;
-		}
-		if (movedAliens == remainingAliens) {
-			movedAliens = 0;
-			if (onBorder) {
-				readyToDescend = true;
-				if (this.dir.equals(Move.LEFT)) {
-					this.dir = Move.RIGHT;
-				} else {
-					this.dir = Move.LEFT;
-				}
-			}
-		}
-		movedAliens++;
-		return dir;
-	}
-	
 	public int getRemainingAliens() {
 		return this.remainingAliens;
 	}
@@ -106,10 +82,7 @@ public class AlienManager {
 	
 	public void alienDead() {
 		remainingAliens--;
-		movedAliens--;
-		if (shipsOnBorder > 0) {
-			decreaseOnBorder();
-		}
+		decreaseOnBorder();
 	}
 	
 	public boolean onBorder() {
@@ -126,7 +99,8 @@ public class AlienManager {
 	}
 	
 	public boolean readyToDescend() {
-		return readyToDescend;
+		// FIXME diferencia entre este y onBorder()?
+		return onBorder;
 	}
 	
 	public void shipOnBorder() {
@@ -137,9 +111,11 @@ public class AlienManager {
 	}
 	
 	public void decreaseOnBorder() {
-		shipsOnBorder--;
-		if (shipsOnBorder == 0) { 
-			this.onBorder = false;
+		if (shipsOnBorder > 0) {
+			shipsOnBorder--;
+			if (shipsOnBorder == 0) { 
+				this.onBorder = false;
+			}
 		}
 	}
 }

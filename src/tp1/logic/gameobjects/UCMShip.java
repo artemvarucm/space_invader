@@ -6,8 +6,8 @@ import tp1.logic.lists.RegularAlienList;
 import tp1.view.Messages;
 
 public class UCMShip {
-	public static final int ARMOR = 3;
-	public static final int DAMAGE = 1;
+	private static final int ARMOR = 3;
+	private static final int DAMAGE = 1;
 	private Position pos;
 	private int life;
 	private Game game;
@@ -43,11 +43,10 @@ public class UCMShip {
 
 	public boolean performMovement(Move dir) {
 		boolean validMove = true;
-		Position hPos = new Position(pos);
-		hPos.move(dir);
+		Position hPos = pos.move(dir);
 		validMove = hPos.isOnBoard();
 		if (validMove) {
-			setPos(hPos);
+			this.pos = hPos;
 		} else {
 			System.out.println(Messages.invalidPosition(hPos.getCol(), hPos.getRow()));
 		}
@@ -89,10 +88,11 @@ public class UCMShip {
 		boolean res = false;
 		if (hasShockWave()) {
 			//game.addObject(shockWave);
+			disableShockWave();
 			ShockWave shockWave = new ShockWave(game);
 			regularAliens.checkAttacks(shockWave);
 			destroyerAliens.checkAttacks(shockWave);
-			disableShockWave();
+			shockWave.die();
 			res = true;
 		}
 		return res;
@@ -100,6 +100,14 @@ public class UCMShip {
 	
 	public boolean isAlive() {
 		return life > 0;
+	}
+	
+	public static String getInfo() {
+		return Messages.ucmShipDescription(getDescription(), DAMAGE, ARMOR);
+	}
+	
+	public static String getDescription() {
+		return Messages.UCMSHIP_DESCRIPTION;
 	}
 	
 	public boolean isOnPosition(Position pos) {
@@ -116,14 +124,11 @@ public class UCMShip {
 
 	public void die() {
 		life = 0;
+		onDelete();
 	}
 
 	public Position getPos() {
 		return pos;
-	}
-
-	public void setPos(Position pos) {
-		this.pos = pos;
 	}
 
 	public int getLife() {
@@ -138,9 +143,9 @@ public class UCMShip {
 		this.canShoot = true;
 	}
 	
-	/*public void onDelete() {
+	public void onDelete() {
 
-	}*/
+	}
 
 	public int getPoints() {
 		return points;
@@ -181,15 +186,6 @@ public class UCMShip {
 /*	
 
 	public void receiveAttack() {
-
-	}
-	
-
-	public static void getInfo() {
-
-	}
-
-	public static void getDescription() {
 
 	}
 	

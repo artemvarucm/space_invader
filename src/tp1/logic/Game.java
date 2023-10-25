@@ -173,6 +173,7 @@ public class Game {
 		this.alienManager = new AlienManager(this, level);
 		this.ufo = new Ufo(this);
 		this.regularAliens = alienManager.initializeRegularAliens();
+		this.destroyerAliens = alienManager.initializeDestroyerAliens();
 		this.rand = new Random(seed);
 		this.laser = null;
 	}

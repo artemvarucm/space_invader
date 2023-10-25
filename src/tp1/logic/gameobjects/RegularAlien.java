@@ -11,11 +11,10 @@ import tp1.view.Messages;
  * Class representing a regular alien
  *
  */
-public class RegularAlien {
+public class RegularAlien { /// TODO toString hace falta String builder? 
 	public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
-	public static final int COL_INI_OFFSET = 2; // donde empezamos a dibujarles (columnas)
-	public static final int ARMOR = 2;
-	public static final int POINTS = 5;
+	private static final int ARMOR = 2;
+	private static final int POINTS = 5;
 	//TODO fill your code
 	private int cyclesToMove; // cuantos quedan para moverse (cambia cada jugada)
 	private int speed; // constante a la cual se reinicia despues de moverse
@@ -37,11 +36,31 @@ public class RegularAlien {
 	
 	public String toString() {
 		// Hasta aqui solo llegan los vivos, no hace falta isAlive()
-		return Messages.REGULAR_ALIEN_SYMBOL + "[" + String.valueOf(life) + "]";
+		return getSymbol() + "[" + String.format("%02d", life) + "]";
+	}
+	
+	private String getSymbol() {
+		return Messages.REGULAR_ALIEN_SYMBOL;
 	}
 	
 	public boolean isAlive() {
 		return life > 0;
+	}
+	
+	public static int getDamage() {
+		return 0;
+	}
+	
+	public static int getPoints() {
+		return POINTS;
+	}
+	
+	public static String getInfo() {
+		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
+	}
+	
+	private static String getDescription() {
+		return Messages.REGULAR_ALIEN_DESCRIPTION;
 	}
 	
 	public boolean isOnPosition(Position pos) {
@@ -55,20 +74,14 @@ public class RegularAlien {
 	public void automaticMove() {
 		//TODO fill your code
 		if (isAlive()) {
-			if (cyclesToMove == 0 || alienManager.onBorder()) {
-				dir = alienManager.movement();
-				if (alienManager.readyToDescend()) {
-					descend();
-					if (isInFinalRow()) {
-						alienManager.finalRowReached();
-					}
-				} else {
-					performMovement(dir);
-					if (isInBorder()) {
-						alienManager.shipOnBorder();
-					}
+			if (cyclesToMove == 0) {
+				performMovement(dir);
+				if (isInBorder()) {
+					alienManager.shipOnBorder();
 				}
 				cyclesToMove = speed;
+			} else if (alienManager.readyToDescend()) {
+				descend();	
 			} else {
 				cyclesToMove--;
 			}
@@ -78,12 +91,18 @@ public class RegularAlien {
 	private void descend() {
 		//TODO fill your code
 		performMovement(Move.DOWN);
+		this.dir = dir.flip();
+		
 		alienManager.decreaseOnBorder();
+		
+		if (isInFinalRow()) {
+			alienManager.finalRowReached();
+		}
 	}
 
 	private void performMovement(Move dir) {
 		//TODO fill your code
-		pos.move(dir);
+		pos = pos.move(dir);
 	}
 	
 	private boolean isInBorder() {
@@ -108,7 +127,7 @@ public class RegularAlien {
 	
 	public boolean receiveAttack(ShockWave shockWave) {
 		//TODO fill your code
-		receiveDamage(ShockWave.DAMAGE);
+		receiveDamage(shockWave.getDamage());
 		if (!isAlive()) {
 			alienManager.alienDead();
 		}
