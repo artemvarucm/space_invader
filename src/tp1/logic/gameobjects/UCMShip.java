@@ -183,6 +183,11 @@ public class UCMShip {
 		
 		return result.toString();
 	}
+	
+	public boolean receiveAttack(Bomb other) {
+		receiveDamage(Bomb.DAMAGE);
+		return !isAlive();
+	}
 /*	
 
 	public void receiveAttack() {

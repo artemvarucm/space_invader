@@ -5,10 +5,10 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-
+// TODO HACE FALTA ESPACIO EN TO STRING?
+//SE PUEDE SPAWNEAR FUERA DEL TABLERO?
 public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITION, etc o dejarlos encapsulados
 
-	//TODO fill your code
 	private static final int ARMOR = 1;
 	private static final int POINTS = 25;
 	private int life;
@@ -25,7 +25,7 @@ public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITIO
 	public String toString(Position pos) {
 		String str = "";
 		if (isAlive() && isOnPosition(pos)) {
-			str = getSymbol() + "[" + String.format("%02d", life) + "]";
+			str = " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 		}
 		return str;
 	}

@@ -1,24 +1,20 @@
 package tp1.logic.lists;
 
 import tp1.logic.Position;
-import tp1.logic.gameobjects.DestroyerAlien;
-import tp1.logic.gameobjects.ShockWave;
+import tp1.logic.gameobjects.Bomb;
 import tp1.logic.gameobjects.UCMLaser;
+import tp1.logic.gameobjects.UCMShip;
 
-/**
- * Container of regular aliens, implemented as an array with a counter
- * It is in charge of forwarding petitions from the game to each regular alien
- * 
- */
-public class DestroyerAlienList {
+
+public class BombList {
 	private static final int MAX = 4;
 
-	private DestroyerAlien[] objects;
+	private Bomb[] objects;
 	private int num;
 	
-	public DestroyerAlienList() {
+	public BombList() {
 		this.num = 0;
-		objects = new DestroyerAlien[MAX];
+		objects = new Bomb[MAX];
 	}
 	
 	public String toString(Position pos) {
@@ -36,21 +32,9 @@ public class DestroyerAlienList {
 		return str;
 	}
 	
-	public void computerActions() {
-		for (int i = num - 1; i >= 0; i --) {
-			objects[i].computerAction();
-		}
-	}
-	
 	public void automaticMoves() {
 		for (int i = 0; i < num; i++) {
 			objects[i].automaticMove();
-		}
-	}
-	
-	public void checkAttacks(ShockWave shockWave) {
-		for (int i = 0; i < num; i++) {
-			shockWave.performAttack(objects[i]);
 		}
 	}
 	
@@ -64,6 +48,7 @@ public class DestroyerAlienList {
 		return collapsed;
 	}
 	
+	
 	public void removeDead() {
 		for (int i = num - 1; i >= 0; i--) {
 			if (!objects[i].isAlive()) {
@@ -74,23 +59,17 @@ public class DestroyerAlienList {
 	
 	public int size() { return num; }
 	
-	/*public RegularAlien get(int pos) {
-		if((pos < 0) || (pos > num - 1)) return null;
-		return objects[pos];
-	}*/
-	
 	public boolean full() { return num == MAX; }
 
-	public boolean add(DestroyerAlien alien) {
+	public boolean add(Bomb bomb) {
 		// a�adimos alien al final de la lista
 		if (full()) return false;
-		objects[num] = alien;
+		objects[num] = bomb;
 		num++;
 		return true;
 	}
 	
 	private void remove(int pos){
-		// Eliminamos alien en la posicion pos de la lista
 
 		for(int i=pos; i < num - 1; i++)
 			objects[i] = objects[i+1];

@@ -16,7 +16,7 @@ public class Game {
 	private long seed;
 	private RegularAlienList regularAliens;
 	private DestroyerAlienList destroyerAliens;
-	//private BombList bombs;
+	private BombList bombs;
 	private UCMShip player;
 	private UCMLaser laser;
 	private Ufo ufo;
@@ -31,6 +31,7 @@ public class Game {
 		this.laser = new UCMLaser(this, player.getPos(), false);
 		this.alienManager = new AlienManager(this, level);
 		this.ufo = new Ufo(this);
+		this.bombs = new BombList();
 		this.regularAliens = alienManager.initializeRegularAliens();
 		this.destroyerAliens = alienManager.initializeDestroyerAliens();
 		this.rand = new Random(seed);
@@ -52,6 +53,9 @@ public class Game {
 		str.append(regularAliens.toString(pos));
 		str.append(destroyerAliens.toString(pos));
 		str.append(laser.toString(pos));
+		if (bombs.size() != 0) {
+			str.append(bombs.toString(pos));
+		}
 		str.append(ufo.toString(pos));
 		
 		return str.toString();
@@ -69,6 +73,7 @@ public class Game {
 	public void computerActions() {
 		// FIXME anadir computer actions de todos
 		ufo.computerAction();
+		destroyerAliens.computerActions();
 	}
 	
 	public void automaticMoves() {
@@ -77,14 +82,20 @@ public class Game {
 		regularAliens.automaticMoves();
 		destroyerAliens.automaticMoves();
 		ufo.automaticMove();
+		bombs.automaticMoves();
 	}
 	
 	public void performAttack(UCMLaser laser) {
 		regularAliens.checkAttacks(laser);
 		destroyerAliens.checkAttacks(laser);
+		bombs.checkAttacks(laser);
 		if (laser.performAttack(ufo)) {
 			enableShockWave();
 		}
+	}
+	
+	public void performAttack(Bomb bomb) {
+		bomb.performAttack(player);
 	}
 	
 	public boolean move(String direction) {
@@ -151,10 +162,15 @@ public class Game {
 	public void removeDead() {
 		regularAliens.removeDead();
 		destroyerAliens.removeDead();
+		bombs.removeDead();
 	}
 	
 	public void addObject(UCMLaser laser) {
 		this.laser = laser;
+	}
+	
+	public void addObject(Bomb bomb) {
+		bombs.add(bomb);
 	}
 	
 	public void exit() {
@@ -167,6 +183,7 @@ public class Game {
 		this.laser = new UCMLaser(this, player.getPos(), false);
 		this.alienManager = new AlienManager(this, level);
 		this.ufo = new Ufo(this);
+		this.bombs = new BombList();
 		this.regularAliens = alienManager.initializeRegularAliens();
 		this.destroyerAliens = alienManager.initializeDestroyerAliens();
 		this.rand = new Random(seed);

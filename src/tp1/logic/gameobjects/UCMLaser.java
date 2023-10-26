@@ -134,6 +134,20 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 		}
 		return res;
 	}
+	
+	public boolean performAttack(Bomb other) {
+		//TODO fill your code
+		boolean res = false;
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
+			res = weaponAttack(other);
+			/*if (res) {
+				// Si ha muerto la nave
+				game.receivePoints(Bomb.POINTS);
+			}*/
+			die();
+		}
+		return res;
+	}
 
 	/**
 	 * Method that implements the attack by the laser to a destroyer alien.
@@ -172,6 +186,10 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 	private boolean weaponAttack(DestroyerAlien other) {
 		return other.receiveAttack(this);	
 	}
+	
+	private boolean weaponAttack(Bomb other) {
+		return other.receiveAttack(this);	
+	}
 
 	//TODO fill your code
 
@@ -189,5 +207,13 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 		return true;
 	}
 	*/
+	
+	public boolean receiveAttack(Bomb bomb) {
+		receiveDamage(bomb.getDamage());
+		return !isAlive();
+	}
 
+	public void receiveDamage(int dam) {
+		this.life -= dam;
+	}
 }

@@ -36,7 +36,7 @@ public class RegularAlien { /// TODO toString hace falta String builder?
 	
 	public String toString() {
 		// Hasta aqui solo llegan los vivos, no hace falta isAlive()
-		return getSymbol() + "[" + String.format("%02d", life) + "]";
+		return " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 	}
 	
 	private String getSymbol() {
@@ -75,12 +75,15 @@ public class RegularAlien { /// TODO toString hace falta String builder?
 		//TODO fill your code
 		if (isAlive()) {
 			if (cyclesToMove == 0) {
+				// Si se tinene que mover
 				performMovement(dir);
 				if (isInBorder()) {
 					alienManager.shipOnBorder();
 				}
+				// reiniciamos el "cooldown" del movimiento
 				cyclesToMove = speed;
 			} else if (alienManager.readyToDescend()) {
+				// Si ya se ha movido anteriormente, vemos si tiene que descender
 				descend();	
 			} else {
 				cyclesToMove--;

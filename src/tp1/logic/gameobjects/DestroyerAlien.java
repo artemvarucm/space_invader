@@ -25,6 +25,7 @@ public class DestroyerAlien {
 	private int life;
 	private Game game;
 	private AlienManager alienManager;
+	public boolean canShootBomb;
 	//TODO fill your code
 	public DestroyerAlien (Position pos, int speed, Game game, AlienManager alienManager) {
 		this.pos = new Position(pos);
@@ -34,11 +35,12 @@ public class DestroyerAlien {
 		this.speed = speed;
 		this.game = game;
 		this.alienManager = alienManager;
+		this.canShootBomb = true;
 	}
 	
 	public String toString() {
 		// Hasta aqui solo llegan los vivos, no hace falta isAlive()
-		return getSymbol() + "[" + String.format("%02d", life) + "]";
+		return " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 	}
 	
 	private String getSymbol() {
@@ -67,6 +69,27 @@ public class DestroyerAlien {
 	
 	public boolean isOnPosition(Position pos) {
 			return pos.equals(this.pos);
+	}
+	
+	public void computerAction() {
+		if (canShootBomb && canGenerateRandomBomb()) {
+			enableBomb(game);
+		}
+	}
+	
+	public void canShootBomb() {
+		canShootBomb = true;
+	}
+	
+	private void enableBomb(Game game) {
+		Position pos = new Position(this.pos);
+		Bomb templateBomb = new Bomb(game, pos, this);
+		game.addObject(templateBomb);
+		canShootBomb = false;
+	}
+	
+	private boolean canGenerateRandomBomb() {
+		return game.getRandom().nextDouble() < game.getLevel().getShootFrequency();
 	}
 
 	/**
