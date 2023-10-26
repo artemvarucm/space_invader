@@ -26,6 +26,7 @@ public class DestroyerAlien {
 	private Game game;
 	private AlienManager alienManager;
 	public boolean canShootBomb;
+	public boolean bombReadyToFire;
 	//TODO fill your code
 	public DestroyerAlien (Position pos, int speed, Game game, AlienManager alienManager) {
 		this.pos = new Position(pos);
@@ -36,6 +37,7 @@ public class DestroyerAlien {
 		this.game = game;
 		this.alienManager = alienManager;
 		this.canShootBomb = true;
+		this.bombReadyToFire = false;
 	}
 	
 	public String toString() {
@@ -73,23 +75,24 @@ public class DestroyerAlien {
 	
 	public void computerAction() {
 		if (canShootBomb && canGenerateRandomBomb()) {
-			enableBomb(game);
+			canShootBomb = false;
+			bombReadyToFire = true;
+			//enableBomb(game);
 		}
 	}
 	
-	public void canShootBomb() {
+	/*public void canShootBomb() {
+		
+	}*/
+	
+	public void enableBomb() {
 		canShootBomb = true;
 	}
 	
-	private void enableBomb(Game game) {
-		Position pos = new Position(this.pos);
-		Bomb templateBomb = new Bomb(game, pos, this);
-		game.addObject(templateBomb);
-		canShootBomb = false;
-	}
-	
 	private boolean canGenerateRandomBomb() {
+	
 		return game.getRandom().nextDouble() < game.getLevel().getShootFrequency();
+		
 	}
 
 	/**
@@ -108,6 +111,11 @@ public class DestroyerAlien {
 			} else if (alienManager.readyToDescend()) {
 				descend();	
 			} else {
+				if (bombReadyToFire) {
+					Bomb templateBomb = new Bomb(game, this.pos, this);
+					game.addObject(templateBomb);
+					bombReadyToFire = false;
+				}
 				cyclesToMove--;
 			}
 		}

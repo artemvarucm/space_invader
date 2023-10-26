@@ -80,7 +80,7 @@ public class Bomb {
 	 *  Method called when the bomb disappears from the board
 	 */
 	public void onDelete() {
-		owner.canShootBomb();		
+		owner.enableBomb();		
 	}
 
 	// PERFORM ATTACK METHODS

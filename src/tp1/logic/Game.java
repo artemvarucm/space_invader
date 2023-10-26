@@ -26,7 +26,9 @@ public class Game {
 	public Game(Level level, long seed) {
 		//TODO fill your code
 		this.level = level;
+		this.doExit = false;
 		this.currentCycle = 0;
+		this.seed = seed;
 		this.player = new UCMShip(this);
 		this.laser = new UCMLaser(this, player.getPos(), false);
 		this.alienManager = new AlienManager(this, level);
@@ -66,23 +68,24 @@ public class Game {
 		computerActions();
 		automaticMoves();
 		// despues de que todos se han movido, vemos si el lase coincide con alguien en la posicion
-		performAttack(laser);
+		//performAttack(laser);
 		removeDead();
 	}
 	
 	public void computerActions() {
 		// FIXME anadir computer actions de todos
-		ufo.computerAction();
 		destroyerAliens.computerActions();
+		ufo.computerAction();
 	}
 	
 	public void automaticMoves() {
 		// movemos el laser, intentamos matar a alguien
-		laser.automaticMove();
+		
 		regularAliens.automaticMoves();
 		destroyerAliens.automaticMoves();
 		ufo.automaticMove();
 		bombs.automaticMoves();
+		laser.automaticMove();
 	}
 	
 	public void performAttack(UCMLaser laser) {
@@ -179,6 +182,8 @@ public class Game {
 	
 	public void reset() {		
 		this.currentCycle = 0;
+		this.doExit = false;
+		this.rand = new Random(seed);
 		this.player = new UCMShip(this);
 		this.laser = new UCMLaser(this, player.getPos(), false);
 		this.alienManager = new AlienManager(this, level);
@@ -186,6 +191,5 @@ public class Game {
 		this.bombs = new BombList();
 		this.regularAliens = alienManager.initializeRegularAliens();
 		this.destroyerAliens = alienManager.initializeDestroyerAliens();
-		this.rand = new Random(seed);
 	}
 }
