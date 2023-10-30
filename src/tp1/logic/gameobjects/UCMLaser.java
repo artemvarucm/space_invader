@@ -13,7 +13,7 @@ import tp1.view.Messages;
 public class UCMLaser {
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
-	private Move dir = Move.UP;
+	private Move dir;
 	private Game game;
 	private Position pos;
 	int life;
@@ -27,6 +27,8 @@ public class UCMLaser {
 		}
 		this.pos = new Position(pos);
 		this.game = game;
+		// La direccion de movimiento es hacia arriba
+		this.dir = Move.UP;
 	}
 	
 	public String toString(Position pos) {

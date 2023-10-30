@@ -20,6 +20,7 @@ public class Ufo {
 		this.life = 0;
 		// La direccion de movimiento es hacia izquierda
 		this.dir = Move.LEFT;
+		this.enabled = false;
 	}
 	
 	public String toString(Position pos) {

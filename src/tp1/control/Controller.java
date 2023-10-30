@@ -44,7 +44,7 @@ public class Controller {
 	 */
 	public void run() {
 		// Bucle del juego
-		// este booleano se encarga determinar si aplicar o no el update
+		// este booleano se encarga determinar si aplicar el update y mostrar tablero
 		boolean skipUpdate = false;
 		// Mientras el juego no ha acabado
 		while(!game.isFinished()) {
@@ -61,8 +61,10 @@ public class Controller {
 				game.update();
 			}
 		}
-		// Mostramos por pantalla el ultimo estado de juego (tablero)
-		printGame();
+		if (!skipUpdate) {
+			// Mostramos por pantalla el ultimo estado de juego (tablero)
+			printGame();
+		}
 		// Mostramos mensaje de despedida
 		printEndMessage();
 	}

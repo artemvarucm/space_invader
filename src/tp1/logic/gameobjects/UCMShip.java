@@ -21,6 +21,8 @@ public class UCMShip {
 		this.life = ARMOR;
 		this.game = game;
 		this.canShoot = true;
+		this.points = 0;
+		this.hasShockWave = false;
 	}
 	
 	public String toString(Position pos) {
@@ -69,15 +71,14 @@ public class UCMShip {
 		Move dir = null;
 		try {
 			// Convertimos a letras mayusculas
-			direction = direction.toUpperCase();
-			dir = Move.valueOf(direction);
+			dir = Move.valueOf(direction.toUpperCase());
 			if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { 
 				// No se puede ir arriba o abajo
 				throw new IllegalArgumentException();
 			}
 		} catch (IllegalArgumentException e) {
 			validMove = false;
-			System.out.println(Messages.UNKNOWN_COMMAND);
+			System.out.println(Messages.DIRECTION_ERROR + direction);
 		}
 		if (validMove) {
 			validMove = performMovement(dir);
