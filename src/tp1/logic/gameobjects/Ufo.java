@@ -41,6 +41,8 @@ public class Ufo {
 		// Devuelve true si se ha muerto
 		receiveDamage(UCMLaser.DAMAGE);
 		if (!isAlive()) {
+			// Inhabilitamos shockwave
+			game.enableShockWave();
 			onDelete();
 		}
 		return !isAlive();
@@ -138,8 +140,6 @@ public class Ufo {
 	}
 	
 	public void onDelete() {
-		// Inhabilitamos shockwave
-		game.enableShockWave();
 		// Al morir, puede volver a generarse
 		enabled = false;
 	}
