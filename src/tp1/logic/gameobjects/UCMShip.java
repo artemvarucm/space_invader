@@ -68,6 +68,8 @@ public class UCMShip {
 		boolean validMove = true;
 		Move dir = null;
 		try {
+			// Convertimos a letras mayusculas
+			direction = direction.toUpperCase();
 			dir = Move.valueOf(direction);
 			if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { 
 				// No se puede ir arriba o abajo

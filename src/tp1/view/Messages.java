@@ -143,7 +143,6 @@ public class Messages {
 	 * @return the formated error message;
 	 */
 	public static final String error(String message) {
-		// FIXME anadir error antes de posicion invalida
 		return Messages.ERROR.formatted(message);
 	}
 

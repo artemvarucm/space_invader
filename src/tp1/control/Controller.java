@@ -43,29 +43,38 @@ public class Controller {
 	 * Runs the game logic
 	 */
 	public void run() {
-		//TODO fill your code
+		// Bucle del juego
+		// este booleano se encarga determinar si aplicar o no el update
 		boolean skipUpdate = false;
+		// Mientras el juego no ha acabado
 		while(!game.isFinished()) {
 			if (!skipUpdate) {
+				// Mostramos por pantalla el estado de juego (tablero)
 				printGame();
 			}
 			String[] comandos = prompt();
+			// Pedimos ordenes al usuario y las ejecutamos
 			skipUpdate = action(comandos);
 			
 			if (!skipUpdate) {
+				// Ciclo del juego
 				game.update();
 			}
 		}
+		// Mostramos por pantalla el ultimo estado de juego (tablero)
 		printGame();
+		// Mostramos mensaje de despedida
 		printEndMessage();
 	}
 	
 	public boolean action(String[] comandos) {
+		// Si devuelve true, hay que saltarse el update
 		boolean skipUpdate = false;
 		if (comandos.length == 1) {
 			switch(comandos[0].toLowerCase()) {
 				case "s":
 				case "shoot": {
+						// Disparamos el laser
 						if (!game.shootLaser()) {
 							System.out.println(Messages.LASER_ERROR);
 							skipUpdate = true;
@@ -74,6 +83,7 @@ public class Controller {
 					break;
 				case "w":
 				case "shockWave": {
+						// Disparamos el shockwave
 						if (!game.shockWave()) {
 							System.out.println(Messages.SHOCKWAVE_ERROR);
 							skipUpdate = true;
@@ -82,29 +92,33 @@ public class Controller {
 					break;
 				case "l":
 				case "list": {
+						// Muestra la lista de las naves con su descripcion
 						printGameObjectsList();
 						skipUpdate = true;
 					}
 					break;
 				case "h":
 				case "help": {
-					System.out.println(Messages.HELP);
-					skipUpdate = true;
-				}
+						// Muestra ayuda de comandos
+						System.out.println(Messages.HELP);
+						skipUpdate = true;
+					}
 					break;
 				case "r":
 				case "reset": {
-					game.reset();
-					printGame();
-					skipUpdate = true;
-				}
+						// Reseteamos el estado del juego (comenzamos desde el inicio)
+						game.reset();
+						printGame();
+						skipUpdate = true;
+					}
 					break;
 				case "e":
 				case "exit": {
-					System.out.println(Messages.GAME_OVER);
-					game.exit();
-					skipUpdate = true;
-				}
+						// Salimos del juego
+						System.out.println(Messages.GAME_OVER);
+						game.exit();
+						skipUpdate = true;
+					}
 					break;
 				case "":
 				case "n":
@@ -113,17 +127,21 @@ public class Controller {
 				}
 					break;
 				default:
+					// Comando irreconocible
 					System.out.println(Messages.UNKNOWN_COMMAND);
 					skipUpdate = true;
 			}
 		} else {
 			if (comandos.length > 2) {
+				// No hay comandos con mas de 2 palabras
 				System.out.println(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 			} else if (comandos[0].toLowerCase().equals("move") || comandos[0].toLowerCase().equals("m")) {
-				if (!game.move(comandos[1].toUpperCase())) {
+				if (!game.move(comandos[1])) {
+					// Si el movimiento es invalido, no realizamos update
 					skipUpdate = true;
 				}
 			} else {
+				// Comando irreconocible
 				System.out.println(Messages.UNKNOWN_COMMAND);
 				skipUpdate = true;
 			}
@@ -147,7 +165,8 @@ public class Controller {
 	}
 	
 	public void printGameObjectsList() {
-		System.out.println(printer.gameObjectsList());
+		// Imprime la lista de las naves con su descripcion
+		System.out.print(printer.gameObjectsList());
 	}
 	
 }

@@ -86,8 +86,9 @@ public class GamePrinter {
 	}
 	
 	public String gameObjectsList() {
+		// Imprime la lista de las naves con su descripcion
 		StringBuilder str = new StringBuilder();
-		str.append(Messages.AVAILABLE_SHIPS).append(NEW_LINE);
+		// str.append(Messages.AVAILABLE_SHIPS).append(NEW_LINE);
 		str.append(UCMShip.getInfo()).append(NEW_LINE);
 		str.append(RegularAlien.getInfo()).append(NEW_LINE);					
 		str.append(DestroyerAlien.getInfo()).append(NEW_LINE);
