@@ -22,6 +22,7 @@ public class RegularAlienList {
 	}
 	
 	public String toString(Position pos) {
+		// Devuelve la la representacion del Regular si esta en la posicion pos
 		String str = "";
 		boolean encontrado = false;
 		int i = 0;
@@ -37,18 +38,28 @@ public class RegularAlienList {
 	}
 	
 	public void automaticMoves() {
+		// Realiza los movimientos de cada elemento
 		for (int i = 0; i < num; i++) {
 			objects[i].automaticMove();
 		}
 	}
 	
+	public void computerActions() {
+		// Realiza las computer actions de cada elemento
+		for (int i = 0; i < num; i++) {
+			objects[i].computerAction();
+		}
+	}
+	
 	public void checkAttacks(ShockWave shockWave) {
+		// Revisa los ataques del shockwave sobre la lista
 		for (int i = 0; i < num; i++) {
 			shockWave.performAttack(objects[i]);
 		}
 	}
 	
 	public boolean checkAttacks(UCMLaser laser) {
+		// Revisa los ataques del laser sobre la lista
 		int i = 0;
 		boolean collapsed = false;
 		while (!collapsed && i < num) {
@@ -59,21 +70,18 @@ public class RegularAlienList {
 	}
 	
 	public void removeDead() {
+		// Elimina a objetos muertos de la lista
 		for (int i = num - 1; i >= 0; i--) {
 			if (!objects[i].isAlive()) {
+				objects[i].onDelete();
 				remove(i);
 			}
 		}
 	}
 	
-	public int size() { return num; }
+	public int size() { return num; } // devuelve tamanio
 	
-	/*public RegularAlien get(int pos) {
-		if((pos < 0) || (pos > num - 1)) return null;
-		return objects[pos];
-	}*/
-	
-	public boolean full() { return num == MAX; }
+	public boolean full() { return num == MAX; } // devuelve true si esta lleno
 
 	public boolean add(RegularAlien alien) {
 		// a�adimos alien al final de la lista
@@ -85,7 +93,6 @@ public class RegularAlienList {
 	
 	private void remove(int pos){
 		// Eliminamos alien en la posicion pos de la lista
-
 		for(int i=pos; i < num - 1; i++)
 			objects[i] = objects[i+1];
 		

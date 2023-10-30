@@ -10,19 +10,19 @@ import tp1.view.Messages;
  * Class that represents the laser fired by {@link UCMShip}
  *
  */
-public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo creamos vivo
+public class UCMLaser {
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
-	
-	//TODO fill your code
 	private Move dir = Move.UP;
 	private Game game;
 	private Position pos;
 	int life;
 	public UCMLaser(Game game, Position pos, boolean alive) {
 		if (alive) {
+			// Lo inicializamos con vida
 			this.life = ARMOR;
 		} else {
+			// Lo inicializamos muerto(para no trabajar con null)
 			this.life = 0;
 		}
 		this.pos = new Position(pos);
@@ -30,34 +30,61 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 	}
 	
 	public String toString(Position pos) {
+		// Devuelve la representacion del Laser
 		String str = "";
 		if (isAlive() && isOnPosition(pos)) {
-			str = Messages.LASER_SYMBOL;
+			str = getSymbol();
 		}
 		return str;
+	}
+	
+	private String getSymbol() {
+		// Devuelve la representacion ASCII del Laser
+		return Messages.LASER_SYMBOL;
 	}
 	
 	/**
 	 *  Implements the automatic movement of the laser	
 	 */
 	public void automaticMove () {
+		// Realiza el movimiento de la bomba
 		performMovement(dir);
 		if(isOut()) {
+			// Si ha salido fuera del tablero, muere
 			die();
 		} else {
+			// Intenta atacar a alguien despues de moverse
 			game.performAttack(this);
 		}
 	}
 	
 	public boolean isOnPosition(Position pos) {
+		// Devuelve si las posiciones son iguales
 		return pos.equals(this.pos);
 	}
 	
+	public int getDamage() {
+		// Devuelve el dano
+		return UCMLaser.DAMAGE;
+	}
+	
+	public int getLife() {
+		// Devuelve la vida actual
+		return life;
+	}
+
+	public Game getGame() {
+		// Devuelve el juego
+		return game;
+	}
+	
 	public Position getPosition() {
+		// Devuelve la posicion actual
 		return this.pos;
 	}
 	
 	public boolean isAlive() {
+		// Devuelve true, si esta vivo
 		return this.life > 0;
 	}
 
@@ -65,24 +92,25 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 	 *  Method called when the laser disappears from the board
 	 */
 	public void onDelete() {
+		// Si se ha muerto, la nave puede volver a lanzar el laser
 		game.enableLaser();
 	}
 
 	// PERFORM ATTACK METHODS
 	
 	private void die() {
-		//TODO fill your code
+		// Sirve para matar al objeto de forma explicita
 		this.life = 0;
 		onDelete();
 	}
 
 	private boolean isOut() {
-		//TODO fill your code
+		// Devuelve true si el objeto esta en dentro del tablero
 		return !pos.isOnBoard();
 	}
 
 	private void performMovement(Move dir) {
-		//TODO fill your code
+		// Realiza el movimiento en la direccion dir
 		pos = pos.move(dir);
 	}
 
@@ -94,7 +122,7 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 	 * @return <code>true</code> if the alien has been attacked by the laser.
 	 */
 	public boolean performAttack(RegularAlien other) {
-		//TODO fill your code
+		// Realiza el ataque sobre RegularAlien. Devuelve true si el RegularAlien esta muerto
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			res = weaponAttack(other);
@@ -102,13 +130,14 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 				// Si ha muerto la nave
 				game.receivePoints(RegularAlien.getPoints());
 			}
+			// Eliminamos laser despues del ataque
 			die();
 		}
 		return res;
 	}
 	
 	public boolean performAttack(DestroyerAlien other) {
-		//TODO fill your code
+		// Realiza el ataque sobre DestroyerAlien. Devuelve true si el DestroyerAlien esta muerto
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			res = weaponAttack(other);
@@ -116,13 +145,14 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 				// Si ha muerto la nave
 				game.receivePoints(DestroyerAlien.getPoints());
 			}
+			// Eliminamos laser despues del ataque
 			die();
 		}
 		return res;
 	}
 	
 	public boolean performAttack(Ufo other) {
-		//TODO fill your code
+		// Realiza el ataque sobre Ufo. Devuelve true si el UFo esta muerto
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			res = weaponAttack(other);
@@ -130,20 +160,18 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 				// Si ha muerto la nave
 				game.receivePoints(Ufo.getPoints());
 			}
+			// Eliminamos laser despues del ataque
 			die();
 		}
 		return res;
 	}
 	
 	public boolean performAttack(Bomb other) {
-		//TODO fill your code
+		// Realiza el ataque sobre Bomba. Devuelve true si la Bomba esta muerta
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			res = weaponAttack(other);
-			/*if (res) {
-				// Si ha muerto la nave
-				game.receivePoints(Bomb.POINTS);
-			}*/
+			// Eliminamos laser despues del ataque
 			die();
 		}
 		return res;
@@ -209,11 +237,14 @@ public class UCMLaser { // TODO PREGUNTAR sobre constructore alive = true, lo cr
 	*/
 	
 	public boolean receiveAttack(Bomb bomb) {
+		// Recibe el ataque de la bomba
+		// Devuelve true si se ha muerto el laser
 		receiveDamage(bomb.getDamage());
 		return !isAlive();
 	}
 
 	public void receiveDamage(int dam) {
+		// Recibe el danio indicado en dam
 		this.life -= dam;
 	}
 }

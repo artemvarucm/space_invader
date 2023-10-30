@@ -87,7 +87,7 @@ public class GamePrinter {
 	
 	public String gameObjectsList() {
 		StringBuilder str = new StringBuilder();
-		// FIXME anadir damage a destroyer
+		str.append(Messages.AVAILABLE_SHIPS).append(NEW_LINE);
 		str.append(UCMShip.getInfo()).append(NEW_LINE);
 		str.append(RegularAlien.getInfo()).append(NEW_LINE);					
 		str.append(DestroyerAlien.getInfo()).append(NEW_LINE);

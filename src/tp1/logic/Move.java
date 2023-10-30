@@ -24,8 +24,8 @@ public enum Move {
 	}
 
 
-	//TODO fill your code
 	public Move flip() {
+		// Cambia de sentido (RIGHT -> LEFT, LEFT -> RIGHT)
 		Move move = null;
 		if (this.equals(LEFT)) {
 			move = RIGHT;

@@ -101,6 +101,7 @@ public class Controller {
 					break;
 				case "e":
 				case "exit": {
+					System.out.println(Messages.GAME_OVER);
 					game.exit();
 					skipUpdate = true;
 				}

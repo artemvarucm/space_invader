@@ -4,12 +4,10 @@ import java.util.Random;
 import tp1.logic.lists.*;
 import tp1.logic.gameobjects.*;
 
-// TODO implementarlo
 public class Game {
 	public static final int DIM_X = 9; // COLUMNAS
 	public static final int DIM_Y = 8; // FILAS
 
-	//TODO fill your code
 	private int currentCycle;
 	private Random rand;
 	private Level level;
@@ -24,7 +22,6 @@ public class Game {
 	private AlienManager alienManager;
 	
 	public Game(Level level, long seed) {
-		//TODO fill your code
 		this.level = level;
 		this.doExit = false;
 		this.currentCycle = 0;
@@ -40,14 +37,12 @@ public class Game {
 	}
 
 	public String stateToString() {
-		//TODO fill your code
-		StringBuilder result = new StringBuilder();
-		result.append(player.stateToString());
-		
-		return result.toString();
+		// Devuelve el estado del jugador en formato String
+		return player.stateToString();
 	}
 	
 	public String positionToString(int col, int row) {
+		// Devuelve lo que hay que mostrar por pantalla para la posicion (col, row)
 		StringBuilder str = new StringBuilder();
 		Position pos = new Position(col, row);
 		
@@ -55,50 +50,56 @@ public class Game {
 		str.append(regularAliens.toString(pos));
 		str.append(destroyerAliens.toString(pos));
 		str.append(laser.toString(pos));
-		if (bombs.size() != 0) {
-			str.append(bombs.toString(pos));
-		}
+		str.append(bombs.toString(pos));
 		str.append(ufo.toString(pos));
 		
 		return str.toString();
 	}
 	
 	public void update() {
+		// Ejecuta un ciclo del juego
+		// Incrementamos contador de ciclos
 		currentCycle++;
+		// Realizamos computer actions
 		computerActions();
+		// Realizamos moviemiento de objetos
 		automaticMoves();
-		// despues de que todos se han movido, vemos si el lase coincide con alguien en la posicion
-		//performAttack(laser);
+		// Eliminamos objetos muertos en las listas
 		removeDead();
 	}
 	
 	public void computerActions() {
-		// FIXME anadir computer actions de todos
+		// Realizamos computer actions
+		regularAliens.computerActions();
+		bombs.computerActions();
 		destroyerAliens.computerActions();
 		ufo.computerAction();
 	}
 	
 	public void automaticMoves() {
-		// movemos el laser, intentamos matar a alguien
-		
+		// Realizamos moviemiento de objetos
+		laser.automaticMove();
 		regularAliens.automaticMoves();
 		destroyerAliens.automaticMoves();
 		ufo.automaticMove();
 		bombs.automaticMoves();
-		laser.automaticMove();
+		// despues de que todos se han movido, 
+		// vemos si el laser coincide con alguien en la posicion y atacamos
+		performAttack(laser);
 	}
 	
 	public void performAttack(UCMLaser laser) {
+		// Realiza el ataque del laser
 		regularAliens.checkAttacks(laser);
 		destroyerAliens.checkAttacks(laser);
 		bombs.checkAttacks(laser);
-		if (laser.performAttack(ufo)) {
-			enableShockWave();
-		}
+		laser.performAttack(ufo);
 	}
 	
 	public void performAttack(Bomb bomb) {
+		// Realiza el ataque de la bomba
 		bomb.performAttack(player);
+		bomb.performAttack(laser);
 	}
 	
 	public boolean move(String direction) {
@@ -107,80 +108,89 @@ public class Game {
 	}
 	
 	public void receivePoints(int points) {
+		// Recibe puntos
 		player.receivePoints(points);
 	}
 	
 	public boolean shootLaser() {
+		// Ejecuta disparo del laser
 		return player.shootLaser(this);
 	}
 	
 	public boolean shockWave() {
+		// Ejecuta shockwave
 		return player.executeShockWave(this, regularAliens, destroyerAliens);
 	}
 
 	public int getCycle() {
-		//TODO fill your code
+		// Devuelve ciclo actual
 		return currentCycle;
 	}
 
 	public int getRemainingAliens() {
-		//TODO fill your code
+		// Devuelve numero de aliens restantes
 		return alienManager.getRemainingAliens();
 	}
 	
 	public boolean playerWin() {
-		//TODO fill your code
+		// Devuelve true si el jugador ha ganado
 		return player.isAlive() && alienManager.allAlienDead();
 	}
 
 	public boolean aliensWin() {
-		//TODO fill your code
+		// Devuelve true si aliens han ganado
 		return !player.isAlive() || alienManager.haveLanded();
 	}
 	
 	public boolean isFinished() {
+		// Devuelve true si el juego ha terminado
 		return doExit || playerWin() || aliensWin();
 	}
 
 	public void enableLaser() {
-		//TODO fill your code
+		// Inhabilitamos laser
 		player.enableLaser();
 	}
 	
 	public void enableShockWave() {
-		//TODO fill your code
+		// Inhabilitamos shockWave (despues de matar al ufo)
 		player.enableShockWave();
 	}
 
 	public Random getRandom() {
-		//TODO fill your code
+		// Devuelve el random
 		return this.rand;
 	}
 
 	public Level getLevel() {
-		//TODO fill your code
+		// Devuelve el nivel
 		return this.level;
 	}
 	
 	public void removeDead() {
+		// Elimina muertos de las listas
 		regularAliens.removeDead();
 		destroyerAliens.removeDead();
 		bombs.removeDead();
 	}
 	
 	public void addObject(UCMLaser laser) {
+		// Anadimos laser al juego
 		this.laser = laser;
 	}
 	
 	public void addObject(Bomb bomb) {
+		// Anadimos bomba a la lista
 		bombs.add(bomb);
 	}
 	
 	public void exit() {
+		// Para salir del juego
 		doExit = true;
 	}
 	
 	public void reset() {		
+		// Reseteamos partida
 		this.currentCycle = 0;
 		this.doExit = false;
 		this.rand = new Random(seed);

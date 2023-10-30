@@ -5,9 +5,7 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-// TODO HACE FALTA ESPACIO EN TO STRING?
-//SE PUEDE SPAWNEAR FUERA DEL TABLERO?
-public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITION, etc o dejarlos encapsulados
+public class Ufo {
 
 	private static final int ARMOR = 1;
 	private static final int POINTS = 25;
@@ -15,14 +13,17 @@ public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITIO
 	private Position pos;
 	private boolean enabled;
 	private Game game;
+	private Move dir;
 	
 	public Ufo (Game game) {
-		// FIXME
 		this.game = game;
 		this.life = 0;
+		// La direccion de movimiento es hacia izquierda
+		this.dir = Move.LEFT;
 	}
 	
 	public String toString(Position pos) {
+		// Devuelve la representacion de la Bomba
 		String str = "";
 		if (isAlive() && isOnPosition(pos)) {
 			str = " " + getSymbol() + "[" + String.format("%02d", life) + "]";
@@ -31,26 +32,30 @@ public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITIO
 	}
 	
 	private String getSymbol() {
+		// Devuelve la representacion ASCII del UFO
 		return Messages.UFO_SYMBOL;
 	}
 	
-	//TODO fill your code
 	public boolean receiveAttack(UCMLaser laser) {
-		//TODO fill your code
+		// Recibe el ataque del laser
+		// Devuelve true si se ha muerto
 		receiveDamage(UCMLaser.DAMAGE);
 		if (!isAlive()) {
-			die();
+			onDelete();
 		}
 		return !isAlive();
 	}
 	
 	public void computerAction() {
+		// Intenta generar el ufo
 		if(!enabled && canGenerateRandomUfo()) {
+			// Si se puede, lo inhabilita
 			enable();
 		}
 	}
 	
 	public void automaticMove() {
+		// Realiza el movimiento
 		if (isAlive()) {
 			performMovement(Move.LEFT);
 			if (isOut())
@@ -59,57 +64,84 @@ public class Ufo { // TODO PREGUNTAR SI HACEN FALTA LOS GETTERS DE LIFE, POSITIO
 	}
 	
 	private void enable() {
-		//TODO fill your code
+		// Inhabilita el UFO
+		// Reinicia la vida y la posicion
 		life = ARMOR;
-		this.pos = new Position(Game.DIM_X, 0); // FIXME: invalid position esquina superior derecha
+		this.pos = new Position(Game.DIM_X, 0);
 		enabled = true;
 	}
 	
 	public void receiveDamage(int dam) {
+		// Recibe el danio indicado en dam
 		this.life -= dam;
 	}
 	
 	public boolean isAlive() {
+		// Devuelve true, si esta vivo
 		return life > 0;
 	}
 	
+	public int getLife() {
+		// Devuelve la vida actual
+		return life;
+	}
+
+	public Game getGame() {
+		// Devuelve el juego
+		return game;
+	}
+	
+	public Position getPosition() {
+		// Devuelve la posicion actual
+		return this.pos;
+	}
+	
 	public static int getDamage() {
+		// Devuelve el dano
 		return 0;
 	}
 	
 	public static int getPoints() {
+		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
 	
 	public static String getInfo() {
+		// Devuelve la descripcion formateada de UFO
 		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
 	}
 	
 	private static String getDescription() {
+		// Devuelve el texto de la descripcion 
 		return Messages.UFO_DESCRIPTION;
 	}
 	
 	public boolean isOnPosition(Position pos) {
+		// Devuelve si las posiciones son iguales
 		return pos.equals(this.pos);
 	}
 	
 	private boolean isOut() {
-		//TODO fill your code
+		// Devuelve true si esta fuera del tablero
 		return !pos.isOnBoard();
 	}
 	
 	private void performMovement(Move dir) {
-		//TODO fill your code
+		// Realiza el movimiento en direccion dir
 		pos = pos.move(dir);
 	}
 	
 	private void die() {
+		// Sirve para matar de forma explicita
 		this.life = 0;
-		enabled = false;
+		onDelete();
 	}
 	
 	public void onDelete() {
-		//TODO fill your code
+		// Inhabilitamos shockwave
+		game.enableShockWave();
+		// Al morir, puede volver a generarse
+		enabled = false;
 	}
 	
 	/**

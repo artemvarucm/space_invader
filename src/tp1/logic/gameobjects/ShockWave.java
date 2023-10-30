@@ -12,36 +12,48 @@ import tp1.view.Messages;
  */
 public class ShockWave {
 	private static int DAMAGE = 1;
-	
 	private Game game;
 	int life;
 	public ShockWave(Game game) {
 		this.life = 1;
 		this.game = game;
 	}
-	
+	/*
 	public String toString(Position pos) {
+		// No hace falta por ahora
 		String str = "";
 		return str;
 	}
-	
+	*/
 	public boolean isAlive() {
+		// Devuelve si esta vivo
 		return this.life > 0;
 	}
 	
+	
 	public int getDamage() {
+		// Devuelve el danio
 		return DAMAGE;
 	}
 
 	// PERFORM ATTACK METHODS
 	private void onDelete() {
-		
+		// vacio	
+	}
+	
+	public int getLife() {
+		// Devuelve la vida actual
+		return life;
+	}
+
+	public Game getGame() {
+		// Devuelve el juego
+		return game;
 	}
 	
 	public void die() {
-		//TODO fill your code
+		// Sirve para matar de forma explicita
 		this.life = 0;
-		onDelete();
 	}
 
 	/**
@@ -52,12 +64,12 @@ public class ShockWave {
 	 * @return <code>true</code> if the alien has been attacked by the laser.
 	 */
 	public boolean performAttack(RegularAlien other) {
-		//TODO fill your code
+		// Realiza el ataque a RegularAlien
 		boolean res = false;
 		if (isAlive() && other.isAlive()) {
 			res = weaponAttack(other);
 			if (res) {
-				// Si ha muerto la nave
+				// Si ha muerto la nave, recibir putnos
 				game.receivePoints(RegularAlien.getPoints());
 			}
 		}
@@ -65,12 +77,12 @@ public class ShockWave {
 	}
 	
 	public boolean performAttack(DestroyerAlien other) {
-		//TODO fill your code
+		// Realiza el ataque a DestroyerAlien
 		boolean res = false;
 		if (isAlive() && other.isAlive()) {
 			res = weaponAttack(other);
 			if (res) {
-				// Si ha muerto la nave
+				// Si ha muerto la nave, recibir putnos
 				game.receivePoints(DestroyerAlien.getPoints());
 			}
 		}
@@ -79,10 +91,12 @@ public class ShockWave {
 	
 	
 	private boolean weaponAttack(RegularAlien other) {
+		// Llama al metodo recibir ataque de RegularAlien
 		return other.receiveAttack(this);	
 	}
 	
 	private boolean weaponAttack(DestroyerAlien other) {
+		// Llama al metodo recibir ataque de DestroyerAlien
 		return other.receiveAttack(this);	
 	}
 }

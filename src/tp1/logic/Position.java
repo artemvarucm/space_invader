@@ -17,15 +17,19 @@ public class Position {
 		this.col = pos.getCol();
 		this.row = pos.getRow();
 	}
-	//TODO fill your code
+
 	public int getCol() {
+		// Devuelve la columna
 		return col;
 	}
 	
 	public int getRow() {
+		// Devuelve la fila
 		return row;
 	}
+	
 	public boolean isOnBoard() {
+		// Devuelve true, si la posicion esta dentro de las dimensiones del tablero
 		return 
 		col >= 0 && row >= 0
 			&&
@@ -39,6 +43,7 @@ public class Position {
 	}
 
 	public boolean equals(Position pos) {
+		// Devuelve si la posicion en this es igual a la posicion en pos
 		return this.col == pos.getCol() && this.row == pos.getRow();
 	}
 }

@@ -11,19 +11,19 @@ import tp1.view.Messages;
  * Class representing a regular alien
  *
  */
-public class RegularAlien { /// TODO toString hace falta String builder? 
+public class RegularAlien {
 	public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
 	private static final int ARMOR = 2;
 	private static final int POINTS = 5;
-	//TODO fill your code
-	private int cyclesToMove; // cuantos quedan para moverse (cambia cada jugada)
-	private int speed; // constante a la cual se reinicia despues de moverse
+	// cuantos ciclos quedan para moverse
+	private int cyclesToMove; 
+	// constante a la cual se reinicia cyclesToMove despues de moverse
+	private int speed; 	
 	private Move dir;
 	private Position pos;
 	private int life;
 	private Game game;
 	private AlienManager alienManager;
-	//TODO fill your code
 	public RegularAlien (Position pos, int speed, Game game, AlienManager alienManager) {
 		this.pos = new Position(pos);
 		this.dir = Move.LEFT;
@@ -35,35 +35,58 @@ public class RegularAlien { /// TODO toString hace falta String builder?
 	}
 	
 	public String toString() {
+		// Devuelve la representacion del RegularAlien
 		// Hasta aqui solo llegan los vivos, no hace falta isAlive()
 		return " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 	}
 	
 	private String getSymbol() {
+		// Devuelve la representacion ASCII de RegularAlien
 		return Messages.REGULAR_ALIEN_SYMBOL;
 	}
 	
 	public boolean isAlive() {
+		// Devuelve true, si esta vivo
 		return life > 0;
 	}
 	
+	public int getLife() {
+		// Devuelve la vida actual
+		return life;
+	}
+
+	public Game getGame() {
+		// Devuelve el juego
+		return game;
+	}
+	
+	public Position getPos() {
+		// Devuelve la posicion actual
+		return pos;
+	}
+	
 	public static int getDamage() {
+		// Devuelve el dano
 		return 0;
 	}
 	
 	public static int getPoints() {
+		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
 	
 	public static String getInfo() {
+		// Devuelve la descripcion formateada de RegularAlien
 		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
 	}
 	
 	private static String getDescription() {
+		// Devuelve el texto de la descripcion 
 		return Messages.REGULAR_ALIEN_DESCRIPTION;
 	}
 	
 	public boolean isOnPosition(Position pos) {
+			// Devuelve si las posiciones son iguales
 			return pos.equals(this.pos);
 	}
 
@@ -72,12 +95,13 @@ public class RegularAlien { /// TODO toString hace falta String builder?
 	 */
 	
 	public void automaticMove() {
-		//TODO fill your code
+		// Realiza el movimiento del Regular
 		if (isAlive()) {
 			if (cyclesToMove == 0) {
-				// Si se tinene que mover
+				// Si se tiene que mover
 				performMovement(dir);
 				if (isInBorder()) {
+					// Si esta en el borde, avisa al manager
 					alienManager.shipOnBorder();
 				}
 				// reiniciamos el "cooldown" del movimiento
@@ -91,45 +115,52 @@ public class RegularAlien { /// TODO toString hace falta String builder?
 		}
 	}
 	
+	public void computerAction() {
+		// vacio
+	}
+	
 	private void descend() {
-		//TODO fill your code
+		// Baja una fila el Regular
 		performMovement(Move.DOWN);
+		// Cabia de sentido del movimiento
 		this.dir = dir.flip();
-		
+		// Decrementa el contador de aliens por bajar del AlienManager
 		alienManager.decreaseOnBorder();
-		
+		// Avisa si ha llegado al borde
 		if (isInFinalRow()) {
 			alienManager.finalRowReached();
 		}
 	}
 
 	private void performMovement(Move dir) {
-		//TODO fill your code
+		// Realiza el movimiento en la direccion dir
 		pos = pos.move(dir);
 	}
 	
 	private boolean isInBorder() {
-		//TODO fill your code
+		// Dependiendo del sentido del movimiento devuelve si ha tocado borde o no
 		return (dir.equals(Move.RIGHT) && pos.getCol() == Game.DIM_X - 1) 
 				|| 
 				(dir.equals(Move.LEFT) && pos.getCol() == 0);
 	}
 	
 	public boolean isInFinalRow() {
+		// Devuelve true si esta en la ultima fila(donde esta UCMShip)
 		return pos.getRow() == Game.DIM_Y - 1;
 	}	
 	
 	public boolean receiveAttack(UCMLaser laser) {
-		//TODO fill your code
+		// Recibe ataque del laser
 		receiveDamage(UCMLaser.DAMAGE);
 		if (!isAlive()) {
+			// Notifica al alienManager de alien muerto
 			alienManager.alienDead();
 		}
 		return !isAlive();
 	}
 	
 	public boolean receiveAttack(ShockWave shockWave) {
-		//TODO fill your code
+		// Notifica al alienManager de alien muerto
 		receiveDamage(shockWave.getDamage());
 		if (!isAlive()) {
 			alienManager.alienDead();
@@ -138,6 +169,11 @@ public class RegularAlien { /// TODO toString hace falta String builder?
 	}
 	
 	public void receiveDamage(int dam) {
+		// Recibe el danio indicado en dam
 		this.life -= dam;
+	}
+	
+	public void onDelete() {
+		// vacio
 	}
 }
