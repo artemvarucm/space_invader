@@ -97,7 +97,7 @@ public class DestroyerAlien {
 	
 	public void computerAction() {
 		// Realiza la revision si puede generar bomba
-		if (canShootBomb && canGenerateRandomBomb()) {
+		if (cyclesToMove != 0 && canShootBomb && canGenerateRandomBomb()) {
 			// Inhabilita la bomba en caso de que puede generarla
 			canShootBomb = false;
 			bombReadyToFire = true;
@@ -131,17 +131,20 @@ public class DestroyerAlien {
 				}
 				// reiniciamos el "cooldown" del movimiento
 				cyclesToMove = speed;
-			} else if (alienManager.readyToDescend()) {
-				// Si ya se ha movido anteriormente, vemos si tiene que descender
-				descend();	
 			} else {
+				if (alienManager.readyToDescend()) {
+					// Si ya se ha movido anteriormente, vemos si tiene que descender
+					descend();	
+				} else {
+					// quedan menos ciclos para moverse
+					cyclesToMove--;
+				}
 				if (bombReadyToFire) {
-					// Si tiene que lanzar la bomba, la lanzas despues de realizar cualquier tipo de movimiento
+					// Si tiene que lanzar la bomba, la lanzas despues de realizar movimiento
 					Bomb templateBomb = new Bomb(game, this.pos, this);
 					game.addObject(templateBomb);
 					bombReadyToFire = false;
 				}
-				cyclesToMove--;
 			}
 		}
 	}
