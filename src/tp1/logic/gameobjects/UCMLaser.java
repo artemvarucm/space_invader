@@ -240,6 +240,8 @@ public class UCMLaser {
 		// Recibe el ataque de la bomba
 		// Devuelve true si se ha muerto el laser
 		receiveDamage(bomb.getDamage());
+		// Despues de la colision muere el laser
+		die();
 		return !isAlive();
 	}
 
