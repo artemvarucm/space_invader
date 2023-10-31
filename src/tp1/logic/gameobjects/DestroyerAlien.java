@@ -98,7 +98,7 @@ public class DestroyerAlien {
 	public void computerAction() {
 		// Realiza la revision si puede generar bomba
 		if (cyclesToMove != 0 && canShootBomb && canGenerateRandomBomb()) {
-			// Inhabilita la bomba en caso de que puede generarla
+			// Habilita la bomba en caso de que puede generarla
 			canShootBomb = false;
 			bombReadyToFire = true;
 		}
