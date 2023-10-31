@@ -165,7 +165,7 @@ public class UCMShip {
 	}
 	
 	public void enableLaser() {
-		// Inhabilta el laser
+		// Habilta el laser
 		this.canShoot = true;
 	}
 	
@@ -189,7 +189,7 @@ public class UCMShip {
 	}
 
 	public void enableShockWave() {
-		// Inhabilta el shockwave
+		// Habilita el shockwave
 		this.hasShockWave = true;
 	}
 
@@ -220,7 +220,7 @@ public class UCMShip {
 	}
 	
 	public boolean receiveAttack(Bomb other) {
-		/* Recibe el dano de la bomba
+		/* Recibe el danio de la bomba
 		 * Devuelve true si esta muerta la UCMShip
 		 */
 		receiveDamage(Bomb.DAMAGE);
