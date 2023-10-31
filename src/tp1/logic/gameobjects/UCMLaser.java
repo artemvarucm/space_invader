@@ -107,7 +107,7 @@ public class UCMLaser {
 	}
 
 	private boolean isOut() {
-		// Devuelve true si el objeto esta en dentro del tablero
+		// Devuelve true si el objeto esta fuera del tablero
 		return !pos.isOnBoard();
 	}
 
