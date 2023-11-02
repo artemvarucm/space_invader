@@ -137,6 +137,7 @@ public class Controller {
 			if (comandos.length > 2) {
 				// No hay comandos con mas de 2 palabras
 				System.out.println(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+				skipUpdate = true;
 			} else if (comandos[0].toLowerCase().equals("move") || comandos[0].toLowerCase().equals("m")) {
 				if (!game.move(comandos[1])) {
 					// Si el movimiento es invalido, no realizamos update
