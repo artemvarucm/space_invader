@@ -2,6 +2,7 @@ package tp1.logic;
 
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.RegularAlien;
+import tp1.logic.gameobjects.Ufo;
 import tp1.logic.lists.DestroyerAlienList;
 import tp1.logic.lists.RegularAlienList;
 
@@ -11,52 +12,6 @@ import tp1.logic.lists.RegularAlienList;
  * used by aliens to coordinate movement
  *
  */
-
-/*
-
-import tp1.logic.gameobjects.RegularAlien;
-
-public class AlienManager  {
-	
-	private Game game;
-	private int remainingAliens;
-	
-	//TODO fill with your code
-
-	public  GameObjectContainer initialize() {
-		this.remainingAliens = 0;
-		GameObjectContainer container = new GameObjectContainer();
-		
-		initializeOvni(container);
-		initializeRegularAliens(container);
-		initializeDestroyerAliens(container);
-		
-		//TODO fill with your code
-		
-		
-		return container;
-	}
-	
-	private void initializeOvni(GameObjectContainer container) {
-		//container.add(new Ufo(game));
-	}
-	
-	private void initializeRegularAliens (GameObjectContainer container) {
-
-		//TODO fill with your code
-		//		container.add(new RegularAlien(....));
-	}
-	
-	private void initializeDestroyerAliens(GameObjectContainer container) {
-		//TODO fill with your code
-	}
-
-	//TODO fill with your code
-
-
-}
- * 
- * */
 
 
 public class AlienManager {
@@ -71,8 +26,25 @@ public class AlienManager {
 	public AlienManager(Game game, Level level) {
 		this.level = level;
 		this.game = game;
+	}
+	
+	public GameObjectContainer initialize() {
 		this.remainingAliens = 0;
 		this.onBorder = false;
+		GameObjectContainer container = new GameObjectContainer();
+		
+		initializeOvni(container);
+		initializeRegularAliens(container);
+		initializeDestroyerAliens(container);
+		
+		//TODO fill with your code
+		
+		
+		return container;
+	}
+	
+	private void initializeOvni(GameObjectContainer container) {
+		container.add(new Ufo(game));
 	}
 		
 	// INITIALIZER METHODS
@@ -81,9 +53,8 @@ public class AlienManager {
 	 * Initializes the list of regular aliens
 	 * @return the initial list of regular aliens according to the current level
 	 */
-	protected RegularAlienList initializeRegularAliens() {
-		// Inicializa la lista de regulars
-		RegularAlienList list = new RegularAlienList();
+	private void initializeRegularAliens(GameObjectContainer container) {
+		// Anadimos a la lista los regulars
 		
 		int num = level.getNumRegularAliens() / 4;  // maximo cuatro en fila (num = 1 en EASY, num = 2 en HARD/INSANE)
 		// Lo colocamos en el medio
@@ -94,21 +65,19 @@ public class AlienManager {
 				// Insertamos alien
 				Position pos = new Position(colInitialOffset + j, RegularAlien.ROW_INI_OFFSET + i);
 				RegularAlien templateAlien = new RegularAlien(pos, level.getNumCyclesToMoveOneCell(), game, this);
-				list.add(templateAlien);
+				container.add(templateAlien);
 			}
 		}
 		// Incrementamos contador de aliens
 		remainingAliens += level.getNumRegularAliens();
-		return list;
 	}
 
 	/**
 	 * Initializes the list of destroyer aliens
 	 * @return the initial list of destroyer aliens according to the current level
 	 */
-	protected DestroyerAlienList initializeDestroyerAliens() {
-		// Inicializa la lista de destroyers
-		DestroyerAlienList list = new DestroyerAlienList();
+	private void initializeDestroyerAliens(GameObjectContainer container) {
+		// Anadimos a la lista los destroyers
 		 
 		int numD = level.getNumDestroyerAliens();
 		// Filas ocupadas por regulars, para insertar por debajos
@@ -120,11 +89,10 @@ public class AlienManager {
 			// Insertamos alien
 			Position pos = new Position(colInitialOffset + i, RegularAlien.ROW_INI_OFFSET + numFilasR);
 			DestroyerAlien templateAlien = new DestroyerAlien(pos , level.getNumCyclesToMoveOneCell(), game, this);	
-			list.add(templateAlien);
+			container.add(templateAlien);
 		}
 		// Incrementamos contador de aliens
 		remainingAliens += level.getNumDestroyerAliens();
-		return list;
 	}
 	
 	// CONTROL METHODS

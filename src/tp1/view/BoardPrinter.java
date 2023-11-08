@@ -3,6 +3,10 @@ package tp1.view;
 import static tp1.util.MyStringUtils.repeat;
 import tp1.logic.Game;
 import tp1.logic.GameStatus;
+import tp1.logic.gameobjects.DestroyerAlien;
+import tp1.logic.gameobjects.RegularAlien;
+import tp1.logic.gameobjects.UCMShip;
+import tp1.logic.gameobjects.Ufo;
 import tp1.util.MyStringUtils;
 
 public class BoardPrinter extends GamePrinter {

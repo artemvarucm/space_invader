@@ -5,21 +5,15 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-public class Ufo {
+public class Ufo extends EnemyShip {
 
 	private static final int ARMOR = 1;
 	private static final int POINTS = 25;
-	private int life;
-	private Position pos;
 	private boolean enabled;
-	private Game game;
-	private Move dir;
 	
 	public Ufo (Game game) {
-		this.game = game;
-		this.life = 0;
 		// La direccion de movimiento es hacia izquierda
-		this.dir = Move.LEFT;
+		super(Move.LEFT, new Position(Game.DIM_X, 0), ARMOR, game);
 		this.enabled = false;
 	}
 	
@@ -32,7 +26,8 @@ public class Ufo {
 		return str;
 	}
 	
-	private String getSymbol() {
+	@Override
+	protected String getSymbol() {
 		// Devuelve la representacion ASCII del UFO
 		return Messages.UFO_SYMBOL;
 	}
@@ -79,27 +74,8 @@ public class Ufo {
 		this.life -= dam;
 	}
 	
-	public boolean isAlive() {
-		// Devuelve true, si esta vivo
-		return life > 0;
-	}
-	
-	public int getLife() {
-		// Devuelve la vida actual
-		return life;
-	}
-
-	public Game getGame() {
-		// Devuelve el juego
-		return game;
-	}
-	
-	public Position getPosition() {
-		// Devuelve la posicion actual
-		return this.pos;
-	}
-	
-	public static int getDamage() {
+	@Override
+	protected int getDamage() {
 		// Devuelve el dano
 		return 0;
 	}
@@ -119,19 +95,9 @@ public class Ufo {
 		return Messages.UFO_DESCRIPTION;
 	}
 	
-	public boolean isOnPosition(Position pos) {
-		// Devuelve si las posiciones son iguales
-		return pos.equals(this.pos);
-	}
-	
 	private boolean isOut() {
 		// Devuelve true si esta fuera del tablero
 		return !pos.isOnBoard();
-	}
-	
-	private void performMovement(Move dir) {
-		// Realiza el movimiento en direccion dir
-		pos = pos.move(dir);
 	}
 	
 	private void die() {
@@ -152,6 +118,12 @@ public class Ufo {
 	 */
 	private boolean canGenerateRandomUfo(){
 		return game.getRandom().nextDouble() < game.getLevel().getUfoFrequency();
+	}
+
+	@Override
+	protected int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

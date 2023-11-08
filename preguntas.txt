@@ -1,0 +1,11 @@
+1. Todas las clases heredades tiene que ser abstractas?
+2. canShootBomb puede estar en el AlienShip?
+3. Como imprimir tablero despues del reset?
+4. infoToString vs stateToString en Game
+5. Hace falta anadr object instanceof UCMShip or object instanceof UCMLaser al checkAttacks(EnemyWeapon weapon)
+6. Como hacer que none funcione con 3 comandos("", "n", "none")?
+7. Sistema de recepcion de puntos?
+8. Realizacion de los metodos de Ataque
+9. Cuando llamar onDelete?
+10. ShockWave
+11. Anadir Override y comentarios

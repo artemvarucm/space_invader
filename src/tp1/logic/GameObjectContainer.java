@@ -3,7 +3,11 @@ package tp1.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp1.logic.gameobjects.EnemyShip;
+import tp1.logic.gameobjects.EnemyWeapon;
 import tp1.logic.gameobjects.GameObject;
+import tp1.logic.gameobjects.UCMWeapon;
+import tp1.logic.gameobjects.Weapon;
 
 public class GameObjectContainer {
 
@@ -20,19 +24,69 @@ public class GameObjectContainer {
 	public void remove(GameObject object) {
 		objects.remove(object);
 	}
+	
+	public String toString(Position pos) {
+		StringBuilder builder = new StringBuilder();
+		for (int i=0;i<objects.size();i++) {
+			GameObject object = objects.get(i);
+			if (object.isOnPosition(pos))
+				builder.append(object.toString());
+		}
+		return builder.toString();
+		
+	}
 
 	public void automaticMoves() {
+		// Realiza los movimientos de cada elemento
 		for (int i=0;i<objects.size();i++) {
 				GameObject object = objects.get(i);
+				object.automaticMove();
 			//TODO fill with your code
 		}
 		//TODO fill with your code
+		removeDead();
 	}
 
 	public void computerActions() {
-		// TODO fill with your code
+		// Realiza las computer actions de cada elemento
+		for (int i=0;i<objects.size();i++) {
+			GameObject object = objects.get(i);
+			object.computerAction();
+		}
 	}
 
-	//TODO fill with your code
+	public void removeDead() {
+		// Elimina a objetos muertos de la lista
+		for (int i=0;i<objects.size();i++) {
+			GameObject object = objects.get(i);
+			if (!object.isAlive()) {
+				// Realiza el onDelete, para avisar al destroyer
+				object.onDelete();
+				remove(object);
+			}
+
+		}
+	}
 	
+	public void checkAttacks(UCMWeapon weapon) {
+		// Elimina a objetos muertos de la lista
+		for (int i=0;i<objects.size();i++) {
+			GameObject object = objects.get(i);
+			if (weapon.isAlive() && object.isAlive() && object instanceof EnemyShip && weapon != object) {
+				object.receiveAttack(weapon);
+			}
+
+		}
+	}
+	
+	public void checkAttacks(EnemyWeapon weapon) {
+		// Elimina a objetos muertos de la lista
+		for (int i=0;i<objects.size();i++) {
+			GameObject object = objects.get(i);
+			if (weapon.isAlive() && object.isAlive() && weapon != object) {
+				object.receiveAttack(weapon);
+			}
+
+		}
+	}
 }

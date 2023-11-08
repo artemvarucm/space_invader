@@ -4,32 +4,32 @@ import tp1.control.ExecutionResult;
 import tp1.logic.Game;
 import tp1.view.Messages;
 
-public class ExitCommand extends NoParamsCommand{
-		// Salimos del juego
-	
+public class NoneCommand extends NoParamsCommand{
+		// Saltamos un ciclo
+		  		
 		@Override
 		public ExecutionResult execute(Game game) {
-			game.exit();
-			return new ExecutionResult(false);
+			return new ExecutionResult(true);
 		}
 
 		@Override
 		protected String getName() {
-			return Messages.COMMAND_EXIT_NAME;
+			return Messages.COMMAND_NONE_NAME;
 		}
 
 		@Override
 		protected String getShortcut() {
-			return Messages.COMMAND_EXIT_SHORTCUT;
+			return Messages.COMMAND_NONE_SHORTCUT;
 		}
 
 		@Override
 		protected String getDetails() {
-			return Messages.COMMAND_EXIT_DETAILS;
+			return Messages.COMMAND_NONE_DETAILS;
 		}
 
 		@Override
 		protected String getHelp() {
-			return Messages.COMMAND_EXIT_HELP;
+			return Messages.COMMAND_NONE_HELP;
 		}
+
 	}

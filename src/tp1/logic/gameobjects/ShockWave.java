@@ -10,24 +10,18 @@ import tp1.view.Messages;
  * Class that represents the ShockWave
  *
  */
-public class ShockWave {
+public class ShockWave extends UCMWeapon {
 	private static int DAMAGE = 1;
-	private Game game;
-	int life;
 	public ShockWave(Game game) {
-		this.life = 1;
+		super(null, 1, game);
 		this.game = game;
 	}
-	/*
-	public String toString(Position pos) {
+	
+	@Override
+	public String toString() {
 		// No hace falta por ahora
 		String str = "";
 		return str;
-	}
-	*/
-	public boolean isAlive() {
-		// Devuelve si esta vivo
-		return this.life > 0;
 	}
 	
 	
@@ -37,18 +31,9 @@ public class ShockWave {
 	}
 
 	// PERFORM ATTACK METHODS
-	private void onDelete() {
+	@Override
+	public void onDelete() {
 		// vacio	
-	}
-	
-	public int getLife() {
-		// Devuelve la vida actual
-		return life;
-	}
-
-	public Game getGame() {
-		// Devuelve el juego
-		return game;
 	}
 	
 	public void die() {
@@ -98,5 +83,23 @@ public class ShockWave {
 	private boolean weaponAttack(DestroyerAlien other) {
 		// Llama al metodo recibir ataque de DestroyerAlien
 		return other.receiveAttack(this);	
+	}
+
+	@Override
+	protected String getSymbol() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void automaticMove() {
+		// TODO Auto-generated method stub
+		
 	}
 }

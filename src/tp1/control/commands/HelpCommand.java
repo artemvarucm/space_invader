@@ -5,6 +5,7 @@ import tp1.logic.Game;
 import tp1.view.Messages;
 
 public class HelpCommand extends NoParamsCommand {
+	// Imprime lista de ayudas para cada comando registrado
 
 	@Override
 	protected String getName() {

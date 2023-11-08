@@ -5,39 +5,24 @@ import tp1.logic.lists.DestroyerAlienList;
 import tp1.logic.lists.RegularAlienList;
 import tp1.view.Messages;
 
-public class UCMShip {
+public class UCMShip extends Ship {
 	private static final int ARMOR = 3;
 	private static final int DAMAGE = 1;
-	private Position pos;
-	private int life;
-	private Game game;
 	private int points;
 	private boolean hasShockWave;
 	private boolean canShoot;
-	/*
-	 public UCMShip(Game game, Position position) {
-		//TODO fill with your code
-	}
-	 * */
 
-	public UCMShip(Game game) {
+	public UCMShip(Game game, Position position) {
 		// Posicion inicial - ultima fila en la columna media
-		this.pos = new Position(Game.DIM_X / 2, Game.DIM_Y - 1);
-		this.life = ARMOR;
-		this.game = game;
+		super(game, position, ARMOR);		
 		this.canShoot = true;
 		this.points = 0;
 		this.hasShockWave = false;
 	}
 	
-	public String toString(Position pos) {
+	public String toString() {
 		// Devuelve la representacion de la UCMShip si se encuentra en la posicion pos
-		
-		String str = "";
-		if (isOnPosition(pos)) {
-			str = getSymbol();
-		}
-		return str;
+		return getSymbol();
 	}
 	
 	public String getSymbol() {
@@ -52,41 +37,16 @@ public class UCMShip {
 		}
 		return res;
 	}
-
-	public boolean performMovement(Move dir) {
+	
+	public boolean move(Move move) {
 		/* Realiza el movimiento en la direccion dir
 		 * Devuelve true si queda dentro del tablero despues de moverse
 		 */
 		boolean validMove = true;
-		Position hPos = pos.move(dir);
+		Position hPos = pos.move(move);
 		validMove = hPos.isOnBoard();
 		if (validMove) {
-			this.pos = hPos;
-		} else {
-			//System.out.println(Messages.invalidPosition(hPos.getCol(), hPos.getRow()));
-			System.out.println(Messages.MOVEMENT_ERROR);
-		}
-		
-		return validMove;
-	}
-	
-	public boolean move(String direction) {
-		// Intenta realizar el movimiento en la direccion direction
-		boolean validMove = true;
-		Move dir = null;
-		try {
-			// Convertimos a letras mayusculas
-			dir = Move.valueOf(direction.toUpperCase());
-			if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { 
-				// No se puede ir arriba o abajo
-				throw new IllegalArgumentException();
-			}
-		} catch (IllegalArgumentException e) {
-			validMove = false;
-			System.out.println(Messages.DIRECTION_ERROR + direction);
-		}
-		if (validMove) {
-			validMove = performMovement(dir);
+			performMovement(move);
 		}
 		return validMove;
 	}
@@ -98,7 +58,7 @@ public class UCMShip {
 			// Si puede disparar
 			res = true;
 			// Crea el nuevo laser en la posicion de UCMShip
-			UCMLaser laser = new UCMLaser(game, pos, true);
+			UCMLaser laser = new UCMLaser(game, pos);
 			game.addObject(laser);
 			this.canShoot = false;
 		}
@@ -119,11 +79,6 @@ public class UCMShip {
 		return res;
 	}
 	
-	public boolean isAlive() {
-		// Devuelve true, si esta vivo
-		return life > 0;
-	}
-	
 	public static String getInfo() {
 		// Devuelve la descripcion formateada de UCMShip
 		return Messages.ucmShipDescription(getDescription(), DAMAGE, ARMOR);
@@ -134,12 +89,8 @@ public class UCMShip {
 		return Messages.UCMSHIP_DESCRIPTION;
 	}
 	
-	public boolean isOnPosition(Position pos) {
-		// Devuelve si las posiciones son iguales
-		return pos.equals(this.pos);
-	}
-	
-	public static int getDamage() {
+	@Override
+	public int getDamage() {
 		// Devuelve el dano
 		return DAMAGE;
 	}
@@ -152,21 +103,6 @@ public class UCMShip {
 	public void die() {
 		// Sirve para matar al objeto de forma explicita
 		life = 0;
-	}
-
-	public Position getPos() {
-		// Devuelve la posicion actual
-		return pos;
-	}
-
-	public int getLife() {
-		// Devuelve la vida actual
-		return life;
-	}
-
-	public Game getGame() {
-		// Devuelve el juego
-		return game;
 	}
 	
 	public void enableLaser() {
@@ -230,5 +166,16 @@ public class UCMShip {
 		 */
 		receiveDamage(Bomb.DAMAGE);
 		return !isAlive();
+	}
+
+	@Override
+	public int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void automaticMove() {
+		// TODO Auto-generated method stub
 	}
 }
