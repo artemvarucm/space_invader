@@ -14,6 +14,11 @@ public class UCMShip {
 	private int points;
 	private boolean hasShockWave;
 	private boolean canShoot;
+	/*
+	 public UCMShip(Game game, Position position) {
+		//TODO fill with your code
+	}
+	 * */
 
 	public UCMShip(Game game) {
 		// Posicion inicial - ultima fila en la columna media

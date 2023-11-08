@@ -1,11 +1,13 @@
 package tp1.control;
 
 import static tp1.view.Messages.debug;
-import tp1.logic.gameobjects.RegularAlien;
 
 import java.util.Scanner;
 
+import tp1.control.commands.Command;
+import tp1.control.commands.CommandGenerator;
 import tp1.logic.Game;
+import tp1.view.BoardPrinter;
 import tp1.view.GamePrinter;
 import tp1.view.Messages;
 
@@ -21,7 +23,7 @@ public class Controller {
 	public Controller(Game game, Scanner scanner) {
 		this.game = game;
 		this.scanner = scanner;
-		printer = new GamePrinter(game);
+		printer = new BoardPrinter(game);
 	}
 
 	/**
@@ -38,6 +40,34 @@ public class Controller {
 
 		return words;
 	}
+	
+	/*
+	 public void run() {
+
+		printGame();
+
+		while (!game.isFinished()) {
+			String[] parameters = prompt();
+
+			Command command = CommandGenerator.parse(parameters);
+
+			if (command != null) {
+				ExecutionResult result = command.execute(game);
+				if (result.success()) {
+					if (result.draw())
+						printGame();
+				} 
+				else
+					System.out.println(result.errorMessage());
+			} else {
+				System.out.println(Messages.UNKNOWN_COMMAND);
+			}
+		}
+
+		printEndMessage();
+	}
+	 * 
+	 * */
 
 	/**
 	 * Runs the game logic

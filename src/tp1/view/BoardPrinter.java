@@ -1,31 +1,11 @@
 package tp1.view;
 
-
 import static tp1.util.MyStringUtils.repeat;
 import tp1.logic.Game;
-import tp1.logic.gameobjects.DestroyerAlien;
-import tp1.logic.gameobjects.RegularAlien;
-import tp1.logic.gameobjects.UCMShip;
-import tp1.logic.gameobjects.Ufo;
-import tp1.util.MyStringUtils;
-/*
-
 import tp1.logic.GameStatus;
+import tp1.util.MyStringUtils;
 
-public abstract class GamePrinter {
-	
-	protected GameStatus game;
-	
-	public GamePrinter(GameStatus game) {
-		this.game = game;
-	}
-
-	public abstract String endMessage();
-	
-}
- * 
- * */
-public class GamePrinter {
+public class BoardPrinter extends GamePrinter {
 	
 	private static final String SPACE = " ";
 
@@ -40,13 +20,12 @@ public class GamePrinter {
 	private static final String CELL_BORDER = repeat(CELL_BORDER_CHAR, CELL_SIZE+1);
 
 	private static final String ROW_BORDER = SPACE + repeat(CELL_BORDER, Game.DIM_X) + NEW_LINE;
-
-	private Game game;
-		
-	public GamePrinter(Game game) {
-		this.game = game;
-	}	
 	
+	
+	public BoardPrinter(GameStatus game) {
+		super(game);
+	}
+		
 	/**
 	 * Builds a string that represent the game status
 	 * 
@@ -87,29 +66,14 @@ public class GamePrinter {
 		return str.toString();
 	}
 
-	/**
-	 * Devuelve el mensaje de despedia en el que se indica el ganador y el resultado.
-	 * @return El mensaje con el ganador 
-	 */
 	public String endMessage() {
 		StringBuilder sb = new StringBuilder();
 		
-		if (game.playerWin()) sb.append(Messages.PLAYER_WINS);
-		else if (game.aliensWin()) sb.append(Messages.ALIENS_WIN);
+		if (this.game.playerWin()) sb.append(Messages.PLAYER_WINS);
+		else if (this.game.aliensWin()) sb.append(Messages.ALIENS_WIN);
 		else sb.append(Messages.PLAYER_QUITS);
 		
 		return sb.toString();
-	}
-	
-	public String gameObjectsList() {
-		// Imprime la lista de las naves con su descripcion
-		StringBuilder str = new StringBuilder();
-		// str.append(Messages.AVAILABLE_SHIPS).append(NEW_LINE);
-		str.append(UCMShip.getInfo()).append(NEW_LINE);
-		str.append(RegularAlien.getInfo()).append(NEW_LINE);					
-		str.append(DestroyerAlien.getInfo()).append(NEW_LINE);
-		str.append(Ufo.getInfo()).append(NEW_LINE);
-		return str.toString();
 	}
 }
 
