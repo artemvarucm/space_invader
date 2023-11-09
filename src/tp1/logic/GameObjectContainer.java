@@ -6,6 +6,7 @@ import java.util.List;
 import tp1.logic.gameobjects.EnemyShip;
 import tp1.logic.gameobjects.EnemyWeapon;
 import tp1.logic.gameobjects.GameObject;
+import tp1.logic.gameobjects.UCMShip;
 import tp1.logic.gameobjects.UCMWeapon;
 import tp1.logic.gameobjects.Weapon;
 
@@ -59,7 +60,8 @@ public class GameObjectContainer {
 		// Elimina a objetos muertos de la lista
 		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
-			if (!object.isAlive()) {
+			// No podemos eliminar a UCMShip del tablero
+			if (!object.isAlive() && !(object instanceof UCMShip)) {
 				// Realiza el onDelete, para avisar al destroyer
 				object.onDelete();
 				remove(object);
@@ -72,7 +74,7 @@ public class GameObjectContainer {
 		// Elimina a objetos muertos de la lista
 		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
-			if (weapon.isAlive() && object.isAlive() && object instanceof EnemyShip && weapon != object) {
+			if (weapon.isAlive() && object.isAlive() && weapon != object) {
 				object.receiveAttack(weapon);
 			}
 

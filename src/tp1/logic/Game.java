@@ -15,22 +15,23 @@ public class Game implements GameStatus {
 	private UCMShip player;
 	private GameObjectContainer container;
 	private boolean doExit;
+	private boolean reset;
 	private AlienManager alienManager;
 	
 	public Game(Level level, long seed) {
 		this.level = level;
-		this.doExit = false;
 		this.seed = seed;
-		this.alienManager = new AlienManager(this, level);
-		this.currentCycle = 0;
-		this.rand = new Random(seed);
 		initGame();
 	}
 	
 	private void initGame () {	
-		//TODO fill with your code
-		this.container = alienManager.initialize();		
-		this.player = new UCMShip(this, new Position(DIM_X / 2, DIM_Y - 1));
+		rand = new Random(seed);
+		doExit = false;
+		currentCycle = 0;
+		
+		alienManager = new AlienManager(this, level);
+		container = alienManager.initialize();
+		player = new UCMShip(this, new Position(DIM_X / 2, DIM_Y - 1));
 		container.add(player);
 	}
 
@@ -52,15 +53,21 @@ public class Game implements GameStatus {
 	}
 	
 	public void update() {
-		// Ejecuta un ciclo del juego
-		// Incrementamos contador de ciclos
-		currentCycle++;
-		// Realizamos computer actions
-		container.computerActions();
-		// Realizamos moviemiento de objetos
-		container.automaticMoves();
-		// Eliminamos objetos muertos en las listas
-		//removeDead();
+		if (reset) {
+			// Reseteamos partida
+			initGame();
+			reset = false;
+		} else {
+			// Ejecuta un ciclo del juego
+			// Incrementamos contador de ciclos
+			currentCycle++;
+			// Realizamos computer actions
+			container.computerActions();
+			// Realizamos moviemiento de objetos
+			container.automaticMoves();
+			// Eliminamos objetos muertos en las listas
+			//removeDead();
+		}
 	}
 	
 	/*public void automaticMoves() {
@@ -182,10 +189,6 @@ public class Game implements GameStatus {
 	}
 	
 	public void reset() {		
-		// Reseteamos partida
-		this.alienManager = new AlienManager(this, level);
-		this.currentCycle = 0;
-		this.rand = new Random(seed);
-		initGame();
+		this.reset = true;
 	}
 }

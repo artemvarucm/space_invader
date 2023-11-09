@@ -46,9 +46,11 @@ public class Controller {
 	 */
 	public void run() {
 		// Bucle del juego
-		// Mientras el juego no ha acabado
+		// Imprimimos el estado inicial
 		printGame();
+		// Mientras el juego no ha acabado
 		while(!game.isFinished()) {
+			// Pedimos accion al usuario
 			String[] comandos = prompt();
 			Command command = CommandGenerator.parse(comandos);
 			if (command != null) {
@@ -58,6 +60,7 @@ public class Controller {
 					if (result.draw())
 						printGame();
 				} 
+				
 				else
 					System.out.println(result.errorMessage());
 			} else {

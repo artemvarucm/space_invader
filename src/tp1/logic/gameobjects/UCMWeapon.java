@@ -19,7 +19,6 @@ public abstract class UCMWeapon extends Weapon{
 	protected void die() {
 		// Sirve para matar al objeto de forma explicita
 		this.life = 0;
-		onDelete();
 	}
 	
 	public String toString() {

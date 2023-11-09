@@ -39,7 +39,6 @@ public class Ufo extends EnemyShip {
 		if (!isAlive()) {
 			// Inhabilitamos shockwave
 			game.enableShockWave();
-			onDelete();
 		}
 		return !isAlive();
 	}
@@ -103,7 +102,6 @@ public class Ufo extends EnemyShip {
 	private void die() {
 		// Sirve para matar de forma explicita
 		this.life = 0;
-		onDelete();
 	}
 	
 	public void onDelete() {

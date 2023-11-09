@@ -9,7 +9,7 @@ public class ResetCommand extends NoParamsCommand{
 		@Override
 		public ExecutionResult execute(Game game) {
 			game.reset();
-			return new ExecutionResult(false);
+			return new ExecutionResult(true);
 		}
 
 		@Override

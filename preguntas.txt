@@ -6,6 +6,5 @@
 6. Como hacer que none funcione con 3 comandos("", "n", "none")?
 7. Sistema de recepcion de puntos?
 8. Realizacion de los metodos de Ataque
-9. Cuando llamar onDelete?
 10. ShockWave
 11. Anadir Override y comentarios
