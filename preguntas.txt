@@ -3,9 +3,8 @@
 3. Como imprimir tablero despues del reset?
 4. infoToString vs stateToString en Game
 5. Hace falta anadr object instanceof UCMShip or object instanceof UCMLaser al checkAttacks(EnemyWeapon weapon)
-6. Como hacer que none funcione con 3 comandos("", "n", "none")?
-7. Sistema de recepcion de puntos?
-8. Realizacion de los metodos de Ataque
-10. ShockWave
-11. Anadir Override y comentarios
-12. Cuando matemos al ufo, no se podra generar de nuevo...
+6. Sistema de recepcion de puntos?
+7. Realizacion de los metodos de Ataque
+8. ShockWave
+9. Anadir Override y comentarios
+10. Cuando matemos al ufo, no se podra generar de nuevo...

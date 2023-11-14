@@ -31,5 +31,10 @@ public class NoneCommand extends NoParamsCommand{
 		protected String getHelp() {
 			return Messages.COMMAND_NONE_HELP;
 		}
+		@Override
+		protected boolean matchCommandName(String name) {
+			// Porque debe funcionar con comando vacio tambien
+		    return super.matchCommandName(name) || name.isBlank();
+	  }
 
 	}
