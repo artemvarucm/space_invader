@@ -8,3 +8,4 @@
 8. Realizacion de los metodos de Ataque
 10. ShockWave
 11. Anadir Override y comentarios
+12. Cuando matemos al ufo, no se podra generar de nuevo...
