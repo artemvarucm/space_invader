@@ -17,7 +17,7 @@ public class UCMShip extends Ship {
 		super(game, position, ARMOR);		
 		this.canShoot = true;
 		this.points = 0;
-		this.hasShockWave = false;
+		this.hasShockWave = true;
 	}
 	
 	@Override
@@ -77,19 +77,18 @@ public class UCMShip extends Ship {
 		return res;
 	}
 	
-	/*public boolean executeShockWave(Game game, RegularAlienList regularAliens, DestroyerAlienList destroyerAliens) {
+	public boolean executeShockWave(Game game) {
 		// Ejecuta el disparo del ShockWave
 		boolean res = false;
 		if (hasShockWave()) {
 			disableShockWave();
 			ShockWave shockWave = new ShockWave(game);
-			regularAliens.checkAttacks(shockWave);
-			destroyerAliens.checkAttacks(shockWave);
-			shockWave.die();
+			game.performAttack(shockWave);
+			shockWave.onDelete();
 			res = true;
 		}
 		return res;
-	}*/
+	}
 	
 	public static String getInfo() {
 		// Devuelve la descripcion formateada de UCMShip

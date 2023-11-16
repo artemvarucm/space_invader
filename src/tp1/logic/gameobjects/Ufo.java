@@ -93,14 +93,13 @@ public class Ufo extends EnemyShip {
 	private void die() {
 		// Sirve para matar de forma explicita
 		this.life = 0;
+		onDelete();
 	}
 	
 	@Override
 	public void onDelete() {
 		// Al morir, puede volver a generarse
 		enabled = false;
-		// recibe puntos
-		game.receivePoints(getPoints());
 	}
 	
 	/**
@@ -116,6 +115,20 @@ public class Ufo extends EnemyShip {
 	protected int getArmour() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public boolean receiveAttack(UCMWeapon weapon) {
+		// Recibe ataque del weapon
+		
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			game.enableShockWave();
+			// recibe puntos
+			game.receivePoints(getPoints());
+			onDelete();
+		}
+		return !isAlive();
 	}
 	
 }

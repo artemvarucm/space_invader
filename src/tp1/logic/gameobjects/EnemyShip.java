@@ -21,11 +21,9 @@ public abstract class EnemyShip extends Ship {
 	@Override
 	public boolean receiveAttack(UCMWeapon weapon) {
 		// Recibe ataque del weapon
-		if (weapon.isAlive() && isAlive() && pos.equals(weapon.getPos())) {
-			receiveDamage(weapon.getDamage());
-			if (!isAlive()) {
-				onDelete();
-			}
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			onDelete();
 		}
 		return !isAlive();
 	}

@@ -52,18 +52,17 @@ public class GameObjectContainer {
 	
 	public void checkAttacks(EnemyWeapon weapon) {
 		// Elimina a objetos muertos de la lista
-		for (int i=0;i<objects.size();i++) {
+		for (int i = objects.size() - 1;i > 0;i--) {
 			GameObject object = objects.get(i);
 			if (!weapon.equals(object)) {
 				weapon.performAttack(object);
 			}
-
 		}
 	}
 	
 	public void checkAttacks(UCMWeapon weapon) {
 		// Elimina a objetos muertos de la lista
-		for (int i=0;i<objects.size();i++) {
+		for (int i = objects.size() - 1;i > 0;i--) {
 			GameObject object = objects.get(i);
 			if (!weapon.equals(object)) {
 				weapon.performAttack(object);

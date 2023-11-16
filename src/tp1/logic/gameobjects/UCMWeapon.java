@@ -36,7 +36,8 @@ public abstract class UCMWeapon extends Weapon{
 		return !isAlive();
 	}
 	
-	public boolean performAttack(GameObject other) {
+	@Override
+	public boolean performAttack(GameItem other) {
 		// Realiza el ataque. Devuelve true si el UCMShip esta muerto
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
@@ -61,7 +62,7 @@ public abstract class UCMWeapon extends Weapon{
 		}
 	}
 	
-	protected boolean weaponAttack(GameObject other) {
+	protected boolean weaponAttack(GameItem other) {
 		return other.receiveAttack(this);	
 	}
 }

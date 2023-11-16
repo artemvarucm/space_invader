@@ -8,3 +8,4 @@
 8. ShockWave
 9. Anadir Override y comentarios
 10. Cuando matemos al ufo, no se podra generar de nuevo...
+11. ShockWave no debe matar bombas

@@ -33,6 +33,15 @@ public class ShockWave extends UCMWeapon {
 	public void onDelete() {
 		// vacio	
 	}
+	
+	@Override
+	public boolean performAttack(GameItem other) {
+		if (other.isAlive()) {
+			// Si se cumplen las condiciones
+			weaponAttack(other);
+		}
+		return false;
+	}	
 
 	/**
 	 * Method that implements the attack by the laser to a regular alien.

@@ -105,8 +105,7 @@ public class Game implements GameStatus {
 	
 	public boolean shockWave() {
 		// Ejecuta shockwave
-		return false;
-		//return player.executeShockWave(this, regularAliens, destroyerAliens);
+		return player.executeShockWave(this);
 	}
 
 	@Override
