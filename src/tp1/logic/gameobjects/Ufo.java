@@ -31,17 +31,6 @@ public class Ufo extends EnemyShip {
 		return Messages.UFO_SYMBOL;
 	}
 	
-	public boolean receiveAttack(UCMLaser laser) {
-		// Recibe el ataque del laser
-		// Devuelve true si se ha muerto
-		receiveDamage(UCMLaser.DAMAGE);
-		if (!isAlive()) {
-			// Inhabilitamos shockwave
-			game.enableShockWave();
-		}
-		return !isAlive();
-	}
-	
 	@Override
 	public void computerAction() {
 		// Intenta generar el ufo
@@ -81,7 +70,7 @@ public class Ufo extends EnemyShip {
 		return 0;
 	}
 	
-	public static int getPoints() {
+	public int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
@@ -110,6 +99,8 @@ public class Ufo extends EnemyShip {
 	public void onDelete() {
 		// Al morir, puede volver a generarse
 		enabled = false;
+		// recibe puntos
+		game.receivePoints(getPoints());
 	}
 	
 	/**

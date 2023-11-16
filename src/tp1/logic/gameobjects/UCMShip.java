@@ -3,8 +3,6 @@ package tp1.logic.gameobjects;
 import tp1.logic.Game;
 import tp1.logic.Move;
 import tp1.logic.Position;
-import tp1.logic.lists.DestroyerAlienList;
-import tp1.logic.lists.RegularAlienList;
 import tp1.view.Messages;
 
 public class UCMShip extends Ship {
@@ -20,6 +18,16 @@ public class UCMShip extends Ship {
 		this.canShoot = true;
 		this.points = 0;
 		this.hasShockWave = false;
+	}
+	
+	@Override
+	public boolean receiveAttack(EnemyWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			onDelete();
+		}
+		return !isAlive();
 	}
 	
 	@Override
@@ -69,7 +77,7 @@ public class UCMShip extends Ship {
 		return res;
 	}
 	
-	public boolean executeShockWave(Game game, RegularAlienList regularAliens, DestroyerAlienList destroyerAliens) {
+	/*public boolean executeShockWave(Game game, RegularAlienList regularAliens, DestroyerAlienList destroyerAliens) {
 		// Ejecuta el disparo del ShockWave
 		boolean res = false;
 		if (hasShockWave()) {
@@ -81,7 +89,7 @@ public class UCMShip extends Ship {
 			res = true;
 		}
 		return res;
-	}
+	}*/
 	
 	public static String getInfo() {
 		// Devuelve la descripcion formateada de UCMShip
@@ -166,14 +174,6 @@ public class UCMShip extends Ship {
 		return result.toString();
 	}
 	
-	public boolean receiveAttack(Bomb other) {
-		/* Recibe el danio de la bomba
-		 * Devuelve true si esta muerta la UCMShip
-		 */
-		receiveDamage(Bomb.DAMAGE);
-		return !isAlive();
-	}
-
 	@Override
 	public int getArmour() {
 		// TODO Auto-generated method stub

@@ -15,8 +15,7 @@ public class UCMLaser extends UCMWeapon {
 	public static int DAMAGE = 1;
 	private Move dir;
 	public UCMLaser(Game game, Position pos) {
-		super(new Position(pos), ARMOR, game);
-		this.dir = Move.UP;
+		super(Move.UP, new Position(pos), ARMOR, game);
 	}
 	
 	@Override
@@ -38,19 +37,7 @@ public class UCMLaser extends UCMWeapon {
 	public void onDelete() {
 		// Si se ha muerto, la nave puede volver a lanzar el laser
 		game.enableLaser();
-	}
-	
-	@Override
-	public void automaticMove () {
-		// Realiza el movimiento de la bomba
-		performMovement(dir);
-		if(isOut()) {
-			// Si ha salido fuera del tablero, muere
-			die();
-		} else {
-			// Intenta atacar a alguien despues de moverse
-			//game.performAttack(this);
-		}
+		game.removeObject(this);
 	}
 
 	// PERFORM ATTACK METHODS
@@ -62,61 +49,6 @@ public class UCMLaser extends UCMWeapon {
 	 * @param other the regular alien possibly under attack
 	 * @return <code>true</code> if the alien has been attacked by the laser.
 	 */
-	public boolean performAttack(RegularAlien other) {
-		// Realiza el ataque sobre RegularAlien. Devuelve true si el RegularAlien esta muerto
-		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			res = weaponAttack(other);
-			if (res) {
-				// Si ha muerto la nave
-				game.receivePoints(RegularAlien.getPoints());
-			}
-			// Eliminamos laser despues del ataque
-			die();
-		}
-		return res;
-	}
-	
-	public boolean performAttack(DestroyerAlien other) {
-		// Realiza el ataque sobre DestroyerAlien. Devuelve true si el DestroyerAlien esta muerto
-		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			res = weaponAttack(other);
-			if (res) {
-				// Si ha muerto la nave
-				game.receivePoints(DestroyerAlien.getPoints());
-			}
-			// Eliminamos laser despues del ataque
-			die();
-		}
-		return res;
-	}
-	
-	public boolean performAttack(Ufo other) {
-		// Realiza el ataque sobre Ufo. Devuelve true si el UFo esta muerto
-		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			res = weaponAttack(other);
-			if (res) {
-				// Si ha muerto la nave
-				game.receivePoints(Ufo.getPoints());
-			}
-			// Eliminamos laser despues del ataque
-			die();
-		}
-		return res;
-	}
-	
-	public boolean performAttack(Bomb other) {
-		// Realiza el ataque sobre Bomba. Devuelve true si la Bomba esta muerta
-		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			res = weaponAttack(other);
-			// Eliminamos laser despues del ataque
-			die();
-		}
-		return res;
-	}
 
 	//ACTUAL ATTACK METHODS
 	

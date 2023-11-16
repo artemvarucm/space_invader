@@ -77,8 +77,9 @@ public abstract class GameObject implements GameItem {
 	public boolean receiveAttack(EnemyWeapon weapon) {
 		// Recibe el ataque del enemyweapon
 		// Devuelve true si se ha muerto el atacado
-		receiveDamage(weapon.getDamage());
-		return !isAlive();
+		//receiveDamage(weapon.getDamage());
+		//return !isAlive();
+		return false;
 	}
 
 	@Override

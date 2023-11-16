@@ -1,8 +1,14 @@
 package tp1.logic;
 
 import java.util.Random;
-import tp1.logic.lists.*;
-import tp1.logic.gameobjects.*;
+
+import tp1.logic.gameobjects.DestroyerAlien;
+import tp1.logic.gameobjects.EnemyWeapon;
+import tp1.logic.gameobjects.GameObject;
+import tp1.logic.gameobjects.RegularAlien;
+import tp1.logic.gameobjects.UCMShip;
+import tp1.logic.gameobjects.UCMWeapon;
+import tp1.logic.gameobjects.Ufo;
 
 public class Game implements GameStatus {
 	public static final int DIM_X = 9; // COLUMNAS
@@ -42,11 +48,13 @@ public class Game implements GameStatus {
 		return player.stateToString();
 	}
 
+	@Override
 	public String stateToString() {
 		// Devuelve el estado del jugador en formato String
 		return player.stateToString();
 	}
 	
+	@Override
 	public String positionToString(int col, int row) {
 		// Devuelve lo que hay que mostrar por pantalla para la posicion (col, row)
 		return container.toString(new Position(col, row));	
@@ -70,34 +78,14 @@ public class Game implements GameStatus {
 		}
 	}
 	
-	/*public void automaticMoves() {
-		// Realizamos moviemiento de objetos
-		
-		// En este ciclo los aliens se moveran hacia abajo, 
-		// necesitamos ver si el laser puede atacarles despues de moverlos
-		boolean isDescending = alienManager.onBorder(); 
-		
-		regularAliens.automaticMoves();
-		destroyerAliens.automaticMoves();
-		if (isDescending) {
-			// Atacamos con el laser, para que no se entrecruze la nave y el laser,
-			// y sigan vivos, al enfrentarse
-			performAttack(laser);
-		}
-		
-		ufo.automaticMove();
-		bombs.automaticMoves();
-		laser.automaticMove();
-	}*/
-	
-	public void performAttack(UCMLaser laser) {
-		// Realiza el ataque del laser
-		container.checkAttacks(laser);
+	public void performAttack(EnemyWeapon weapon) {
+		// Realiza el ataque de bomba
+		container.checkAttacks(weapon);
 	}
 	
-	public void performAttack(Bomb bomb) {
-		// Realiza el ataque de la bomba
-		container.checkAttacks(bomb);
+	public void performAttack(UCMWeapon weapon) {
+		// Realiza el ataque del laser
+		container.checkAttacks(weapon);
 	}
 	
 	public boolean move(Move move) {
@@ -121,21 +109,25 @@ public class Game implements GameStatus {
 		//return player.executeShockWave(this, regularAliens, destroyerAliens);
 	}
 
+	@Override
 	public int getCycle() {
 		// Devuelve ciclo actual
 		return currentCycle;
 	}
 
+	@Override
 	public int getRemainingAliens() {
 		// Devuelve numero de aliens restantes
 		return alienManager.getRemainingAliens();
 	}
 	
+	@Override
 	public boolean playerWin() {
 		// Devuelve true si el jugador ha ganado
 		return player.isAlive() && alienManager.allAlienDead();
 	}
 
+	@Override
 	public boolean aliensWin() {
 		// Devuelve true si aliens han ganado
 		return !player.isAlive() || alienManager.haveLanded();
@@ -171,6 +163,11 @@ public class Game implements GameStatus {
 		container.add(object);
 	}
 	
+	public void removeObject(GameObject object) {
+		// Anadimos laser al juego
+		container.remove(object);
+	}
+	
 	public void exit() {
 		// Para salir del juego
 		doExit = true;
@@ -191,4 +188,24 @@ public class Game implements GameStatus {
 	public void reset() {		
 		this.reset = true;
 	}
+	
+	/*public void automaticMoves() {
+	// Realizamos moviemiento de objetos
+	
+	// En este ciclo los aliens se moveran hacia abajo, 
+	// necesitamos ver si el laser puede atacarles despues de moverlos
+	boolean isDescending = alienManager.onBorder(); 
+	
+	regularAliens.automaticMoves();
+	destroyerAliens.automaticMoves();
+	if (isDescending) {
+		// Atacamos con el laser, para que no se entrecruze la nave y el laser,
+		// y sigan vivos, al enfrentarse
+		performAttack(laser);
+	}
+	
+	ufo.automaticMove();
+	bombs.automaticMoves();
+	laser.automaticMove();
+	}*/
 }

@@ -22,11 +22,6 @@ public class Bomb extends EnemyWeapon {
 	}
 	
 	@Override
-	public void computerAction() {
-		// vacio
-	}
-	
-	@Override
 	public int getDamage() {
 		// Devuelve el dano
 		return Bomb.DAMAGE;
@@ -38,7 +33,8 @@ public class Bomb extends EnemyWeapon {
 	@Override
 	public void onDelete() {
 		// Si se ha muerto, mandar senal al destroyer de que puede volver a lanzar la bomba
-		owner.enableBomb();		
+		owner.enableBomb();
+		game.removeObject(this);
 	}
 
 	

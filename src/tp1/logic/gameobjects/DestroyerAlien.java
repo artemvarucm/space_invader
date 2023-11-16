@@ -40,7 +40,8 @@ public class DestroyerAlien extends AlienShip {
 		return DAMAGE;
 	}
 	
-	public static int getPoints() {
+	@Override
+	public int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
@@ -74,31 +75,6 @@ public class DestroyerAlien extends AlienShip {
 	private boolean canGenerateRandomBomb() {
 		return game.getRandom().nextDouble() < game.getLevel().getShootFrequency();
 		
-	}
-	
-	public boolean receiveAttack(UCMLaser laser) {
-		// Recibe ataque del laser
-		receiveDamage(UCMLaser.DAMAGE);
-		if (!isAlive()) {
-			// Notifica al alienManager de alien muerto
-			alienManager.alienDead();
-		}
-		return !isAlive();
-	}
-	
-	public boolean receiveAttack(ShockWave shockWave) {
-		// Recibe ataque del shockwave
-		receiveDamage(shockWave.getDamage());
-		if (!isAlive()) {
-			// Notifica al alienManager de alien muerto
-			alienManager.alienDead();
-		}
-		return !isAlive();
-	}
-	
-	@Override
-	public void onDelete() {
-		// vacio
 	}
 
 	@Override

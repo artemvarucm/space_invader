@@ -71,7 +71,7 @@ public class RegularAlien extends AlienShip {
 	public RegularAlien (Position pos, int speed, Game game, AlienManager alienManager) {
 		super(pos, speed, ARMOR, game, alienManager);
 	}
-	
+ 
 	@Override
 	protected String getSymbol() {
 		// Devuelve la representacion ASCII de RegularAlien
@@ -84,7 +84,8 @@ public class RegularAlien extends AlienShip {
 		return 0;
 	}
 	
-	public static int getPoints() {
+	@Override
+	public int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
@@ -104,38 +105,9 @@ public class RegularAlien extends AlienShip {
 	 */
 	
 	@Override
-	public void computerAction() {
-		// vacio
-	}
-	
-	public boolean receiveAttack(UCMLaser laser) {
-		// Recibe ataque del laser
-		receiveDamage(UCMLaser.DAMAGE);
-		if (!isAlive()) {
-			// Notifica al alienManager de alien muerto
-			alienManager.alienDead();
-		}
-		return !isAlive();
-	}
-	
-	public boolean receiveAttack(ShockWave shockWave) {
-		// Notifica al alienManager de alien muerto
-		receiveDamage(shockWave.getDamage());
-		if (!isAlive()) {
-			alienManager.alienDead();
-		}
-		return !isAlive();
-	}
-	
-	@Override
 	public void receiveDamage(int dam) {
 		// Recibe el danio indicado en dam
 		this.life -= dam;
-	}
-	
-	@Override
-	public void onDelete() {
-		// vacio
 	}
 
 	@Override

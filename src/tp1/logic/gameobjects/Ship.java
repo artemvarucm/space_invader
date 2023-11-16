@@ -8,4 +8,5 @@ public abstract class Ship extends GameObject{
 	public Ship(Game game, Position pos, int armor) {
 		super(game, pos, armor);
 	}
+	// anadir abstract getdescription
 }

@@ -1,35 +1,14 @@
-package tp1.logic.gameobjects;
+ package tp1.logic.gameobjects;
 
 import tp1.logic.Game;
 import tp1.logic.Move;
 import tp1.logic.Position;
 
 public abstract class EnemyWeapon extends Weapon{
-	protected Move dir;
 	public EnemyWeapon (Move dir, Position pos, int armor, Game game) {
-		super(game, pos, armor);
-		this.dir = dir;
+		super(dir, game, pos, armor);
+		//this.dir = dir;
 	}
-	
-	@Override
-	public void automaticMove () {
-		// Realiza el movimiento de la bomba
-		performMovement(dir);
-		if(isOut()) {
-			// Si ha salido fuera del tablero, muere
-			die();
-		} else {
-			// Intenta atacar a alguien despues de moverse
-			//game.performAttack(this);
-		}
-	}
-	
-	private boolean isOut() {
-		// Devuelve true si el objeto esta fuera del tablero
-		return !pos.isOnBoard();
-	}
-	
-	
 	
 	@Override
 	public String toString() {
@@ -39,11 +18,34 @@ public abstract class EnemyWeapon extends Weapon{
 		return getSymbol();
 	}
 	
-	// PERFORM ATTACK METHODS
+	public boolean performAttack(GameObject other) {
+		// Realiza el ataque. Devuelve true si other esta muerto
+		boolean res = false;
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
+			// Si se cumplen las condiciones
+			weaponAttack(other);
+			// Eliminamos weapon
+			onDelete();
+		}
+		return res;
+	}	
+	
 	@Override
-	protected boolean weaponAttack(GameObject other) {
-		return other.receiveAttack(this);	
+	public void automaticMove () {
+		// Realiza el movimiento de la bomba
+		performMovement(dir);
+		if(!pos.isOnBoard()) {
+			// Si ha salido fuera del tablero, muere
+			onDelete();
+		} else {
+			// Intenta atacar a alguien despues de moverse
+			game.performAttack(this);
+		}
 	}
 	
+	// PERFORM ATTACK METHODS
 	
+	protected boolean weaponAttack(GameObject other) {
+		return other.receiveAttack(this);	
+	}	
 }

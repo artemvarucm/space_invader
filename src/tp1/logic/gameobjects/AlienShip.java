@@ -47,7 +47,19 @@ public abstract class AlienShip extends EnemyShip {
 		}
 	}
 	
-	protected void shootBomb() {};
+	@Override
+	public void onDelete() {
+		alienManager.alienDead();
+		// recibimos puntos
+		game.receivePoints(getPoints());
+		game.removeObject(this);
+	}
+	
+	abstract protected int getPoints();
+	
+	protected void shootBomb() {
+		// FIXME VACIO
+	};
 	
 	private void descend() {
 		// Baja una fila el Regular
