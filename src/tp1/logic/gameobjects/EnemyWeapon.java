@@ -18,17 +18,29 @@ public abstract class EnemyWeapon extends Weapon{
 		return getSymbol();
 	}
 	
-	public boolean performAttack(GameObject other) {
+	@Override
+	public boolean performAttack(GameItem other) {
 		// Realiza el ataque. Devuelve true si other esta muerto
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			// Si se cumplen las condiciones
 			weaponAttack(other);
 			// Eliminamos weapon
-			onDelete();
+			//onDelete();
+			this.life = 0;
 		}
 		return res;
 	}	
+	
+	@Override
+	public boolean receiveAttack(UCMWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			this.life = 0; // FIXME die
+		}
+		return !isAlive();
+	}
 	
 	@Override
 	public void automaticMove () {
@@ -36,7 +48,7 @@ public abstract class EnemyWeapon extends Weapon{
 		performMovement(dir);
 		if(!pos.isOnBoard()) {
 			// Si ha salido fuera del tablero, muere
-			onDelete();
+			this.life = 0;
 		} else {
 			// Intenta atacar a alguien despues de moverse
 			game.performAttack(this);
@@ -45,7 +57,7 @@ public abstract class EnemyWeapon extends Weapon{
 	
 	// PERFORM ATTACK METHODS
 	
-	protected boolean weaponAttack(GameObject other) {
+	protected boolean weaponAttack(GameItem other) {
 		return other.receiveAttack(this);	
 	}	
 }

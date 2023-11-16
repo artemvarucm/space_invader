@@ -16,11 +16,12 @@ public class Ufo extends EnemyShip {
 		this.enabled = false;
 	}
 	
-	public String toString(Position pos) {
+	@Override
+	public String toString() {
 		// Devuelve la representacion de la Bomba
 		String str = "";
-		if (isAlive() && isOnPosition(pos)) {
-			str = " " + getSymbol() + "[" + String.format("%02d", life) + "]";
+		if (isAlive()) {
+			str = super.toString();
 		}
 		return str;
 	}
@@ -70,6 +71,7 @@ public class Ufo extends EnemyShip {
 		return 0;
 	}
 	
+	@Override
 	public int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
@@ -126,7 +128,6 @@ public class Ufo extends EnemyShip {
 			game.enableShockWave();
 			// recibe puntos
 			game.receivePoints(getPoints());
-			onDelete();
 		}
 		return !isAlive();
 	}

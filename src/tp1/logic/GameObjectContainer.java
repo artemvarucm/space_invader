@@ -40,6 +40,7 @@ public class GameObjectContainer {
 				GameObject object = objects.get(i);
 				object.automaticMove();
 		}
+		remodeDead();
 	}
 
 	public void computerActions() {
@@ -51,8 +52,7 @@ public class GameObjectContainer {
 	}
 	
 	public void checkAttacks(EnemyWeapon weapon) {
-		// Elimina a objetos muertos de la lista
-		for (int i = objects.size() - 1;i > 0;i--) {
+		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
 			if (!weapon.equals(object)) {
 				weapon.performAttack(object);
@@ -61,11 +61,21 @@ public class GameObjectContainer {
 	}
 	
 	public void checkAttacks(UCMWeapon weapon) {
-		// Elimina a objetos muertos de la lista
-		for (int i = objects.size() - 1;i > 0;i--) {
+		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
 			if (!weapon.equals(object)) {
 				weapon.performAttack(object);
+			}
+
+		}
+	}
+	
+	public void remodeDead() {
+		// Elimina a objetos muertos de la lista
+		for (int i=objects.size() - 1; i >= 0; i--) {
+			GameObject object = objects.get(i);
+			if (!object.isAlive()) {
+				object.onDelete();
 			}
 
 		}

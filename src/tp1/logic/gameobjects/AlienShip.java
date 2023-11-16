@@ -49,14 +49,9 @@ public abstract class AlienShip extends EnemyShip {
 	
 	@Override
 	public void onDelete() {
-		alienManager.alienDead();
-		// recibimos puntos
-		game.receivePoints(getPoints());
 		game.removeObject(this);
 	}
-	
-	abstract protected int getPoints();
-	
+		
 	protected void shootBomb() {
 		// FIXME VACIO
 	};
@@ -85,4 +80,17 @@ public abstract class AlienShip extends EnemyShip {
 		// Devuelve true si esta en la ultima fila(donde esta UCMShip)
 		return pos.getRow() == Game.DIM_Y - 1;
 	}	
+	
+	@Override
+	public boolean receiveAttack(UCMWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			// FIXME ver si ha bajado
+			alienManager.alienDead();
+			// recibimos puntos
+			game.receivePoints(getPoints());
+		}
+		return !isAlive();
+	}
 }

@@ -31,7 +31,7 @@ public abstract class UCMWeapon extends Weapon{
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
 		if (!isAlive()) {
-			onDelete();
+			this.life = 0; // FIXME die
 		}
 		return !isAlive();
 	}
@@ -44,7 +44,7 @@ public abstract class UCMWeapon extends Weapon{
 			// Si se cumplen las condiciones
 			weaponAttack(other);
 			// Eliminamos weapon
-			onDelete();
+			this.life = 0; // FIXME die
 		}
 		return res;
 	}	
@@ -55,7 +55,7 @@ public abstract class UCMWeapon extends Weapon{
 		performMovement(dir);
 		if(!pos.isOnBoard()) {
 			// Si ha salido fuera del tablero, muere
-			onDelete();
+			this.life = 0;
 		} else {
 			// Intenta atacar a alguien despues de moverse
 			game.performAttack(this);

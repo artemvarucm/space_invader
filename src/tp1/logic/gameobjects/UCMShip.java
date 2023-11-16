@@ -17,16 +17,16 @@ public class UCMShip extends Ship {
 		super(game, position, ARMOR);		
 		this.canShoot = true;
 		this.points = 0;
-		this.hasShockWave = true;
+		this.hasShockWave = false;
 	}
 	
 	@Override
 	public boolean receiveAttack(EnemyWeapon weapon) {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			onDelete();
-		}
+		//if (!isAlive()) {
+		//	onDelete();
+		//}
 		return !isAlive();
 	}
 	

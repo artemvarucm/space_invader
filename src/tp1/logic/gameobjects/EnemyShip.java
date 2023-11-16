@@ -18,15 +18,6 @@ public abstract class EnemyShip extends Ship {
 		return " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 	}
 	
-	@Override
-	public boolean receiveAttack(UCMWeapon weapon) {
-		// Recibe ataque del weapon
-		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			onDelete();
-		}
-		return !isAlive();
-	}
-	
+	abstract protected int getPoints();
 }
 // anadir receive attack weapon con weapon.getDamage()
