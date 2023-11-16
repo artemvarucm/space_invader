@@ -40,7 +40,7 @@ public class GameObjectContainer {
 				GameObject object = objects.get(i);
 				object.automaticMove();
 		}
-		remodeDead();
+		removeDead();
 	}
 
 	public void computerActions() {
@@ -70,7 +70,7 @@ public class GameObjectContainer {
 		}
 	}
 	
-	public void remodeDead() {
+	public void removeDead() {
 		// Elimina a objetos muertos de la lista
 		for (int i=objects.size() - 1; i >= 0; i--) {
 			GameObject object = objects.get(i);
