@@ -1,9 +1,6 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Game;
-import tp1.logic.Move;
-import tp1.logic.Position;
-import tp1.view.Messages;
 
 /**
  * 
@@ -25,6 +22,7 @@ public class ShockWave extends UCMWeapon {
 	}
 	
 	
+	@Override
 	public int getDamage() {
 		// Devuelve el danio
 		return DAMAGE;
@@ -36,6 +34,7 @@ public class ShockWave extends UCMWeapon {
 		// vacio	
 	}
 	
+	@Override
 	public void die() {
 		// Sirve para matar de forma explicita
 		this.life = 0;

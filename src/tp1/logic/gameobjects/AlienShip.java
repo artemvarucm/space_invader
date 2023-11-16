@@ -20,6 +20,7 @@ public abstract class AlienShip extends EnemyShip {
 		this.alienManager = alienManager;
 	}
 
+	@Override
 	public void automaticMove() {
 		// Realiza el movimiento del Regular
 		if (isAlive()) {

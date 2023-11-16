@@ -5,7 +5,6 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-
 public class Bomb extends EnemyWeapon {
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
@@ -22,10 +21,12 @@ public class Bomb extends EnemyWeapon {
 		return Messages.BOMB_SYMBOL;
 	}
 	
+	@Override
 	public void computerAction() {
 		// vacio
 	}
 	
+	@Override
 	public int getDamage() {
 		// Devuelve el dano
 		return Bomb.DAMAGE;
@@ -34,6 +35,7 @@ public class Bomb extends EnemyWeapon {
 	/**
 	 *  Method called when the bomb disappears from the board
 	 */
+	@Override
 	public void onDelete() {
 		// Si se ha muerto, mandar senal al destroyer de que puede volver a lanzar la bomba
 		owner.enableBomb();		

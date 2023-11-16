@@ -25,6 +25,7 @@ public class UCMLaser extends UCMWeapon {
 		return Messages.LASER_SYMBOL;
 	}
 	
+	@Override
 	public int getDamage() {
 		// Devuelve el dano
 		return UCMLaser.DAMAGE;
@@ -33,11 +34,13 @@ public class UCMLaser extends UCMWeapon {
 	/**
 	 *  Method called when the laser disappears from the board
 	 */
+	@Override
 	public void onDelete() {
 		// Si se ha muerto, la nave puede volver a lanzar el laser
 		game.enableLaser();
 	}
 	
+	@Override
 	public void automaticMove () {
 		// Realiza el movimiento de la bomba
 		performMovement(dir);

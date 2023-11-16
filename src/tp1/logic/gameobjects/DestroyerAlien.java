@@ -2,8 +2,6 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.AlienManager;
 import tp1.logic.Game;
-import tp1.logic.Level;
-import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -57,6 +55,7 @@ public class DestroyerAlien extends AlienShip {
 		return Messages.DESTROYER_ALIEN_DESCRIPTION;
 	}
 	
+	@Override
 	public void computerAction() {
 		// Realiza la revision si puede generar bomba
 		if (cyclesToMove != 0 && canShootBomb && canGenerateRandomBomb()) {
@@ -97,6 +96,7 @@ public class DestroyerAlien extends AlienShip {
 		return !isAlive();
 	}
 	
+	@Override
 	public void onDelete() {
 		// vacio
 	}

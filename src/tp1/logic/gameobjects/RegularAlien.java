@@ -2,7 +2,6 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.AlienManager;
 import tp1.logic.Game;
-import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 /*
@@ -62,7 +61,7 @@ public class RegularAlien extends GameObject {
 /**
  * 
  * Class representing a regular alien
- *
+ * 
  */
 public class RegularAlien extends AlienShip {
 	public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
@@ -104,6 +103,7 @@ public class RegularAlien extends AlienShip {
 	 *  Implements the automatic movement of the regular alien	
 	 */
 	
+	@Override
 	public void computerAction() {
 		// vacio
 	}
@@ -127,11 +127,13 @@ public class RegularAlien extends AlienShip {
 		return !isAlive();
 	}
 	
+	@Override
 	public void receiveDamage(int dam) {
 		// Recibe el danio indicado en dam
 		this.life -= dam;
 	}
 	
+	@Override
 	public void onDelete() {
 		// vacio
 	}

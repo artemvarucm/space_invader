@@ -1,6 +1,5 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.AlienManager;
 import tp1.logic.Game;
 import tp1.logic.Move;
 import tp1.logic.Position;
@@ -12,6 +11,7 @@ public abstract class EnemyWeapon extends Weapon{
 		this.dir = dir;
 	}
 	
+	@Override
 	public void automaticMove () {
 		// Realiza el movimiento de la bomba
 		performMovement(dir);
@@ -31,6 +31,7 @@ public abstract class EnemyWeapon extends Weapon{
 	
 	
 	
+	@Override
 	public String toString() {
 		/* Devuelve la representacion
 		 Hasta aqui solo llegan los vivos, no hace falta isAlive()

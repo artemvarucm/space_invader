@@ -70,9 +70,7 @@ public class MoveCommand extends Command {
 				// Devolvemos el nuevo comando creado
 				com = new MoveCommand(dir);
 			}
-			
 		}
 		return com;
 	}
-
 }

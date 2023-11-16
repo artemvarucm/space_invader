@@ -18,3 +18,4 @@ public abstract class EnemyShip extends Ship {
 		return " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 	}
 }
+// anadir receive attack weapon con weapon.getDamage()

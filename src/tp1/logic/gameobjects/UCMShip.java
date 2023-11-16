@@ -1,6 +1,8 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.*;
+import tp1.logic.Game;
+import tp1.logic.Move;
+import tp1.logic.Position;
 import tp1.logic.lists.DestroyerAlienList;
 import tp1.logic.lists.RegularAlienList;
 import tp1.view.Messages;
@@ -20,11 +22,13 @@ public class UCMShip extends Ship {
 		this.hasShockWave = false;
 	}
 	
+	@Override
 	public String toString() {
 		// Devuelve la representacion de la UCMShip si se encuentra en la posicion pos
 		return getSymbol();
 	}
 	
+	@Override
 	public String getSymbol() {
 		/* Devuelve el caracter/caracteres ASCII del UCMShip
 		Cambia si esta vivo, o muerto
@@ -95,6 +99,7 @@ public class UCMShip extends Ship {
 		return DAMAGE;
 	}
 
+	@Override
 	public void receiveDamage(int dam) {
 		// Recibe el danio indicado en dam
 		this.life -= dam;
@@ -110,6 +115,7 @@ public class UCMShip extends Ship {
 		this.canShoot = true;
 	}
 	
+	@Override
 	public void onDelete() {
 		// vacio
 	}

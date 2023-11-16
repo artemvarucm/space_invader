@@ -5,7 +5,6 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 
 public abstract class GameObject implements GameItem {
-
 	protected Position pos;
 	protected int life;
 	protected Game game;
@@ -42,6 +41,7 @@ public abstract class GameObject implements GameItem {
 		return pos;
 	}
 	
+	@Override
 	public boolean isOnPosition(Position pos) {
 		// Devuelve si las posiciones son iguales
 		return pos.equals(this.pos);
@@ -58,6 +58,7 @@ public abstract class GameObject implements GameItem {
 	protected abstract String getSymbol();
 	protected abstract int getDamage();
 	protected abstract int getArmour();
+	@Override
 	public abstract String toString();
 	
 			

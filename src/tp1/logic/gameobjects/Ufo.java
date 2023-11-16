@@ -6,7 +6,6 @@ import tp1.logic.Position;
 import tp1.view.Messages;
 
 public class Ufo extends EnemyShip {
-
 	private static final int ARMOR = 1;
 	private static final int POINTS = 25;
 	private boolean enabled;
@@ -43,6 +42,7 @@ public class Ufo extends EnemyShip {
 		return !isAlive();
 	}
 	
+	@Override
 	public void computerAction() {
 		// Intenta generar el ufo
 		if(!enabled && canGenerateRandomUfo()) {
@@ -51,6 +51,7 @@ public class Ufo extends EnemyShip {
 		}
 	}
 	
+	@Override
 	public void automaticMove() {
 		// Realiza el movimiento
 		if (isAlive()) {
@@ -68,6 +69,7 @@ public class Ufo extends EnemyShip {
 		enabled = true;
 	}
 	
+	@Override
 	public void receiveDamage(int dam) {
 		// Recibe el danio indicado en dam
 		this.life -= dam;
@@ -104,6 +106,7 @@ public class Ufo extends EnemyShip {
 		this.life = 0;
 	}
 	
+	@Override
 	public void onDelete() {
 		// Al morir, puede volver a generarse
 		enabled = false;
