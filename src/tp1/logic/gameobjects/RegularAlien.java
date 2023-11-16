@@ -71,11 +71,11 @@ public class RegularAlien extends AlienShip {
 	public RegularAlien (Position pos, int speed, Game game, AlienManager alienManager) {
 		super(pos, speed, ARMOR, game, alienManager);
 	}
- 
+	
 	@Override
-	protected String getSymbol() {
-		// Devuelve la representacion ASCII de RegularAlien
-		return Messages.REGULAR_ALIEN_SYMBOL;
+	protected int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	@Override
@@ -89,6 +89,12 @@ public class RegularAlien extends AlienShip {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
+ 
+	@Override
+	protected String getSymbol() {
+		// Devuelve la representacion ASCII de RegularAlien
+		return Messages.REGULAR_ALIEN_SYMBOL;
+	}
 	
 	public static String getInfo() {
 		// Devuelve la descripcion formateada de RegularAlien
@@ -98,21 +104,5 @@ public class RegularAlien extends AlienShip {
 	private static String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.REGULAR_ALIEN_DESCRIPTION;
-	}
-
-	/**
-	 *  Implements the automatic movement of the regular alien	
-	 */
-	
-	@Override
-	public void receiveDamage(int dam) {
-		// Recibe el danio indicado en dam
-		this.life -= dam;
-	}
-
-	@Override
-	protected int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

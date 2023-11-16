@@ -21,17 +21,9 @@ public class DestroyerAlien extends AlienShip {
 	}
 	
 	@Override
-	protected void shootBomb() {
-		// Si tiene que lanzar la bomba, la lanzas despues de realizar movimiento
-		Bomb templateBomb = new Bomb(game, this.pos, this);
-		game.addObject(templateBomb);
-		bombReadyToFire = false;
-	}
-	
-	@Override
-	protected String getSymbol() {
-		// Devuelve la representacion ASCII de DestroyerAlien
-		return Messages.DESTROYER_ALIEN_SYMBOL;
+	protected int getArmour() {
+		// TODO Auto-generated method stub
+		return ARMOR;
 	}
 	
 	@Override
@@ -46,6 +38,12 @@ public class DestroyerAlien extends AlienShip {
 		return POINTS;
 	}
 	
+	@Override
+	protected String getSymbol() {
+		// Devuelve la representacion ASCII de DestroyerAlien
+		return Messages.DESTROYER_ALIEN_SYMBOL;
+	}
+	
 	public static String getInfo() {
 		// Devuelve la descripcion formateada de DestroyerAlien
 		return Messages.alienDescription(getDescription(), POINTS, DAMAGE, ARMOR);
@@ -56,16 +54,6 @@ public class DestroyerAlien extends AlienShip {
 		return Messages.DESTROYER_ALIEN_DESCRIPTION;
 	}
 	
-	@Override
-	public void computerAction() {
-		// Realiza la revision si puede generar bomba
-		if (cyclesToMove != 0 && canShootBomb && canGenerateRandomBomb()) {
-			// Habilita la bomba en caso de que puede generarla
-			canShootBomb = false;
-			bombReadyToFire = true;
-		}
-	}
-	
 	public void enableBomb() {
 		// Se ejecuta despues de que la bomba se muera
 		// Puede disparar otra vez el Destroyer
@@ -74,12 +62,23 @@ public class DestroyerAlien extends AlienShip {
 	
 	private boolean canGenerateRandomBomb() {
 		return game.getRandom().nextDouble() < game.getLevel().getShootFrequency();
-		
 	}
-
+	
 	@Override
-	protected int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
+	protected void shootBomb() {
+		// Si tiene que lanzar la bomba, la lanzas despues de realizar movimiento
+		Bomb templateBomb = new Bomb(game, this.pos, this);
+		game.addObject(templateBomb);
+		bombReadyToFire = false;
+	}
+	
+	@Override
+	public void computerAction() {
+		// Realiza la revision si puede generar bomba
+		if (cyclesToMove != 0 && canShootBomb && canGenerateRandomBomb()) {
+			// Habilita la bomba en caso de que puede generarla
+			canShootBomb = false;
+			bombReadyToFire = true;
+		}
 	}
 }

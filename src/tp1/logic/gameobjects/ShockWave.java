@@ -15,23 +15,27 @@ public class ShockWave extends UCMWeapon {
 	}
 	
 	@Override
-	public String toString() {
-		// No hace falta por ahora
-		String str = "";
-		return str;
+	protected int getArmour() {
+		return 0;
 	}
-	
 	
 	@Override
 	public int getDamage() {
 		// Devuelve el danio
 		return DAMAGE;
 	}
-
-	// PERFORM ATTACK METHODS
+	
 	@Override
-	public void onDelete() {
-		// vacio	
+	protected String getSymbol() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		// No hace falta por ahora
+		String str = "";
+		return str;
 	}
 	
 	@Override
@@ -42,30 +46,14 @@ public class ShockWave extends UCMWeapon {
 		}
 		return false;
 	}	
-
-	/**
-	 * Method that implements the attack by the laser to a regular alien.
-	 * It checks whether both objects are alive and in the same position.
-	 * If so call the "actual" attack method {@link weaponAttack}.
-	 * @param other the regular alien possibly under attack
-	 * @return <code>true</code> if the alien has been attacked by the laser.
-	 */
-
+	
 	@Override
-	protected String getSymbol() {
-		// TODO Auto-generated method stub
-		return null;
+	public void onDelete() {
+		// vacio	
 	}
-
-	@Override
-	protected int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	@Override
 	public void automaticMove() {
-		// TODO Auto-generated method stub
-		
+		// vacio
 	}
 }

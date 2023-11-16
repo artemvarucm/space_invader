@@ -16,6 +16,12 @@ public class Bomb extends EnemyWeapon {
 	}
 	
 	@Override
+	protected int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
 	protected String getSymbol() {
 		// Devuelve la representacion ASCII de la Bomba
 		return Messages.BOMB_SYMBOL;
@@ -27,21 +33,10 @@ public class Bomb extends EnemyWeapon {
 		return Bomb.DAMAGE;
 	}
 
-	/**
-	 *  Method called when the bomb disappears from the board
-	 */
 	@Override
 	public void onDelete() {
 		// Si se ha muerto, mandar senal al destroyer de que puede volver a lanzar la bomba
 		owner.enableBomb();
 		game.removeObject(this);
 	}
-
-	
-	@Override
-	protected int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 }

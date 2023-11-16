@@ -21,19 +21,20 @@ public class UCMShip extends Ship {
 	}
 	
 	@Override
-	public boolean receiveAttack(EnemyWeapon weapon) {
-		// Recibe ataque del weapon
-		receiveDamage(weapon.getDamage());
-		//if (!isAlive()) {
-		//	onDelete();
-		//}
-		return !isAlive();
+	public int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	@Override
-	public String toString() {
-		// Devuelve la representacion de la UCMShip si se encuentra en la posicion pos
-		return getSymbol();
+	public int getDamage() {
+		// Devuelve el dano
+		return DAMAGE;
+	}
+	
+	public int getPoints() {
+		// Devuelve los puntos del jugador
+		return points;
 	}
 	
 	@Override
@@ -48,6 +49,73 @@ public class UCMShip extends Ship {
 			res = Messages.UCMSHIP_DEAD_SYMBOL;
 		}
 		return res;
+	}
+
+	public static String getInfo() {
+		// Devuelve la descripcion formateada de UCMShip
+		return Messages.ucmShipDescription(getDescription(), DAMAGE, ARMOR);
+	}
+	
+	public static String getDescription() {
+		// Devuelve el texto de la descripcion 
+		return Messages.UCMSHIP_DESCRIPTION;
+	}
+	
+	public String stateToString() {
+		/* Imprime el estado del jugador 
+		 (vida, puntos, poder de shockwave)
+		 */
+		StringBuilder result = new StringBuilder();
+		result.append("Life: ").append(life).append(Messages.LINE_SEPARATOR);
+		result.append("Points: ").append(points).append(Messages.LINE_SEPARATOR);
+		String shock = "OFF";
+		if (hasShockWave()) {
+			shock = "ON";
+		}
+		result.append("ShockWave: ").append(shock).append(Messages.LINE_SEPARATOR);
+		
+		return result.toString();
+	}
+	
+	@Override
+	public String toString() {
+		// Devuelve la representacion de la UCMShip si se encuentra en la posicion pos
+		return getSymbol();
+	}
+	
+	public void die() {
+		// Sirve para matar al objeto de forma explicita
+		life = 0;
+	}
+	
+	public void enableLaser() {
+		// Habilta el laser
+		this.canShoot = true;
+	}
+
+	public void receivePoints(int points) {
+		// Recibe los puntos indicados 
+		this.points += points;
+	}
+
+	private boolean hasShockWave() {
+		// Devuelve true si puede lanzar shockwave
+		return hasShockWave;
+	}
+
+	public void enableShockWave() {
+		// Habilita el shockwave
+		this.hasShockWave = true;
+	}
+
+	public void disableShockWave() {
+		// Deshabilta el shockwave
+		this.hasShockWave = false;
+	}
+
+	public boolean isCanShoot() {
+		// Devuelve true si puede lanzar laser
+		return canShoot;
 	}
 	
 	public boolean move(Move move) {
@@ -90,97 +158,21 @@ public class UCMShip extends Ship {
 		return res;
 	}
 	
-	public static String getInfo() {
-		// Devuelve la descripcion formateada de UCMShip
-		return Messages.ucmShipDescription(getDescription(), DAMAGE, ARMOR);
-	}
-	
-	public static String getDescription() {
-		// Devuelve el texto de la descripcion 
-		return Messages.UCMSHIP_DESCRIPTION;
-	}
 	
 	@Override
-	public int getDamage() {
-		// Devuelve el dano
-		return DAMAGE;
+	public boolean receiveAttack(EnemyWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		return !isAlive();
 	}
 
 	@Override
-	public void receiveDamage(int dam) {
-		// Recibe el danio indicado en dam
-		this.life -= dam;
-	}
-
-	public void die() {
-		// Sirve para matar al objeto de forma explicita
-		life = 0;
-	}
-	
-	public void enableLaser() {
-		// Habilta el laser
-		this.canShoot = true;
+	public void automaticMove() {
+		// vacio
 	}
 	
 	@Override
 	public void onDelete() {
 		// vacio
-	}
-
-	public int getPoints() {
-		// Devuelve los puntos del jugador
-		return points;
-	}
-
-	public void receivePoints(int points) {
-		// Recibe los puntos indicados 
-		this.points += points;
-	}
-
-	private boolean hasShockWave() {
-		// Devuelve true si puede lanzar shockwave
-		return hasShockWave;
-	}
-
-	public void enableShockWave() {
-		// Habilita el shockwave
-		this.hasShockWave = true;
-	}
-
-	public void disableShockWave() {
-		// Deshabilta el shockwave
-		this.hasShockWave = false;
-	}
-
-	public boolean isCanShoot() {
-		// Devuelve true si puede lanzar laser
-		return canShoot;
-	}
-
-	public String stateToString() {
-		/* Imprime el estado del jugador 
-		 (vida, puntos, poder de shockwave)
-		 */
-		StringBuilder result = new StringBuilder();
-		result.append("Life: ").append(life).append(Messages.LINE_SEPARATOR);
-		result.append("Points: ").append(points).append(Messages.LINE_SEPARATOR);
-		String shock = "OFF";
-		if (hasShockWave()) {
-			shock = "ON";
-		}
-		result.append("ShockWave: ").append(shock).append(Messages.LINE_SEPARATOR);
-		
-		return result.toString();
-	}
-	
-	@Override
-	public int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void automaticMove() {
-		// TODO Auto-generated method stub
 	}
 }

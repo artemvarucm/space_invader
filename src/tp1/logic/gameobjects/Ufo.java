@@ -17,19 +17,71 @@ public class Ufo extends EnemyShip {
 	}
 	
 	@Override
-	public String toString() {
-		// Devuelve la representacion de la Bomba
-		String str = "";
-		if (isAlive()) {
-			str = super.toString();
-		}
-		return str;
+	protected int getArmour() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	protected int getDamage() {
+		// Devuelve el dano
+		return 0;
+	}
+	
+	@Override
+	public int getPoints() {
+		// Devuelve los puntos por matarlo
+		return POINTS;
 	}
 	
 	@Override
 	protected String getSymbol() {
 		// Devuelve la representacion ASCII del UFO
 		return Messages.UFO_SYMBOL;
+	}
+
+	public static String getInfo() {
+		// Devuelve la descripcion formateada de UFO
+		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
+	}
+	
+	private static String getDescription() {
+		// Devuelve el texto de la descripcion 
+		return Messages.UFO_DESCRIPTION;
+	}
+	
+	@Override
+	public String toString() {
+		// Devuelve la representacion de la Bomba
+		String str = "";
+		if (enabled) {
+			str = super.toString();
+		}
+		return str;
+	}
+	
+	private boolean canGenerateRandomUfo(){
+		return game.getRandom().nextDouble() < game.getLevel().getUfoFrequency();
+	}
+	
+	private void die() {
+		// Sirve para matar de forma explicita
+		this.life = 0;
+		onDelete();
+	}
+	
+	@Override
+	public void onDelete() {
+		// Al morir, puede volver a generarse
+		enabled = false;
+	}
+	
+	private void enable() {
+		// Inhabilita el UFO
+		// Reinicia la vida y la posicion
+		life = ARMOR;
+		this.pos = new Position(Game.DIM_X, 0);
+		enabled = true;
 	}
 	
 	@Override
@@ -46,77 +98,9 @@ public class Ufo extends EnemyShip {
 		// Realiza el movimiento
 		if (isAlive()) {
 			performMovement(Move.LEFT);
-			if (isOut())
+			if (!pos.isOnBoard())
 				die();
 		}
-	}
-	
-	private void enable() {
-		// Inhabilita el UFO
-		// Reinicia la vida y la posicion
-		life = ARMOR;
-		this.pos = new Position(Game.DIM_X, 0);
-		enabled = true;
-	}
-	
-	@Override
-	public void receiveDamage(int dam) {
-		// Recibe el danio indicado en dam
-		this.life -= dam;
-	}
-	
-	@Override
-	protected int getDamage() {
-		// Devuelve el dano
-		return 0;
-	}
-	
-	@Override
-	public int getPoints() {
-		// Devuelve los puntos por matarlo
-		return POINTS;
-	}
-	
-	public static String getInfo() {
-		// Devuelve la descripcion formateada de UFO
-		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
-	}
-	
-	private static String getDescription() {
-		// Devuelve el texto de la descripcion 
-		return Messages.UFO_DESCRIPTION;
-	}
-	
-	private boolean isOut() {
-		// Devuelve true si esta fuera del tablero
-		return !pos.isOnBoard();
-	}
-	
-	private void die() {
-		// Sirve para matar de forma explicita
-		this.life = 0;
-		onDelete();
-	}
-	
-	@Override
-	public void onDelete() {
-		// Al morir, puede volver a generarse
-		enabled = false;
-	}
-	
-	/**
-	 * Checks if the game should generate an ufo.
-	 * 
-	 * @return <code>true</code> if an ufo should be generated.
-	 */
-	private boolean canGenerateRandomUfo(){
-		return game.getRandom().nextDouble() < game.getLevel().getUfoFrequency();
-	}
-
-	@Override
-	protected int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 	
 	@Override
