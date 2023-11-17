@@ -1,6 +1,6 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -11,7 +11,7 @@ public class UCMShip extends Ship {
 	private boolean hasShockWave;
 	private boolean canShoot;
 
-	public UCMShip(Game game, Position position) {
+	public UCMShip(GameWorld game, Position position) {
 		// Posicion inicial - ultima fila en la columna media
 		super(game, position, ARMOR);		
 		this.canShoot = true;
@@ -117,7 +117,7 @@ public class UCMShip extends Ship {
 		return canShoot;
 	}
 	
-	public boolean shootLaser(Game game) {
+	public boolean shootLaser(GameWorld game) {
 		// Realiza el disparo del laser
 		boolean res = false;
 		if (canShoot) {
@@ -131,7 +131,7 @@ public class UCMShip extends Ship {
 		return res;
 	}
 	
-	public boolean executeShockWave(Game game) {
+	public boolean executeShockWave(GameWorld game) {
 		// Ejecuta el disparo del ShockWave
 		boolean res = false;
 		if (hasShockWave()) {

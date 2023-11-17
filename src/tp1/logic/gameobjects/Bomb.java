@@ -1,6 +1,6 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
@@ -9,7 +9,7 @@ public class Bomb extends EnemyWeapon {
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
 	private DestroyerAlien owner;
-	public Bomb(Game game, Position pos, DestroyerAlien owner) {
+	public Bomb(GameWorld game, Position pos, DestroyerAlien owner) {
 		// La direccion de movimiento es hacia abajo
 		super(Move.DOWN, new Position(pos), ARMOR, game);
 		this.owner = owner;

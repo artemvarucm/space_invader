@@ -15,13 +15,13 @@ import tp1.logic.gameobjects.Ufo;
 public class AlienManager {
 	
 	private Level level;
-	private Game game;
+	private GameWorld game;
 	private int remainingAliens;
 	private boolean squadInFinalRow;
 	private int shipsOnBorder;
 	private boolean onBorder;
 
-	public AlienManager(Game game, Level level) {
+	public AlienManager(GameWorld game, Level level) {
 		this.level = level;
 		this.game = game;
 	}

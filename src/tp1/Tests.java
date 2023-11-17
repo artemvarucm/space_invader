@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import org.junit.jupiter.api.Test;
 
 public class Tests {
@@ -90,4 +91,9 @@ public class Tests {
 				Paths.get("tests/p2/01-insane_25-output.txt"), new String[] { "INSANE", "25" });
 	}
 	
+	@Test
+	public void test04() {
+		parameterizedTest(Paths.get("tests/p2/01-easy_25-custom-input.txt"), Paths.get("tests/p2/01-insane_25-expected.txt"),
+				Paths.get("tests/p2/01-easy_25-custom-output.txt"), new String[] { "EASY", "25" });
+	}
 }

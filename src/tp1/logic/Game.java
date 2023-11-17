@@ -9,7 +9,7 @@ import tp1.logic.gameobjects.UCMShip;
 import tp1.logic.gameobjects.Ufo;
 import tp1.logic.gameobjects.Weapon;
 
-public class Game implements GameStatus {
+public class Game implements GameStatus, GameModel, GameWorld {
 	public static final int DIM_X = 9; // COLUMNAS
 	public static final int DIM_Y = 8; // FILAS
 
@@ -61,6 +61,7 @@ public class Game implements GameStatus {
 		return container.toString(new Position(col, row));	
 	}
 	
+	@Override
 	public void update() {
 		if (reset) {
 			// Reseteamos partida
@@ -86,6 +87,7 @@ public class Game implements GameStatus {
 		container.checkAttacks(weapon);
 	}
 	
+	@Override
 	public boolean move(Move move) {
 		// Mueve player(UCMShip)
 		return player.move(move);
@@ -96,11 +98,13 @@ public class Game implements GameStatus {
 		player.receivePoints(points);
 	}
 	
+	@Override
 	public boolean shootLaser() {
 		// Ejecuta disparo del laser
 		return player.shootLaser(this);
 	}
 	
+	@Override
 	public boolean shockWave() {
 		// Ejecuta shockwave
 		return player.executeShockWave(this);
@@ -130,6 +134,7 @@ public class Game implements GameStatus {
 		return !player.isAlive() || alienManager.haveLanded();
 	}
 	
+	@Override
 	public boolean isFinished() {
 		// Devuelve true si el juego ha terminado
 		return doExit || playerWin() || aliensWin();
@@ -165,11 +170,13 @@ public class Game implements GameStatus {
 		container.remove(object);
 	}
 	
+	@Override
 	public void exit() {
 		// Para salir del juego
 		doExit = true;
 	}
 	
+	@Override
 	public void printGameObjectsList() {
 		// Imprime la lista de las naves con su descripcion
 		StringBuilder str = new StringBuilder();
@@ -182,6 +189,7 @@ public class Game implements GameStatus {
 		System.out.print(str.toString());
 	}
 	
+	@Override
 	public void reset() {		
 		this.reset = true;
 	}

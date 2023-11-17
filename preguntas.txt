@@ -1,11 +1,7 @@
-1. Todas las clases heredades tiene que ser abstractas?
 2. canShootBomb puede estar en el AlienShip?
-3. Como imprimir tablero despues del reset?
 4. infoToString vs stateToString en Game
 5. Hace falta anadr object instanceof UCMShip or object instanceof UCMLaser al checkAttacks(EnemyWeapon weapon)
-6. Sistema de recepcion de puntos?
-7. Realizacion de los metodos de Ataque
-8. ShockWave
 9. Anadir Override y comentarios
 10. Cuando matemos al ufo, no se podra generar de nuevo...
 11. ShockWave no debe matar bombas
+- /space_invader/tests/p2/01-easy_25-custom-input.txt - este test describe lo que no nos va(no son del profe, sino nuestro)

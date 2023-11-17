@@ -1,6 +1,6 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
@@ -13,7 +13,7 @@ import tp1.view.Messages;
 public class UCMLaser extends UCMWeapon {
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
-	public UCMLaser(Game game, Position pos) {
+	public UCMLaser(GameWorld game, Position pos) {
 		super(Move.UP, new Position(pos), ARMOR, game);
 	}
 	

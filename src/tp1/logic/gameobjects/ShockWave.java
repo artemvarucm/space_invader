@@ -1,6 +1,6 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 
 /**
  * 
@@ -9,7 +9,7 @@ import tp1.logic.Game;
  */
 public class ShockWave extends UCMWeapon {
 	private static int DAMAGE = 1;
-	public ShockWave(Game game) {
+	public ShockWave(GameWorld game) {
 		super(null, null, 1, game);
 		this.game = game;
 	}

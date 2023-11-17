@@ -1,21 +1,21 @@
 package tp1.control.commands;
 
 import tp1.control.ExecutionResult;
-import tp1.logic.Game;
+import tp1.logic.GameModel;
 import tp1.view.Messages;
 
 public class ShockWaveCommand extends NoParamsCommand{
 		// Lanza shockwave
 		  		
 		@Override
-		public ExecutionResult execute(Game game) {
+		public ExecutionResult execute(GameModel game) {
 			if (!game.shockWave()) {
 				return new ExecutionResult(Messages.SHOCKWAVE_ERROR);
 			} else {
 				return new ExecutionResult(true);
 			}
 		}
-
+		
 		@Override
 		protected String getName() {
 			return Messages.COMMAND_SHOCKWAVE_NAME;
