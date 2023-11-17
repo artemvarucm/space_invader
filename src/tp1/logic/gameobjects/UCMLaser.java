@@ -44,4 +44,45 @@ public class UCMLaser extends UCMWeapon {
 		game.enableLaser();
 		game.removeObject(this);
 	}
+	
+	@Override
+	public void automaticMove () {
+		// Realiza el movimiento de la bomba
+		
+		if (game.isCycleDescend()) {
+			// si los aliens estan bajando, realizamos disparo al inicio
+			game.performAttack(this);
+		}
+		performMovement(dir);
+		if(!pos.isOnBoard()) {
+			// Si ha salido fuera del tablero, muere
+			this.life = 0;
+		} else {
+			// Intenta atacar a alguien despues de moverse
+			game.performAttack(this);
+		}
+	}
+	
+	@Override
+	public boolean performAttack(GameItem other) {
+		// Realiza el ataque. Devuelve true si el UCMShip esta muerto
+		boolean res = false;
+		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
+			// Si se cumplen las condiciones
+			weaponAttack(other);
+			// Eliminamos weapon
+			this.life = 0; // FIXME die
+		}
+		return res;
+	}	
+	
+	@Override
+	public boolean receiveAttack(EnemyWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			this.life = 0; // FIXME die
+		}
+		return !isAlive();
+	}
 }

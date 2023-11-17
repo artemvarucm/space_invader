@@ -23,6 +23,7 @@ public class Game implements GameStatus {
 	private boolean doExit;
 	private boolean reset;
 	private AlienManager alienManager;
+	private boolean cycleDescend; // en este ciclo van a bajar los aliens
 	
 	public Game(Level level, long seed) {
 		this.level = level;
@@ -34,6 +35,7 @@ public class Game implements GameStatus {
 		rand = new Random(seed);
 		doExit = false;
 		currentCycle = 0;
+		cycleDescend = false;
 		
 		alienManager = new AlienManager(this, level);
 		container = alienManager.initialize();
@@ -71,10 +73,12 @@ public class Game implements GameStatus {
 			currentCycle++;
 			// Realizamos computer actions
 			container.computerActions();
+			
+			cycleDescend = alienManager.onBorder(); // bajaremos o no en este ciclo (se usa en disparo del laser)
 			// Realizamos moviemiento de objetos
 			container.automaticMoves();
-			// Eliminamos objetos muertos en las listas
-			//removeDead();
+			// ciclo en el que bajan se acabo
+			cycleDescend = false;
 		}
 	}
 	
@@ -186,6 +190,10 @@ public class Game implements GameStatus {
 	
 	public void reset() {		
 		this.reset = true;
+	}
+	
+	public boolean isCycleDescend() {
+		return cycleDescend;
 	}
 	
 	/*public void automaticMoves() {

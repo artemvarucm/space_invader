@@ -7,7 +7,6 @@ import tp1.logic.Position;
 public abstract class EnemyWeapon extends Weapon{
 	public EnemyWeapon (Move dir, Position pos, int armor, Game game) {
 		super(dir, game, pos, armor);
-		//this.dir = dir;
 	}
 	
 	@Override

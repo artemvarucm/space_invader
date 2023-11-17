@@ -12,6 +12,7 @@ public abstract class AlienShip extends EnemyShip {
 	protected int speed; 	
 	protected boolean bombReadyToFire;
 	protected AlienManager alienManager;
+	
 	public AlienShip (Position pos, int speed, int armor, Game game, AlienManager alienManager) {
 		super(Move.LEFT, pos, armor, game);
 		this.bombReadyToFire = false;
@@ -19,7 +20,50 @@ public abstract class AlienShip extends EnemyShip {
 		this.speed = speed;
 		this.alienManager = alienManager;
 	}
+	
+	private boolean isInBorder() {
+		// Dependiendo del sentido del movimiento devuelve si ha tocado borde o no
+		return (dir.equals(Move.RIGHT) && pos.getCol() == Game.DIM_X - 1) 
+				|| 
+				(dir.equals(Move.LEFT) && pos.getCol() == 0);
+	}
+	
+	public boolean isInFinalRow() {
+		// Devuelve true si esta en la ultima fila(donde esta UCMShip)
+		return pos.getRow() == Game.DIM_Y - 1;
+	}
+	
+	@Override
+	public void onDelete() {
+		game.removeObject(this);
+	}
+	
+	private void descend() {
+		// Baja una fila el Regular
+		performMovement(Move.DOWN);
+		// Cabia de sentido del movimiento
+		this.dir = dir.flip();
+		// Decrementa el contador de aliens por bajar del AlienManager
+		alienManager.decreaseOnBorder();
+		// Avisa si ha llegado al borde
+		if (isInFinalRow()) {
+			alienManager.finalRowReached();
+		}
+	}
 
+	@Override
+	public boolean receiveAttack(UCMWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			// FIXME ver si ha bajado
+			alienManager.alienDead();
+			// recibimos puntos
+			game.receivePoints(getPoints());
+		}
+		return !isAlive();
+	}
+	
 	@Override
 	public void automaticMove() {
 		// Realiza el movimiento del Regular
@@ -47,50 +91,7 @@ public abstract class AlienShip extends EnemyShip {
 		}
 	}
 	
-	@Override
-	public void onDelete() {
-		game.removeObject(this);
-	}
-		
 	protected void shootBomb() {
 		// FIXME VACIO
 	};
-	
-	private void descend() {
-		// Baja una fila el Regular
-		performMovement(Move.DOWN);
-		// Cabia de sentido del movimiento
-		this.dir = dir.flip();
-		// Decrementa el contador de aliens por bajar del AlienManager
-		alienManager.decreaseOnBorder();
-		// Avisa si ha llegado al borde
-		if (isInFinalRow()) {
-			alienManager.finalRowReached();
-		}
-	}
-	
-	private boolean isInBorder() {
-		// Dependiendo del sentido del movimiento devuelve si ha tocado borde o no
-		return (dir.equals(Move.RIGHT) && pos.getCol() == Game.DIM_X - 1) 
-				|| 
-				(dir.equals(Move.LEFT) && pos.getCol() == 0);
-	}
-	
-	public boolean isInFinalRow() {
-		// Devuelve true si esta en la ultima fila(donde esta UCMShip)
-		return pos.getRow() == Game.DIM_Y - 1;
-	}	
-	
-	@Override
-	public boolean receiveAttack(UCMWeapon weapon) {
-		// Recibe ataque del weapon
-		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			// FIXME ver si ha bajado
-			alienManager.alienDead();
-			// recibimos puntos
-			game.receivePoints(getPoints());
-		}
-		return !isAlive();
-	}
 }

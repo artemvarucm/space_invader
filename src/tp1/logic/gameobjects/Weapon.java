@@ -10,9 +10,4 @@ public abstract class Weapon extends GameObject {
 		super(game, pos, armor);
 		this.dir = dir;
 	}
-	
-	@Override
-	public void onDelete() {
-		game.removeObject(this);
-	}
 }
