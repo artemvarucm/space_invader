@@ -15,8 +15,8 @@ public class RegularAlien extends AlienShip {
 	private static final int ARMOR = 2;
 	private static final int POINTS = 5;
 	
-	public RegularAlien (Position pos, int speed, GameWorld game, AlienManager alienManager) {
-		super(pos, speed, ARMOR, game, alienManager);
+	public RegularAlien (AlienManager alienManager, int speed, GameWorld game, Position pos) {
+		super(alienManager, speed, game, pos, ARMOR);
 	}
 	
 	@Override

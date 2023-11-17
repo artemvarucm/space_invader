@@ -11,12 +11,10 @@ public abstract class AlienShip extends EnemyShip {
 	protected int cyclesToMove; 
 	// constante a la cual se reinicia cyclesToMove despues de moverse
 	protected int speed; 	
-	protected boolean bombReadyToFire;
 	protected AlienManager alienManager;
 	
-	public AlienShip (Position pos, int speed, int armor, GameWorld game, AlienManager alienManager) {
-		super(Move.LEFT, pos, armor, game);
-		this.bombReadyToFire = false;
+	public AlienShip (AlienManager alienManager, int speed, GameWorld game, Position pos, int life) {
+		super(Move.LEFT, game, new Position(pos), life);
 		this.cyclesToMove = speed;
 		this.speed = speed;
 		this.alienManager = alienManager;

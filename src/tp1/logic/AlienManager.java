@@ -59,7 +59,7 @@ public class AlienManager {
 			for (int j = 0; j < 4; j++) {
 				// Insertamos alien
 				Position pos = new Position(colInitialOffset + j, RegularAlien.ROW_INI_OFFSET + i);
-				RegularAlien templateAlien = new RegularAlien(pos, level.getNumCyclesToMoveOneCell(), game, this);
+				RegularAlien templateAlien = new RegularAlien(this, level.getNumCyclesToMoveOneCell(), game, pos);
 				container.add(templateAlien);
 			}
 		}
@@ -83,7 +83,7 @@ public class AlienManager {
 		for (int i = 0; i < numD; i++) {
 			// Insertamos alien
 			Position pos = new Position(colInitialOffset + i, RegularAlien.ROW_INI_OFFSET + numFilasR);
-			DestroyerAlien templateAlien = new DestroyerAlien(pos , level.getNumCyclesToMoveOneCell(), game, this);	
+			DestroyerAlien templateAlien = new DestroyerAlien(this, level.getNumCyclesToMoveOneCell(), game, pos);	
 			container.add(templateAlien);
 		}
 		// Incrementamos contador de aliens

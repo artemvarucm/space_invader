@@ -5,8 +5,8 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 
 public abstract class UCMWeapon extends Weapon{
-	public UCMWeapon (Move dir, Position pos, int armor, GameWorld game) {
-		super(dir, game, pos, armor);
+	public UCMWeapon (Move dir, GameWorld game, Position pos, int life) {
+		super(dir, game, pos, life);
 	}
 	
 	@Override

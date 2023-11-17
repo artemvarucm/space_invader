@@ -6,8 +6,8 @@ import tp1.logic.Position;
 
 public abstract class EnemyShip extends Ship {
 	protected Move dir;
-	public EnemyShip (Move dir, Position pos, int armor, GameWorld game) {
-		super(game, pos, armor);
+	public EnemyShip (Move dir, GameWorld game, Position pos, int life) {
+		super(game, pos, life);
 		this.dir = dir;
 	}
 	

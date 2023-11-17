@@ -15,9 +15,11 @@ public class DestroyerAlien extends AlienShip {
 	private static final int POINTS = 10;
 	private static final int DAMAGE = 1;
 	public boolean canShootBomb;
-	public DestroyerAlien (Position pos, int speed, GameWorld game, AlienManager alienManager) {
-		super(pos, speed, ARMOR, game, alienManager);
+	protected boolean bombReadyToFire;
+	public DestroyerAlien (AlienManager alienManager, int speed, GameWorld game, Position pos) {
+		super(alienManager, speed, game, pos, ARMOR);
 		this.canShootBomb = true;
+		this.bombReadyToFire = false;
 	}
 	
 	@Override
@@ -75,7 +77,7 @@ public class DestroyerAlien extends AlienShip {
 	
 	protected void shootBomb() {
 		// Si tiene que lanzar la bomba, la lanzas despues de realizar movimiento
-		Bomb templateBomb = new Bomb(game, this.pos, this);
+		Bomb templateBomb = new Bomb(this, game, pos);
 		game.addObject(templateBomb);
 		bombReadyToFire = false;
 	}

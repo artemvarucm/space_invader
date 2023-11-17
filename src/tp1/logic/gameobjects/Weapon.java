@@ -6,8 +6,8 @@ import tp1.logic.Position;
 
 public abstract class Weapon extends GameObject {
 	protected Move dir;
-	public Weapon(Move dir, GameWorld game, Position pos, int armor) {
-		super(game, pos, armor);
+	public Weapon(Move dir, GameWorld game, Position pos, int life) {
+		super(game, pos, life);
 		this.dir = dir;
 	}
 	

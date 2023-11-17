@@ -9,9 +9,9 @@ public class Bomb extends EnemyWeapon {
 	private static int ARMOR = 1;
 	public static int DAMAGE = 1;
 	private DestroyerAlien owner;
-	public Bomb(GameWorld game, Position pos, DestroyerAlien owner) {
+	public Bomb(DestroyerAlien owner, GameWorld game, Position pos) {
 		// La direccion de movimiento es hacia abajo
-		super(Move.DOWN, new Position(pos), ARMOR, game);
+		super(Move.DOWN, game, new Position(pos), ARMOR);
 		this.owner = owner;
 	}
 	

@@ -13,7 +13,7 @@ public class Ufo extends EnemyShip {
 	
 	public Ufo (GameWorld game) {
 		// La direccion de movimiento es hacia izquierda
-		super(Move.LEFT, new Position(Game.DIM_X, 0), ARMOR, game);
+		super(Move.LEFT, game, new Position(Game.DIM_X, 0), ARMOR);
 		this.enabled = false;
 	}
 	
