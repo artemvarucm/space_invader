@@ -3,9 +3,8 @@ package tp1.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp1.logic.gameobjects.EnemyWeapon;
 import tp1.logic.gameobjects.GameObject;
-import tp1.logic.gameobjects.UCMWeapon;
+import tp1.logic.gameobjects.Weapon;
 
 public class GameObjectContainer {
 
@@ -51,22 +50,12 @@ public class GameObjectContainer {
 		}
 	}
 	
-	public void checkAttacks(EnemyWeapon weapon) {
+	public void checkAttacks(Weapon weapon) {
 		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
 			if (!weapon.equals(object)) {
 				weapon.performAttack(object);
 			}
-		}
-	}
-	
-	public void checkAttacks(UCMWeapon weapon) {
-		for (int i=0;i<objects.size();i++) {
-			GameObject object = objects.get(i);
-			if (!weapon.equals(object)) {
-				weapon.performAttack(object);
-			}
-
 		}
 	}
 	

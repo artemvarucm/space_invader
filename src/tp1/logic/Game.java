@@ -3,12 +3,11 @@ package tp1.logic;
 import java.util.Random;
 
 import tp1.logic.gameobjects.DestroyerAlien;
-import tp1.logic.gameobjects.EnemyWeapon;
 import tp1.logic.gameobjects.GameObject;
 import tp1.logic.gameobjects.RegularAlien;
 import tp1.logic.gameobjects.UCMShip;
-import tp1.logic.gameobjects.UCMWeapon;
 import tp1.logic.gameobjects.Ufo;
+import tp1.logic.gameobjects.Weapon;
 
 public class Game implements GameStatus {
 	public static final int DIM_X = 9; // COLUMNAS
@@ -82,13 +81,8 @@ public class Game implements GameStatus {
 		}
 	}
 	
-	public void performAttack(EnemyWeapon weapon) {
-		// Realiza el ataque de bomba
-		container.checkAttacks(weapon);
-	}
-	
-	public void performAttack(UCMWeapon weapon) {
-		// Realiza el ataque del laser
+	public void performAttack(Weapon weapon) {
+		// Realiza el ataque de weapon
 		container.checkAttacks(weapon);
 	}
 	

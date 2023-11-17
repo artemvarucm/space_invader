@@ -33,10 +33,7 @@ public class AlienManager {
 		
 		initializeOvni(container);
 		initializeRegularAliens(container);
-		initializeDestroyerAliens(container);
-		
-		//TODO fill with your code
-		
+		initializeDestroyerAliens(container);		
 		
 		return container;
 	}

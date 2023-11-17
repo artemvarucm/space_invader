@@ -1,7 +1,6 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Game;
-import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -116,19 +115,6 @@ public class UCMShip extends Ship {
 	public boolean isCanShoot() {
 		// Devuelve true si puede lanzar laser
 		return canShoot;
-	}
-	
-	public boolean move(Move move) {
-		/* Realiza el movimiento en la direccion dir
-		 * Devuelve true si queda dentro del tablero despues de moverse
-		 */
-		boolean validMove = true;
-		Position hPos = pos.move(move);
-		validMove = hPos.isOnBoard();
-		if (validMove) {
-			performMovement(move);
-		}
-		return validMove;
 	}
 	
 	public boolean shootLaser(Game game) {

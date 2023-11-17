@@ -84,14 +84,7 @@ public abstract class AlienShip extends EnemyShip {
 				} else {
 					cyclesToMove--;
 				}
-				if (bombReadyToFire) {
-					shootBomb();
-				}
 			}
 		}
 	}
-	
-	protected void shootBomb() {
-		// FIXME VACIO
-	};
 }

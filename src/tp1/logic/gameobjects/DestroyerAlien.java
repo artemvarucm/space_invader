@@ -64,7 +64,15 @@ public class DestroyerAlien extends AlienShip {
 		return game.getRandom().nextDouble() < game.getLevel().getShootFrequency();
 	}
 	
-	@Override
+	@Override 
+	public void automaticMove() {
+		super.automaticMove();
+		// si no se mueve horizontalmente y tiene bomba cargada, lanzar bomba
+		if (isAlive() && cyclesToMove < speed && bombReadyToFire) {
+			shootBomb();
+		}
+	}
+	
 	protected void shootBomb() {
 		// Si tiene que lanzar la bomba, la lanzas despues de realizar movimiento
 		Bomb templateBomb = new Bomb(game, this.pos, this);

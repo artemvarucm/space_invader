@@ -17,18 +17,10 @@ public abstract class EnemyWeapon extends Weapon{
 		return getSymbol();
 	}
 	
+	// PERFORM ATTACK METHODS
 	@Override
-	public boolean performAttack(GameItem other) {
-		// Realiza el ataque. Devuelve true si other esta muerto
-		boolean res = false;
-		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			// Si se cumplen las condiciones
-			weaponAttack(other);
-			// Eliminamos weapon
-			//onDelete();
-			this.life = 0;
-		}
-		return res;
+	protected boolean weaponAttack(GameItem other) {
+		return other.receiveAttack(this);	
 	}	
 	
 	@Override
@@ -40,23 +32,4 @@ public abstract class EnemyWeapon extends Weapon{
 		}
 		return !isAlive();
 	}
-	
-	@Override
-	public void automaticMove () {
-		// Realiza el movimiento de la bomba
-		performMovement(dir);
-		if(!pos.isOnBoard()) {
-			// Si ha salido fuera del tablero, muere
-			this.life = 0;
-		} else {
-			// Intenta atacar a alguien despues de moverse
-			game.performAttack(this);
-		}
-	}
-	
-	// PERFORM ATTACK METHODS
-	
-	protected boolean weaponAttack(GameItem other) {
-		return other.receiveAttack(this);	
-	}	
 }
