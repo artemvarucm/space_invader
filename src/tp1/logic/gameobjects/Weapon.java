@@ -26,7 +26,7 @@ public abstract class Weapon extends GameObject {
 	
 	@Override
 	public void automaticMove () {
-		// Realiza el movimiento de la bomba
+		// Realiza el movimiento de Weapon
 		performMovement(dir);
 		if(!pos.isOnBoard()) {
 			// Si ha salido fuera del tablero, muere

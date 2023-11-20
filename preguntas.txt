@@ -1,3 +1,15 @@
-9. Anadir Override y comentarios
-11. ShockWave no debe matar bombas
-- /space_invader/tests/p2/01-easy_25-custom-input.txt - este test describe lo que no nos va(no son del profe, sino nuestro)
+1. Anadir Override y comentarios
+
+2. ShockWave no debe matar bombas
+
+3. /space_invader/tests/p2/01-easy_25-custom-input.txt
+este test describe lo que no nos va(no son del profe, sino nuestro)
+
+4. En los esquemas, los metodos getInfo NO son estaticos (necesitan instancia)
+(supongo q haran uso de getDamage, getPoints)
+Habra que recorre la lista de objetos para imprimir getInfo?
+
+5. 
+getPoints del jugador devuelve los puntos que tiene
+getPoints de aliens devuelve los puntos a recibir al matarlos
+Un poco ambiguo

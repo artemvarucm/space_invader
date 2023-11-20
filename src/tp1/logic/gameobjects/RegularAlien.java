@@ -21,7 +21,7 @@ public class RegularAlien extends AlienShip {
 	
 	@Override
 	protected int getArmour() {
-		// TODO Auto-generated method stub
+		// Devuelve armadura
 		return 0;
 	}
 	

@@ -24,7 +24,7 @@ public class DestroyerAlien extends AlienShip {
 	
 	@Override
 	protected int getArmour() {
-		// TODO Auto-generated method stub
+		// Devuelve armadura
 		return ARMOR;
 	}
 	

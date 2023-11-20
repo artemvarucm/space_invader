@@ -11,7 +11,7 @@ public abstract class UCMWeapon extends Weapon{
 	
 	@Override
 	public String toString() {
-		// Devuelve la representacion del Laser
+		// Devuelve la representacion UCMWeapon
 		return getSymbol();
 	}
 	
@@ -22,7 +22,7 @@ public abstract class UCMWeapon extends Weapon{
 	
 	@Override
 	public boolean receiveAttack(EnemyWeapon weapon) {
-		// Recibe ataque del weapon
+		// Recibe ataque del weapon del enemigo
 		receiveDamage(weapon.getDamage());
 		if (!isAlive()) {
 			die();

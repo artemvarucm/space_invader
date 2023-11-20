@@ -19,7 +19,6 @@ public class UCMLaser extends UCMWeapon {
 	
 	@Override
 	protected int getArmour() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

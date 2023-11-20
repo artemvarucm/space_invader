@@ -21,8 +21,7 @@ public class UCMShip extends Ship {
 	
 	@Override
 	public int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ARMOR;
 	}
 	
 	@Override
@@ -80,11 +79,6 @@ public class UCMShip extends Ship {
 	public String toString() {
 		// Devuelve la representacion de la UCMShip si se encuentra en la posicion pos
 		return getSymbol();
-	}
-	
-	public void die() {
-		// Sirve para matar al objeto de forma explicita
-		life = 0;
 	}
 	
 	public void enableLaser() {

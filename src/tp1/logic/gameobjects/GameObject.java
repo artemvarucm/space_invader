@@ -52,8 +52,6 @@ public abstract class GameObject implements GameItem {
 		pos = pos.move(dir);
 	}
 
-	//TODO fill with your code
-
 	
 	protected abstract String getSymbol();
 	protected abstract int getDamage();
@@ -66,7 +64,6 @@ public abstract class GameObject implements GameItem {
 	public abstract void automaticMove();
 	public void computerAction() {};
 	
-	//TODO fill with your code
 	
 	@Override
 	public boolean performAttack(GameItem other) {

@@ -28,7 +28,6 @@ public class ShockWave extends UCMWeapon {
 	
 	@Override
 	protected String getSymbol() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -41,6 +40,7 @@ public class ShockWave extends UCMWeapon {
 	
 	@Override
 	public boolean performAttack(GameItem other) {
+		// Ataca a other
 		if (other.isAlive()) {
 			// Si se cumplen las condiciones
 			weaponAttack(other);
@@ -50,7 +50,7 @@ public class ShockWave extends UCMWeapon {
 	
 	@Override
 	public void computerAction() {
-		// realiza los ataques y muere
+		// Realiza los ataques y muere
 		game.performAttack(this);
 		onDelete();
 	}

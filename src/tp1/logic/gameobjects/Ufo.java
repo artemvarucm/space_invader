@@ -19,8 +19,7 @@ public class Ufo extends EnemyShip {
 	
 	@Override
 	protected int getArmour() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ARMOR;
 	}
 	
 	@Override
@@ -78,7 +77,7 @@ public class Ufo extends EnemyShip {
 	}
 	
 	private void enable() {
-		// Inhabilita el UFO
+		// Habilita el UFO
 		// Reinicia la vida y la posicion
 		life = ARMOR;
 		this.pos = new Position(Game.DIM_X, 0);
@@ -89,7 +88,7 @@ public class Ufo extends EnemyShip {
 	public void computerAction() {
 		// Intenta generar el ufo
 		if(!enabled && canGenerateRandomUfo()) {
-			// Si se puede, lo inhabilita
+			// Si se puede, lo habilita
 			enable();
 		}
 	}

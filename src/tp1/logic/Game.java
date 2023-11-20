@@ -138,13 +138,13 @@ public class Game implements GameStatus, GameModel, GameWorld {
 
 	@Override
 	public void enableLaser() {
-		// Inhabilitamos laser
+		// Habilitamos laser
 		player.enableLaser();
 	}
 	
 	@Override
 	public void enableShockWave() {
-		// Inhabilitamos shockWave (despues de matar al ufo)
+		// Habilitamos shockWave (despues de matar al ufo)
 		player.enableShockWave();
 	}
 

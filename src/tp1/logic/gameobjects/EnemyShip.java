@@ -20,4 +20,3 @@ public abstract class EnemyShip extends Ship {
 	
 	abstract protected int getPoints();
 }
-// anadir receive attack weapon con weapon.getDamage()
