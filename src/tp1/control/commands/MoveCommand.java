@@ -14,6 +14,16 @@ public class MoveCommand extends Command {
 	protected MoveCommand(Move move) {
 		this.move = move;
 	}
+	
+	@Override
+	public ExecutionResult execute(GameModel game) {
+		// Realiza el movimiento
+		if (!game.move(move)) {
+			return new ExecutionResult(Messages.MOVEMENT_ERROR);
+		} else {
+			return new ExecutionResult(true);
+		}
+	}
 
 	@Override
 	protected String getName() {
@@ -36,18 +46,8 @@ public class MoveCommand extends Command {
 	}
 
 	@Override
-	public ExecutionResult execute(GameModel game) {
-		//TODO fill with your code
-		if (!game.move(move)) {
-			return new ExecutionResult(Messages.MOVEMENT_ERROR);
-		} else {
-			return new ExecutionResult(true);
-		}
-	}
-
-
-	@Override
 	public Command parse(String[] commandWords) {
+		// Vemos si player ha ordenado el comando move
 		Command com = null;
 		if (commandWords.length == 2 && this.matchCommandName(commandWords[0].toLowerCase())) {
 			boolean validDir = true;

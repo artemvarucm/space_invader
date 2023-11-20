@@ -25,7 +25,7 @@ public abstract class UCMWeapon extends Weapon{
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
 		if (!isAlive()) {
-			this.life = 0; // FIXME die
+			die();
 		}
 		return !isAlive();
 	}

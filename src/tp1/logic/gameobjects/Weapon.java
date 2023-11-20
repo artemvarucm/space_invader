@@ -19,7 +19,7 @@ public abstract class Weapon extends GameObject {
 			// Si se cumplen las condiciones
 			weaponAttack(other);
 			// Eliminamos weapon
-			this.life = 0;
+			die();
 		}
 		return res;
 	}
@@ -30,7 +30,7 @@ public abstract class Weapon extends GameObject {
 		performMovement(dir);
 		if(!pos.isOnBoard()) {
 			// Si ha salido fuera del tablero, muere
-			this.life = 0;
+			die();
 		} else {
 			// Intenta atacar a alguien despues de moverse
 			game.performAttack(this);
@@ -38,4 +38,9 @@ public abstract class Weapon extends GameObject {
 	}
 	
 	protected abstract boolean weaponAttack(GameItem other);
+	
+	protected void die() {
+		// Quita toda la vida (explicitamente)
+		this.life = 0;
+	}
 }

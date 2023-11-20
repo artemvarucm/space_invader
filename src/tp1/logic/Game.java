@@ -42,12 +42,6 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		container.add(player);
 	}
 
-	
-	@Override
-	public String infoToString() {
-		// Devuelve el estado del jugador en formato String
-		return player.stateToString();
-	}
 
 	@Override
 	public String stateToString() {
@@ -82,6 +76,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		}
 	}
 	
+	@Override
 	public void performAttack(Weapon weapon) {
 		// Realiza el ataque de weapon
 		container.checkAttacks(weapon);
@@ -93,6 +88,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		return player.move(move);
 	}
 	
+	@Override
 	public void receivePoints(int points) {
 		// Recibe puntos
 		player.receivePoints(points);
@@ -140,31 +136,37 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		return doExit || playerWin() || aliensWin();
 	}
 
+	@Override
 	public void enableLaser() {
 		// Inhabilitamos laser
 		player.enableLaser();
 	}
 	
+	@Override
 	public void enableShockWave() {
 		// Inhabilitamos shockWave (despues de matar al ufo)
 		player.enableShockWave();
 	}
 
+	@Override
 	public Random getRandom() {
 		// Devuelve el random
 		return this.rand;
 	}
 
+	@Override
 	public Level getLevel() {
 		// Devuelve el nivel
 		return this.level;
 	}
 	
+	@Override
 	public void addObject(GameObject object) {
 		// Anadimos laser al juego
 		container.add(object);
 	}
 	
+	@Override
 	public void removeObject(GameObject object) {
 		// Anadimos laser al juego
 		container.remove(object);
@@ -181,7 +183,6 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		// Imprime la lista de las naves con su descripcion
 		StringBuilder str = new StringBuilder();
 		// str.append(Messages.AVAILABLE_SHIPS).append(NEW_LINE);
-		// FIXME: reemplazar por \n NEW_LINE
 		str.append(UCMShip.getInfo()).append("\n");
 		str.append(RegularAlien.getInfo()).append("\n");					
 		str.append(DestroyerAlien.getInfo()).append("\n");
@@ -194,6 +195,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		this.reset = true;
 	}
 	
+	@Override
 	public boolean isCycleDescend() {
 		return cycleDescend;
 	}

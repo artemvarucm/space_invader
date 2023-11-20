@@ -12,7 +12,7 @@ public abstract class AlienShip extends EnemyShip {
 	// constante a la cual se reinicia cyclesToMove despues de moverse
 	protected int speed; 	
 	protected AlienManager alienManager;
-	
+
 	public AlienShip (AlienManager alienManager, int speed, GameWorld game, Position pos, int life) {
 		super(Move.LEFT, game, new Position(pos), life);
 		this.cyclesToMove = speed;
@@ -55,7 +55,9 @@ public abstract class AlienShip extends EnemyShip {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
 		if (!isAlive()) {
-			// FIXME ver si ha bajado
+			// Los aliens o todos han bajado o nadie ha bajado en este momento
+			// Shockwave ataca antes del automaticMoves
+			// Laser ataca despues de automaticMove de aliens
 			alienManager.alienDead();
 			// recibimos puntos
 			game.receivePoints(getPoints());

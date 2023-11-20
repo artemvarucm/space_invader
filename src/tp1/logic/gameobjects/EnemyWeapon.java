@@ -28,8 +28,8 @@ public abstract class EnemyWeapon extends Weapon{
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
 		if (!isAlive()) {
-			this.life = 0; // FIXME die
+			die();
 		}
-		return !isAlive();
+		return true; // siempre muere despues de colisionar
 	}
 }
