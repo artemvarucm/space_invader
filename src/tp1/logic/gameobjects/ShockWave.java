@@ -52,7 +52,7 @@ public class ShockWave extends UCMWeapon {
 	public void computerAction() {
 		// Realiza los ataques y muere
 		game.performAttack(this);
-		onDelete();
+		die();
 	}
 	
 	@Override
