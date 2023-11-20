@@ -137,8 +137,7 @@ public class UCMShip extends Ship {
 		if (hasShockWave()) {
 			disableShockWave();
 			ShockWave shockWave = new ShockWave(game);
-			game.performAttack(shockWave);
-			shockWave.onDelete();
+			game.addObject(shockWave);
 			res = true;
 		}
 		return res;
