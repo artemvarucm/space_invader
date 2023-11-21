@@ -56,6 +56,12 @@ public class ShockWave extends UCMWeapon {
 	}
 	
 	@Override
+	protected boolean weaponAttack(GameItem other) {
+		// Ataque de Shockwave
+		return other.receiveAttack(this);	
+	}
+	
+	@Override
 	public void onDelete() {
 		game.removeObject(this);
 	}

@@ -1,7 +1,3 @@
-1. Anadir Override y comentarios
-
-2. ShockWave no debe matar bombas
-
 3. /space_invader/tests/p2/01-easy_25-custom-input.txt
 este test describe lo que no nos va(no son del profe, sino nuestro)
 

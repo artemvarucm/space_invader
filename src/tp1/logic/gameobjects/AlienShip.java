@@ -49,6 +49,13 @@ public abstract class AlienShip extends EnemyShip {
 			alienManager.finalRowReached();
 		}
 	}
+	
+	@Override
+	public boolean receiveAttack(ShockWave shockWave) {
+		// ShockWave solo ataca a aliens
+		UCMWeapon weapon = shockWave;
+		return receiveAttack(weapon);
+	}
 
 	@Override
 	public boolean receiveAttack(UCMWeapon weapon) {

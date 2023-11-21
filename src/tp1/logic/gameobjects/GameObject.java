@@ -73,14 +73,17 @@ public abstract class GameObject implements GameItem {
 	@Override
 	public boolean receiveAttack(EnemyWeapon weapon) {
 		// Recibe el ataque del enemyweapon
-		// Devuelve true si se ha muerto el atacado
-		//receiveDamage(weapon.getDamage());
-		//return !isAlive();
 		return false;
 	}
 
 	@Override
 	public boolean receiveAttack(UCMWeapon weapon) {
+		return false;
+	}
+	
+	@Override
+	public boolean receiveAttack(ShockWave weapon) {
+		// ShockWave solo ataca a aliens
 		return false;
 	}
 
