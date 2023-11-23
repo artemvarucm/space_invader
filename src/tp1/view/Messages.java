@@ -79,6 +79,8 @@ public class Messages {
 	public static final String MOVEMENT_ERROR = "Movement cannot be performed";
 	
 	public static final String DIRECTION_ERROR = "Wrong direction: ";
+	
+	public static final String RESET_ERROR = "Wrong configuration: ";
 
 	//
 	// Game Objects

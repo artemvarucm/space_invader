@@ -8,6 +8,7 @@ public abstract class GameObject implements GameItem {
 	protected Position pos;
 	protected int life;
 	protected GameWorld game;
+	public GameObject() {}
 	
 	public GameObject(GameWorld game, Position pos, int life) {	
 		this.pos = pos;

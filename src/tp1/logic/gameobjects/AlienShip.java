@@ -19,6 +19,9 @@ public abstract class AlienShip extends EnemyShip {
 		this.speed = speed;
 		this.alienManager = alienManager;
 	}
+	public AlienShip() {
+		super();
+	}
 	
 	private boolean isInBorder() {
 		// Dependiendo del sentido del movimiento devuelve si ha tocado borde o no
@@ -49,6 +52,8 @@ public abstract class AlienShip extends EnemyShip {
 			alienManager.finalRowReached();
 		}
 	}
+	
+	protected abstract AlienShip copy(GameWorld game, int speed, Position pos, AlienManager am);
 	
 	@Override
 	public boolean receiveAttack(ShockWave shockWave) {

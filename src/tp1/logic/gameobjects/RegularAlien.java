@@ -18,7 +18,10 @@ public class RegularAlien extends AlienShip {
 	public RegularAlien (AlienManager alienManager, int speed, GameWorld game, Position pos) {
 		super(alienManager, speed, game, pos, ARMOR);
 	}
-	
+	public RegularAlien() {
+		super();
+	}
+
 	@Override
 	protected int getArmour() {
 		// Devuelve armadura
@@ -51,5 +54,10 @@ public class RegularAlien extends AlienShip {
 	private static String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.REGULAR_ALIEN_DESCRIPTION;
+	}
+	
+	@Override
+	protected AlienShip copy(GameWorld game, int speed, Position pos, AlienManager am){
+		return new RegularAlien(am, speed, game, pos);
 	}
 }

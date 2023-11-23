@@ -9,3 +9,6 @@ Habra que recorre la lista de objetos para imprimir getInfo?
 getPoints del jugador devuelve los puntos que tiene
 getPoints de aliens devuelve los puntos a recibir al matarlos
 Un poco ambiguo
+
+6. 
+explotion puede atacar tanto a aliens como a ucmship

@@ -21,6 +21,9 @@ public class DestroyerAlien extends AlienShip {
 		this.canShootBomb = true;
 		this.bombReadyToFire = false;
 	}
+	public DestroyerAlien() {
+		super();
+	}
 	
 	@Override
 	protected int getArmour() {
@@ -64,6 +67,11 @@ public class DestroyerAlien extends AlienShip {
 	
 	private boolean canGenerateRandomBomb() {
 		return game.getRandom().nextDouble() < game.getLevel().getShootFrequency();
+	}
+	
+	@Override
+	protected AlienShip copy(GameWorld game, int speed, Position pos, AlienManager am){
+		return new DestroyerAlien(am, speed, game, pos);
 	}
 	
 	@Override 

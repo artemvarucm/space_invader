@@ -11,6 +11,10 @@ public abstract class EnemyShip extends Ship {
 		this.dir = dir;
 	}
 	
+	public EnemyShip() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		// Devuelve la representacion del DestroyerAlien

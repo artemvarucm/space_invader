@@ -2,6 +2,7 @@ package tp1.logic;
 
 import java.util.Random;
 
+import tp1.control.InitialConfiguration;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.GameObject;
 import tp1.logic.gameobjects.RegularAlien;
@@ -23,10 +24,12 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	private boolean reset;
 	private AlienManager alienManager;
 	private boolean cycleDescend; // en este ciclo van a bajar los aliens
+	private InitialConfiguration config;
 	
 	public Game(Level level, long seed) {
 		this.level = level;
 		this.seed = seed;
+		this.config = InitialConfiguration.NONE;
 		initGame();
 	}
 	
@@ -37,7 +40,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		cycleDescend = false;
 		
 		alienManager = new AlienManager(this, level);
-		container = alienManager.initialize();
+		container = alienManager.initialize(config);
 		player = new UCMShip(this, new Position(DIM_X / 2, DIM_Y - 1));
 		container.add(player);
 	}
@@ -191,7 +194,9 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
-	public void reset() {		
+	public void reset(InitialConfiguration config) {
+		// Reseteamos configuracion y partida
+		this.config = config;
 		this.reset = true;
 	}
 	

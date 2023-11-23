@@ -1,8 +1,10 @@
 package tp1.logic;
 
 import tp1.control.InitialConfiguration;
+import tp1.logic.gameobjects.AlienShip;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.RegularAlien;
+import tp1.logic.gameobjects.ShipFactory;
 import tp1.logic.gameobjects.Ufo;
 
 /**
@@ -27,14 +29,20 @@ public class AlienManager {
 		this.game = game;
 	}
 	
-	public GameObjectContainer initialize() {
+	public GameObjectContainer initialize(InitialConfiguration config) {
 		this.remainingAliens = 0;
 		this.onBorder = false;
 		GameObjectContainer container = new GameObjectContainer();
 		
+		// Ufo spawnea independientemente de configuracion
 		initializeOvni(container);
-		initializeRegularAliens(container);
-		initializeDestroyerAliens(container);		
+		
+		if (config.equals(InitialConfiguration.NONE)) {
+			initializeRegularAliens(container);
+			initializeDestroyerAliens(container);		
+		} else {
+			costumedInitialization(container, config);
+		}
 		
 		return container;
 	}
@@ -94,9 +102,11 @@ public class AlienManager {
 	private void costumedInitialization(GameObjectContainer container, InitialConfiguration conf) {
  		for (String shipDescription : conf.getShipDescription()) {
  			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
- 			//AlienShip ship = ...
- 			//container.add(ship);
- 			this.remainingAliens++;
+ 			if (words.length == 3) {
+ 				AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2])), this);
+				container.add(ship);
+ 				this.remainingAliens++;
+ 			}
  		}
  	}
 

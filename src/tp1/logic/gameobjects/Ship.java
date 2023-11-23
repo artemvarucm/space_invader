@@ -10,6 +10,10 @@ public abstract class Ship extends GameObject{
 		super(game, pos, life);
 	}
 	
+	public Ship() {
+		super();
+	}
+	
 	public boolean move(Move move) {
 		/* Realiza el movimiento en la direccion dir
 		 * Devuelve true si queda dentro del tablero despues de moverse
