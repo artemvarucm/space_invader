@@ -10,5 +10,8 @@ getPoints del jugador devuelve los puntos que tiene
 getPoints de aliens devuelve los puntos a recibir al matarlos
 Un poco ambiguo
 
-6. 
-explotion puede atacar tanto a aliens como a ucmship
+6. explotion puede atacar tanto a aliens como a ucmship
+
+7. Si tenemos conf_3 y hacemos r sin segundo parametro(None), reseteamos a none o reseteamos conf_3?
+
+8. Explotion tiene clase UCMWeapon, cuando es EnemyWeapon o Weapon simple

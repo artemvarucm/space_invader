@@ -4,6 +4,7 @@ import java.util.Random;
 
 import tp1.control.InitialConfiguration;
 import tp1.logic.gameobjects.DestroyerAlien;
+import tp1.logic.gameobjects.ExplosiveAlien;
 import tp1.logic.gameobjects.GameObject;
 import tp1.logic.gameobjects.RegularAlien;
 import tp1.logic.gameobjects.UCMShip;
@@ -190,6 +191,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		str.append(RegularAlien.getInfo()).append("\n");					
 		str.append(DestroyerAlien.getInfo()).append("\n");
 		str.append(Ufo.getInfo()).append("\n");
+		str.append(ExplosiveAlien.getInfo()).append("\n");
 		System.out.print(str.toString());
 	}
 	

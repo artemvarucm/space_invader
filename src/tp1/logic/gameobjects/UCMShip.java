@@ -144,6 +144,13 @@ public class UCMShip extends Ship {
 		receiveDamage(weapon.getDamage());
 		return !isAlive();
 	}
+	
+	@Override
+	public boolean receiveAttack(Explotion weapon) {
+		// Recibe ataque del explotion
+		receiveDamage(weapon.getDamage());
+		return !isAlive();
+	}
 
 	@Override
 	public void automaticMove() {

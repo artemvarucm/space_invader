@@ -23,4 +23,11 @@ public abstract class EnemyShip extends Ship {
 	}
 	
 	abstract protected int getPoints();
+	
+	@Override
+	public boolean receiveAttack(Explotion weapon) {
+		// Recibe ataque del explotion
+		UCMWeapon ucmWeapon = weapon;
+		return receiveAttack(ucmWeapon);
+	}
 }

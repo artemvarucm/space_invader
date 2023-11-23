@@ -74,7 +74,8 @@ public class ExplosiveAlien extends AlienShip {
 			game.receivePoints(getPoints());
 			// realizamos ataques a sus vecinos (good neighbour)
 			Explotion explotion = new Explotion(game, this.pos);
-			game.addObject(explotion);
+			//game.addObject(explotion);
+			explotion.computerAction();
 		}
 		return !isAlive();
 	}

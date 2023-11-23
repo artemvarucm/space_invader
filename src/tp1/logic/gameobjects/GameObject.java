@@ -37,6 +37,7 @@ public abstract class GameObject implements GameItem {
 		return game;
 	}
 	
+	@Override
 	public Position getPos() {
 		// Devuelve la posicion actual
 		return pos;
@@ -85,6 +86,11 @@ public abstract class GameObject implements GameItem {
 	@Override
 	public boolean receiveAttack(ShockWave weapon) {
 		// ShockWave solo ataca a aliens
+		return false;
+	}
+	
+	@Override
+	public boolean receiveAttack(Explotion weapon) {
 		return false;
 	}
 

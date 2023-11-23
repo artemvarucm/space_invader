@@ -6,10 +6,10 @@ import tp1.logic.Position;
 
 /**
  * 
- * Class that represents the ShockWave
+ * Class that represents the Explotion
  *
  */
-public class Explotion extends EnemyWeapon {
+public class Explotion extends UCMWeapon {
 	private static int DAMAGE = 1;
 	public Explotion(GameWorld game, Position pos) {
 		super(Move.NONE, game, pos, 1);

@@ -46,19 +46,22 @@ public class ResetCommand extends Command{
 			// Devuelve el tipo de reset seleccionado
 			Command com = null;
 			
-			if (commandWords.length == 1) {
-				// reset sin parametro
-				com = new ResetCommand();
-			} else if (commandWords.length == 2 && this.matchCommandName(commandWords[0].toLowerCase())) {
-			    InitialConfiguration conf;
-			    conf = InitialConfiguration.valueOfIgnoreCase(commandWords[1].toUpperCase());
-				
-				if (conf == null) {
-					// Error en la direccion
-					System.out.println(Messages.RESET_ERROR + commandWords[1]);
-				} else {
-					// Devolvemos el nuevo comando creado
-					com = new ResetCommand(conf);
+			
+			if (this.matchCommandName(commandWords[0].toLowerCase())) {
+				if (commandWords.length == 1) {
+					// reset sin parametro
+					com = new ResetCommand(); 
+				} else if (commandWords.length == 2) {
+					InitialConfiguration conf;
+				    conf = InitialConfiguration.valueOfIgnoreCase(commandWords[1].toUpperCase());
+					
+					if (conf == null) {
+						// Error en la direccion
+						System.out.println(Messages.RESET_ERROR + commandWords[1]);
+					} else {
+						// Devolvemos el nuevo comando creado
+						com = new ResetCommand(conf);
+					}
 				}
 			}
 			return com;

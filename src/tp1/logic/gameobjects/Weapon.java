@@ -11,6 +11,11 @@ public abstract class Weapon extends GameObject {
 		this.dir = dir;
 	}
 	
+	protected void die() {
+		// Quita toda la vida (explicitamente)
+		this.life = 0;
+	}
+	
 	@Override
 	public boolean performAttack(GameItem other) {
 		// Realiza el ataque. Devuelve true si other esta muerto
@@ -37,10 +42,15 @@ public abstract class Weapon extends GameObject {
 		}
 	}
 	
-	protected abstract boolean weaponAttack(GameItem other);
-	
-	protected void die() {
-		// Quita toda la vida (explicitamente)
-		this.life = 0;
+	@Override
+	public boolean receiveAttack(Explotion weapon) {
+		// Recibe ataque del explotion
+		receiveDamage(weapon.getDamage());
+		if (!isAlive()) {
+			die();
+		}
+		return true; // siempre muere despues de colisionar
 	}
+	
+	protected abstract boolean weaponAttack(GameItem other);
 }
