@@ -13,7 +13,8 @@ public class CommandGenerator {
 		new ShockWaveCommand(),
 		new ListCommand(),
 		new ExitCommand(),
-		new ResetCommand()
+		new ResetCommand(),
+		new SuperLaserCommand()
 	);
 
 	public static Command parse(String[] commandWords) {		

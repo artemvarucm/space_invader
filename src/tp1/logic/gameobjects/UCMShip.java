@@ -10,6 +10,7 @@ public class UCMShip extends Ship {
 	private int points;
 	private boolean hasShockWave;
 	private boolean canShoot;
+	private boolean canShootSuper;
 
 	public UCMShip(GameWorld game, Position position) {
 		// Posicion inicial - ultima fila en la columna media
@@ -17,6 +18,7 @@ public class UCMShip extends Ship {
 		this.canShoot = true;
 		this.points = 0;
 		this.hasShockWave = false;
+		this.canShootSuper = true;
 	}
 	
 	@Override
@@ -85,6 +87,11 @@ public class UCMShip extends Ship {
 		// Habilta el laser
 		this.canShoot = true;
 	}
+	
+	public void enableSuperLaser() {
+		// Habilta el super laser
+		this.canShootSuper = true;
+	}
 
 	public void receivePoints(int points) {
 		// Recibe los puntos indicados 
@@ -121,6 +128,22 @@ public class UCMShip extends Ship {
 			UCMLaser laser = new UCMLaser(game, pos);
 			game.addObject(laser);
 			this.canShoot = false;
+		}
+		return res;
+	}
+	
+	public boolean shootSuperLaser(GameWorld game) {
+		// Realiza el disparo del super laser
+		boolean res = false;
+		if (canShootSuper && this.points >= 5) {
+			// Si puede disparar
+			res = true;
+			// "pagamos" puntos
+			this.points -= 5;
+			// Crea el nuevo laser en la posicion de UCMShip
+			UCMSuperLaser sLaser = new UCMSuperLaser(game, pos);
+			game.addObject(sLaser);
+			this.canShootSuper = false;
 		}
 		return res;
 	}

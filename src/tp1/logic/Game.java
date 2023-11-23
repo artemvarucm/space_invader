@@ -105,6 +105,12 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
+	public boolean shootSuperLaser() {
+		// Ejecuta disparo del super laser
+		return player.shootSuperLaser(this);
+	}
+	
+	@Override
 	public boolean shockWave() {
 		// Ejecuta shockwave
 		return player.executeShockWave(this);
@@ -144,6 +150,12 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	public void enableLaser() {
 		// Habilitamos laser
 		player.enableLaser();
+	}
+	
+	@Override
+	public void enableSuperLaser() {
+		// Habilitamos laser
+		player.enableSuperLaser();
 	}
 	
 	@Override

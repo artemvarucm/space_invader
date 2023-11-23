@@ -12,5 +12,6 @@ public interface GameModel {
 	public boolean move(Move move);
 	public void printGameObjectsList();
 	public boolean shootLaser();
+	public boolean shootSuperLaser();
 	public boolean shockWave();
 }

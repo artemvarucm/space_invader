@@ -74,6 +74,8 @@ public class Messages {
 
 	public static final String LASER_ERROR = "Laser cannot be shot";
 
+	public static final String SUPER_LASER_ERROR = "Super laser cannot be shot";
+	
 	public static final String SHOCKWAVE_ERROR = "ShockWave cannot be shot";
 	
 	public static final String MOVEMENT_ERROR = "Movement cannot be performed";
@@ -96,6 +98,9 @@ public class Messages {
 	public static final String BOMB_SYMBOL = "*";
 
 	public static final String LASER_SYMBOL = "oo";
+	
+	public static final String SUPER_LASER_SYMBOL = "ǁǁ";
+
 
 	public static final String UCMSHIP_SYMBOL = "^__^";
 
@@ -160,6 +165,11 @@ public class Messages {
 	public static final String COMMAND_NONE_SHORTCUT = "n";
 	public static final String COMMAND_NONE_DETAILS = "[n]one";
 	public static final String COMMAND_NONE_HELP = "user does not perform any action";
+	
+	public static final String COMMAND_SUPER_LASER_NAME = "superLaser";
+	public static final String COMMAND_SUPER_LASER_SHORTCUT = "sL";
+	public static final String COMMAND_SUPER_LASER_DETAILS = "[s]uper[L]aser";
+	public static final String COMMAND_SUPER_LASER_HELP = "shoots a super laser when player has enough points";
 
 	/**
 	 * Formats an error message.

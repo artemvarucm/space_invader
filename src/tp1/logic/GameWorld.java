@@ -22,6 +22,7 @@ public interface GameWorld {
 	
 	// Para laser
 	public void enableLaser();
+	public void enableSuperLaser();
 	public boolean isCycleDescend();
 	
 	// Para ufo
