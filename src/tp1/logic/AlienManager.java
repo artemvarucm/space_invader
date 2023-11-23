@@ -1,5 +1,6 @@
 package tp1.logic;
 
+import tp1.control.InitialConfiguration;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.RegularAlien;
 import tp1.logic.gameobjects.Ufo;
@@ -89,6 +90,16 @@ public class AlienManager {
 		// Incrementamos contador de aliens
 		remainingAliens += level.getNumDestroyerAliens();
 	}
+	
+	private void costumedInitialization(GameObjectContainer container, InitialConfiguration conf) {
+ 		for (String shipDescription : conf.getShipDescription()) {
+ 			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
+ 			//AlienShip ship = ...
+ 			//container.add(ship);
+ 			this.remainingAliens++;
+ 		}
+ 	}
+
 	
 	// CONTROL METHODS
 	public int getRemainingAliens() {
