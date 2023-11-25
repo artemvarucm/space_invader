@@ -15,3 +15,6 @@ Un poco ambiguo
 7. Si tenemos conf_3 y hacemos r sin segundo parametro(None), reseteamos a none o reseteamos conf_3?
 
 8. Explotion tiene clase UCMWeapon, cuando es EnemyWeapon o Weapon simple
+
+9. Explotion no ataca a UCMlaser ni a UCMSuperLaser, 
+pero creo que no puede ocurrir, porque son los que le matan
