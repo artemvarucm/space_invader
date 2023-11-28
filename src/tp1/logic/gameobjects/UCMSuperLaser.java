@@ -17,11 +17,6 @@ public class UCMSuperLaser extends UCMLaser {
 	}
 	
 	@Override
-	protected int getArmour() {
-		return 0;
-	}
-	
-	@Override
 	public int getDamage() {
 		// Devuelve el dano
 		return UCMSuperLaser.DAMAGE;
@@ -31,15 +26,5 @@ public class UCMSuperLaser extends UCMLaser {
 	protected String getSymbol() {
 		// Devuelve la representacion ASCII del Laser
 		return Messages.SUPER_LASER_SYMBOL;
-	}
-
-	/**
-	 *  Method called when the laser disappears from the board
-	 */
-	@Override
-	public void onDelete() {
-		// Si se ha muerto, la nave puede volver a lanzar el laser
-		game.enableSuperLaser();
-		game.removeObject(this);
-	}
+	}	
 }
