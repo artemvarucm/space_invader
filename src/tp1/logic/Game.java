@@ -111,6 +111,22 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
+	public void explosiveAttack(Position pos, int damage) {
+		int minX = pos.getCol() - 1 >= 0 ? pos.getCol() - 1 : 0;
+		int maxX = pos.getCol() + 1 < DIM_X ? pos.getCol() + 1 : DIM_X - 1;
+		
+		int minY = pos.getRow() - 1 >= 0 ? pos.getRow() - 1 : 0;
+		int maxY = pos.getRow() + 1 < DIM_Y ? pos.getRow() + 1 : DIM_Y - 1;
+		
+		for (int i = minX; i <= maxX; i++) {
+			for (int j = minY; j <= maxY; j++) {
+				container.explotion(new Position(i,j), damage);
+			}
+		}
+
+	}
+	
+	@Override
 	public boolean shockWave() {
 		// Ejecuta shockwave
 		return player.executeShockWave(this);

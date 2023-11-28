@@ -22,6 +22,16 @@ public class GameObjectContainer {
 		objects.remove(object);
 	}
 	
+	public void explotion(Position pos, int damage) {		
+		// Realiza la revision si hay algun objeto en la posicion pos y le quita danio damage en caso afirmativa
+		for (int i=0;i<objects.size();i++) {
+			GameObject object = objects.get(i);
+			if (object.isOnPosition(pos)) {
+				object.receiveDamage(damage);
+			}
+		}
+	} 
+	
 	public String toString(Position pos) {
 		StringBuilder builder = new StringBuilder();
 		for (int i=0;i<objects.size();i++) {

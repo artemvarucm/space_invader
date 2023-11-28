@@ -26,4 +26,7 @@ public interface GameWorld {
 	
 	// Para ufo
 	public void enableShockWave();
+	
+	// Para explotion
+	public void explosiveAttack(Position pos, int damage);
 }

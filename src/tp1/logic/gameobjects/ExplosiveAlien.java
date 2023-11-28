@@ -14,6 +14,7 @@ public class ExplosiveAlien extends AlienShip {
 	//public static final int ROW_INI_OFFSET = 1; // donde empezamos a dibujarles (filas)
 	private static final int ARMOR = 2;
 	private static final int POINTS = 12;
+	private static final int DAMAGE = 1; // danio despues de morir
 	
 	public ExplosiveAlien (AlienManager alienManager, int speed, GameWorld game, Position pos) {
 		super(alienManager, speed, game, pos, ARMOR);
@@ -62,6 +63,12 @@ public class ExplosiveAlien extends AlienShip {
 	}
 	
 	@Override
+	public void onDelete() {
+		game.explosiveAttack(this.pos, DAMAGE);
+		super.onDelete();
+	}
+	
+	@Override
 	public boolean receiveAttack(UCMWeapon weapon) {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
@@ -73,10 +80,11 @@ public class ExplosiveAlien extends AlienShip {
 			// recibimos puntos
 			game.receivePoints(getPoints());
 			// realizamos ataques a sus vecinos (good neighbour)
-			Explotion explotion = new Explotion(game, this.pos);
-			//game.addObject(explotion);
-			explotion.computerAction();
+			// Explotion explotion = new Explotion(game, this.pos);
+			// game.addObject(explotion);
+			// explotion.computerAction();
 		}
 		return !isAlive();
 	}
+	
 }
