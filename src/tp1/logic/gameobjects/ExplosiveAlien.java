@@ -26,13 +26,13 @@ public class ExplosiveAlien extends AlienShip {
 	@Override
 	protected int getArmour() {
 		// Devuelve armadura
-		return 0;
+		return ARMOR;
 	}
 	
 	@Override
 	protected int getDamage() {
 		// Devuelve el dano
-		return 0;
+		return DAMAGE;
 	}
 	
 	@Override

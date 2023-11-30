@@ -18,7 +18,7 @@ public class Bomb extends EnemyWeapon {
 	@Override
 	protected int getArmour() {
 		// TODO Auto-generated method stub
-		return 0;
+		return ARMOR;
 	}
 	
 	@Override

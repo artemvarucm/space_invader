@@ -25,7 +25,7 @@ public class RegularAlien extends AlienShip {
 	@Override
 	protected int getArmour() {
 		// Devuelve armadura
-		return 0;
+		return ARMOR;
 	}
 	
 	@Override

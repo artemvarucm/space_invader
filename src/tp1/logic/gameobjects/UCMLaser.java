@@ -19,7 +19,7 @@ public class UCMLaser extends UCMWeapon {
 	
 	@Override
 	protected int getArmour() {
-		return 0;
+		return ARMOR;
 	}
 	
 	@Override

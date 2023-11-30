@@ -49,6 +49,13 @@ public class Ufo extends EnemyShip {
 		// Devuelve el texto de la descripcion 
 		return Messages.UFO_DESCRIPTION;
 	}
+	@Override
+	public boolean isAlive() {
+		// Para no eliminarlo del tablero
+		// muerto en un caso, cuando le han disparado, y no le queda vida y esta activo
+		// no llega hasta removeDead con isAlive() == true
+		return super.isAlive() || !enabled;
+	}
 	
 	@Override
 	public String toString() {
@@ -108,12 +115,14 @@ public class Ufo extends EnemyShip {
 		// Recibe ataque del weapon
 		
 		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
+		boolean died = !isAlive();
+		if (died) {
 			game.enableShockWave();
 			// recibe puntos
 			game.receivePoints(getPoints());
+			die();
 		}
-		return !isAlive();
+		return died;
 	}
 	
 }
