@@ -41,7 +41,6 @@ public class UCMLaser extends UCMWeapon {
 	public void onDelete() {
 		// Si se ha muerto, la nave puede volver a lanzar el laser
 		game.enableLaser();
-		game.removeObject(this);
 	}
 	
 	@Override

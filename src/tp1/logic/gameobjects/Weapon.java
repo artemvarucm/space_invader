@@ -42,15 +42,5 @@ public abstract class Weapon extends GameObject {
 		}
 	}
 	
-	@Override
-	public boolean receiveAttack(Explotion weapon) {
-		// Recibe ataque del explotion
-		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			die();
-		}
-		return true; // siempre muere despues de colisionar
-	}
-	
 	protected abstract boolean weaponAttack(GameItem other);
 }

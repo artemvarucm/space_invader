@@ -15,7 +15,7 @@ public abstract class GameObject implements GameItem {
 		this.game = game;
 		this.life = life;
 	}
-	
+
 	@Override
 	public boolean isAlive() {
 		// Devuelve true, si esta vivo
@@ -88,10 +88,4 @@ public abstract class GameObject implements GameItem {
 		// ShockWave solo ataca a aliens
 		return false;
 	}
-	
-	@Override
-	public boolean receiveAttack(Explotion weapon) {
-		return false;
-	}
-
 }

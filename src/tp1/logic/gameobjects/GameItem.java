@@ -9,7 +9,6 @@ public interface GameItem {
 	public boolean receiveAttack(EnemyWeapon weapon);
 	public boolean receiveAttack(UCMWeapon weapon);
 	public boolean receiveAttack(ShockWave weapon);
-	public boolean receiveAttack(Explotion weapon);
 
 	public boolean isAlive();
 	public boolean isOnPosition(Position pos);

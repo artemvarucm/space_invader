@@ -36,7 +36,8 @@ public class GameObjectContainer {
 		StringBuilder builder = new StringBuilder();
 		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
-			if (object.isOnPosition(pos))
+			// Mostrar si esta vivo
+			if (object.isAlive() && object.isOnPosition(pos))
 				builder.append(object.toString());
 		}
 		return builder.toString();
@@ -75,6 +76,7 @@ public class GameObjectContainer {
 			GameObject object = objects.get(i);
 			if (!object.isAlive()) {
 				object.onDelete();
+				remove(object);
 			}
 
 		}

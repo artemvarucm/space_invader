@@ -12,9 +12,8 @@ public interface GameWorld {
 	public Level getLevel();
 	public Random getRandom();
 	
-	// Para anadir/eliminar de lista
+	// Para anadir a lista
 	public void addObject(GameObject object);
-	public void removeObject(GameObject object);
  
 	// Para weapon
 	public void performAttack(Weapon weapon);

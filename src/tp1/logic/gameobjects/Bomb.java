@@ -37,6 +37,5 @@ public class Bomb extends EnemyWeapon {
 	public void onDelete() {
 		// Si se ha muerto, mandar senal al destroyer de que puede volver a lanzar la bomba
 		owner.enableBomb();
-		game.removeObject(this);
 	}
 }

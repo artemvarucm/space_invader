@@ -188,14 +188,8 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	
 	@Override
 	public void addObject(GameObject object) {
-		// Anadimos laser al juego
+		// Anadimos objeto al juego
 		container.add(object);
-	}
-	
-	@Override
-	public void removeObject(GameObject object) {
-		// Anadimos laser al juego
-		container.remove(object);
 	}
 	
 	@Override

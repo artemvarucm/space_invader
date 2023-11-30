@@ -37,7 +37,7 @@ public abstract class AlienShip extends EnemyShip {
 	
 	@Override
 	public void onDelete() {
-		game.removeObject(this);
+		// vacio
 	}
 	
 	private void descend() {
