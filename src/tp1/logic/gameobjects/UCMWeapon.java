@@ -24,9 +24,7 @@ public abstract class UCMWeapon extends Weapon{
 	public boolean receiveAttack(EnemyWeapon weapon) {
 		// Recibe ataque del weapon del enemigo
 		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			die();
-		}
+		
 		return !isAlive();
 	}
 }

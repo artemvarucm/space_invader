@@ -27,9 +27,6 @@ public abstract class EnemyWeapon extends Weapon{
 	public boolean receiveAttack(UCMWeapon weapon) {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			die();
-		}
 		return true; // siempre muere despues de colisionar
 	}
 }

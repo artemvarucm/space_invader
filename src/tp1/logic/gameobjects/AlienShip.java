@@ -23,6 +23,13 @@ public abstract class AlienShip extends EnemyShip {
 		super();
 	}
 	
+	@Override
+	public void onDelete() {
+		alienManager.alienDead();
+		// recibimos puntos
+		game.receivePoints(getPoints());
+	}
+	
 	private boolean isInBorder() {
 		// Dependiendo del sentido del movimiento devuelve si ha tocado borde o no
 		return (dir.equals(Move.RIGHT) && pos.getCol() == Game.DIM_X - 1) 
@@ -33,11 +40,6 @@ public abstract class AlienShip extends EnemyShip {
 	public boolean isInFinalRow() {
 		// Devuelve true si esta en la ultima fila(donde esta UCMShip)
 		return pos.getRow() == Game.DIM_Y - 1;
-	}
-	
-	@Override
-	public void onDelete() {
-		// vacio
 	}
 	
 	private void descend() {
@@ -66,14 +68,6 @@ public abstract class AlienShip extends EnemyShip {
 	public boolean receiveAttack(UCMWeapon weapon) {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			// Los aliens o todos han bajado o nadie ha bajado en este momento
-			// Shockwave ataca antes del automaticMoves
-			// Laser ataca despues de automaticMove de aliens
-			alienManager.alienDead();
-			// recibimos puntos
-			game.receivePoints(getPoints());
-		}
 		return !isAlive();
 	}
 	

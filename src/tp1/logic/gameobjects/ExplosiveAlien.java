@@ -66,25 +66,6 @@ public class ExplosiveAlien extends AlienShip {
 	public void onDelete() {
 		game.explosiveAttack(this.pos, DAMAGE);
 		super.onDelete();
-	}
-	
-	@Override
-	public boolean receiveAttack(UCMWeapon weapon) {
-		// Recibe ataque del weapon
-		receiveDamage(weapon.getDamage());
-		if (!isAlive()) {
-			// Los aliens o todos han bajado o nadie ha bajado en este momento
-			// Shockwave ataca antes del automaticMoves
-			// Laser ataca despues de automaticMove de aliens
-			alienManager.alienDead();
-			// recibimos puntos
-			game.receivePoints(getPoints());
-			// realizamos ataques a sus vecinos (good neighbour)
-			// Explotion explotion = new Explotion(game, this.pos);
-			// game.addObject(explotion);
-			// explotion.computerAction();
-		}
-		return !isAlive();
-	}
+	}	
 	
 }

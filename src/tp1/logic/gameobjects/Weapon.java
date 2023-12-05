@@ -14,6 +14,7 @@ public abstract class Weapon extends GameObject {
 	protected void die() {
 		// Quita toda la vida (explicitamente)
 		this.life = 0;
+		onDelete();
 	}
 	
 	@Override

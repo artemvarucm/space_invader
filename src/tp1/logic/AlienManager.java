@@ -165,5 +165,6 @@ public class AlienManager {
 				this.onBorder = false;
 			}
 		}
+		
 	}
 }

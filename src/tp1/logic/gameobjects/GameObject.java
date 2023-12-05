@@ -30,6 +30,9 @@ public abstract class GameObject implements GameItem {
 	public void receiveDamage(int dam) {
 		// Recibe el danio indicado en dam
 		this.life -= dam;
+		if (life <= 0) {
+			onDelete();
+		}
 	}
 	
 	public GameWorld getGame() {

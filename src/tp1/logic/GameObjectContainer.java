@@ -26,7 +26,7 @@ public class GameObjectContainer {
 		// Realiza la revision si hay algun objeto en la posicion pos y le quita danio damage en caso afirmativa
 		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
-			if (object.isOnPosition(pos)) {
+			if (object.isAlive() && object.isOnPosition(pos)) {
 				object.receiveDamage(damage);
 			}
 		}
@@ -72,10 +72,10 @@ public class GameObjectContainer {
 	
 	public void removeDead() {
 		// Elimina a objetos muertos de la lista
-		for (int i=objects.size() - 1; i >= 0; i--) {
+		// No se ejecuta para ufo, porque es el primero
+		for (int i=objects.size() - 1; i >= 1; i--) {
 			GameObject object = objects.get(i);
 			if (!object.isAlive()) {
-				object.onDelete();
 				remove(object);
 			}
 
