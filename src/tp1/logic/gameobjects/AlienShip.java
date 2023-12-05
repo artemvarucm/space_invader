@@ -68,7 +68,7 @@ public abstract class AlienShip extends EnemyShip {
 	public boolean receiveAttack(UCMWeapon weapon) {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
-		return !isAlive();
+		return true;
 	}
 	
 	@Override

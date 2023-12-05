@@ -115,7 +115,7 @@ public class Ufo extends EnemyShip {
 			// recibe puntos
 			game.receivePoints(getPoints());
 		}
-		return died;
+		return true;
 	}
 	
 }

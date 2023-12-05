@@ -17,7 +17,7 @@ public abstract class UCMWeapon extends Weapon{
 	
 	@Override
 	protected boolean weaponAttack(GameItem other) {
-		return other.receiveAttack(this);	
+		return other.receiveAttack(this);
 	}
 	
 	@Override
@@ -25,6 +25,6 @@ public abstract class UCMWeapon extends Weapon{
 		// Recibe ataque del weapon del enemigo
 		receiveDamage(weapon.getDamage());
 		
-		return !isAlive();
+		return true;
 	}
 }

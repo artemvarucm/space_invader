@@ -21,7 +21,7 @@ public abstract class EnemyWeapon extends Weapon{
 	@Override
 	protected boolean weaponAttack(GameItem other) {
 		return other.receiveAttack(this);	
-	}	
+	}
 	
 	@Override
 	public boolean receiveAttack(UCMWeapon weapon) {

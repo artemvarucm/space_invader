@@ -23,9 +23,10 @@ public abstract class Weapon extends GameObject {
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
 			// Si se cumplen las condiciones
-			weaponAttack(other);
-			// Eliminamos weapon
-			die();
+			if (weaponAttack(other)) {
+				// Eliminamos weapon
+				die();
+			}
 		}
 		return res;
 	}

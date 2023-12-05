@@ -158,7 +158,7 @@ public class UCMShip extends Ship {
 	public boolean receiveAttack(EnemyWeapon weapon) {
 		// Recibe ataque del weapon
 		receiveDamage(weapon.getDamage());
-		return !isAlive();
+		return true;
 	}
 
 	@Override
