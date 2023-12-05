@@ -19,7 +19,6 @@ public class CommandGenerator {
 
 	public static Command parse(String[] commandWords) {		
 		Command command = null;
-		// FIXME: reeemplazar por while command != null
 		for (Command c: availableCommands) {
 			// Intenta convertir al comando
 			if (command == null) {
@@ -32,7 +31,6 @@ public class CommandGenerator {
 	public static String commandHelp() {
 		StringBuilder commands = new StringBuilder();	
 		for (Command c: availableCommands) {
-			//TODO fill with your code
 			commands.append(c.helpText());
 		}
 		return commands.toString();

@@ -10,8 +10,8 @@ import tp1.view.Messages;
  *
  */
 public class UCMSuperLaser extends UCMLaser {
-	private static int ARMOR = 1;
 	public static int DAMAGE = 2;
+	public static int POINTS_REQUIRED = 5;
 	public UCMSuperLaser(GameWorld game, Position pos) {
 		super(game, new Position(pos));
 	}
@@ -19,7 +19,7 @@ public class UCMSuperLaser extends UCMLaser {
 	@Override
 	public int getDamage() {
 		// Devuelve el dano
-		return UCMSuperLaser.DAMAGE;
+		return DAMAGE;
 	}
 	
 	@Override

@@ -112,6 +112,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	
 	@Override
 	public void explosiveAttack(Position pos, int damage) {
+		// realiza la explosion de la nave en la posicion pos, quitando danio damage a posiciones adyacentes
 		int minX = pos.getCol() - 1 >= 0 ? pos.getCol() - 1 : 0;
 		int maxX = pos.getCol() + 1 < DIM_X ? pos.getCol() + 1 : DIM_X - 1;
 		

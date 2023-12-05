@@ -17,7 +17,7 @@ public abstract class EnemyShip extends Ship {
 	
 	@Override
 	public String toString() {
-		// Devuelve la representacion del DestroyerAlien
+		// Devuelve la representacion del EnemyShip
 		// Hasta aqui solo llegan los vivos, no hace falta isAlive()
 		return " " + getSymbol() + "[" + String.format("%02d", life) + "]";
 	}

@@ -128,11 +128,11 @@ public class UCMShip extends Ship {
 	public boolean shootSuperLaser(GameWorld game) {
 		// Realiza el disparo del super laser
 		boolean res = false;
-		if (canShoot && this.points >= 5) {
+		if (canShoot && this.points >= UCMSuperLaser.POINTS_REQUIRED) {
 			// Si puede disparar
 			res = true;
 			// "pagamos" puntos
-			this.points -= 5;
+			this.points -= UCMSuperLaser.POINTS_REQUIRED;
 			// Crea el nuevo laser en la posicion de UCMShip
 			UCMSuperLaser sLaser = new UCMSuperLaser(game, pos);
 			game.addObject(sLaser);
