@@ -11,6 +11,15 @@ public abstract class Weapon extends GameObject {
 		this.dir = dir;
 	}
 	
+	@Override
+	public String toString() {
+		/* 
+		 Devuelve la representacion
+		 Hasta aqui solo llegan los vivos, no hace falta isAlive()
+		 */
+		return getSymbol();
+	}
+	
 	protected void die() {
 		// Quita toda la vida (explicitamente)
 		this.life = 0;
@@ -22,7 +31,7 @@ public abstract class Weapon extends GameObject {
 		// Realiza el ataque. Devuelve true si other esta muerto
 		boolean res = false;
 		if (isAlive() && other.isAlive() && other.isOnPosition(pos)) {
-			// Si se cumplen las condiciones
+			// Si ha podido atacar al objeto
 			if (weaponAttack(other)) {
 				// Eliminamos weapon
 				die();

@@ -10,12 +10,6 @@ public abstract class UCMWeapon extends Weapon{
 	}
 	
 	@Override
-	public String toString() {
-		// Devuelve la representacion UCMWeapon
-		return getSymbol();
-	}
-	
-	@Override
 	protected boolean weaponAttack(GameItem other) {
 		return other.receiveAttack(this);
 	}
@@ -24,7 +18,6 @@ public abstract class UCMWeapon extends Weapon{
 	public boolean receiveAttack(EnemyWeapon weapon) {
 		// Recibe ataque del weapon del enemigo
 		receiveDamage(weapon.getDamage());
-		
 		return true;
 	}
 }

@@ -9,14 +9,6 @@ public abstract class EnemyWeapon extends Weapon{
 		super(dir, game, pos, life);
 	}
 	
-	@Override
-	public String toString() {
-		/* Devuelve la representacion
-		 Hasta aqui solo llegan los vivos, no hace falta isAlive()
-		 */
-		return getSymbol();
-	}
-	
 	// PERFORM ATTACK METHODS
 	@Override
 	protected boolean weaponAttack(GameItem other) {

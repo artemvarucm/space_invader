@@ -21,16 +21,12 @@ public abstract class GameObject implements GameItem {
 		// Devuelve true, si esta vivo
 		return this.life > 0;
 	}
-
-	protected int getLife() {
-		// Devuelve la vida actual
-		return this.life;
-	}
 	
 	public void receiveDamage(int dam) {
 		// Recibe el danio indicado en dam
 		this.life -= dam;
 		if (life <= 0) {
+			// si muere, onDelete
 			onDelete();
 		}
 	}
@@ -40,11 +36,6 @@ public abstract class GameObject implements GameItem {
 		return game;
 	}
 	
-	@Override
-	public Position getPos() {
-		// Devuelve la posicion actual
-		return pos;
-	}
 	
 	@Override
 	public boolean isOnPosition(Position pos) {

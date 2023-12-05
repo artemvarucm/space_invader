@@ -62,6 +62,7 @@ public class GameObjectContainer {
 	}
 	
 	public void checkAttacks(Weapon weapon) {
+		// Ataques del weapon
 		for (int i=0;i<objects.size();i++) {
 			GameObject object = objects.get(i);
 			if (!weapon.equals(object)) {

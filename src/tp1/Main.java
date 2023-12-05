@@ -1,5 +1,7 @@
 package tp1;
 
+import static tp1.view.Messages.error;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -7,7 +9,6 @@ import tp1.control.Controller;
 import tp1.logic.Game;
 import tp1.logic.Level;
 import tp1.view.Messages;
-import static tp1.view.Messages.error;
 
 
 public class Main {
@@ -60,6 +61,7 @@ public class Main {
                     System.out.println(String.format(Messages.SEED_NOT_A_NUMBER_ERROR, seedParam));
                     usage();
                 } catch (Exception e) {
+                	e.printStackTrace();
                     System.out.println(error(e.getMessage()));
                 }
             }
