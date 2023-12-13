@@ -1,5 +1,8 @@
 package tp1.logic.gameobjects;
 
+import java.util.Arrays;
+import java.util.List;
+
 import tp1.logic.GameWorld;
 import tp1.logic.Move;
 import tp1.logic.Position;
@@ -8,6 +11,12 @@ import tp1.view.Messages;
 public class UCMShip extends Ship {
 	private static final int ARMOR = 3;
 	private static final int DAMAGE = 1;
+	private static final List<Move> availableMoves = Arrays.asList(
+			Move.LLEFT,
+			Move.LEFT,
+			Move.RIGHT,
+			Move.RRIGHT
+	);
 	private int points;
 	private boolean hasShockWave;
 	private boolean canShoot;
@@ -78,9 +87,8 @@ public class UCMShip extends Ship {
 	
 	public static String allowedMoves(String separator) {
 		StringBuilder sb = new StringBuilder();
-		for (Move m : Move.values()) {
-			if (!m.equals(Move.UP) && !m.equals(Move.DOWN))
-				sb.append(m.name() + separator);
+		for (Move m : availableMoves) {
+			sb.append(m.name() + separator);
 		}
 		String moves = sb.toString();
 		return moves.substring(0, moves.length()-separator.length());
@@ -120,6 +128,14 @@ public class UCMShip extends Ship {
 	public boolean isCanShoot() {
 		// Devuelve true si puede lanzar laser
 		return canShoot;
+	}
+	@Override
+	public void move(Move move) {
+		if (availableMoves.contains(move))
+			super.move(move);
+		else {
+			//throw NotAllowedMoveException();
+		}
 	}
 	
 	public boolean shootLaser(GameWorld game) {

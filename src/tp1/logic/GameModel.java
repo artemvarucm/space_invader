@@ -9,7 +9,7 @@ public interface GameModel {
 	
 	public void reset(InitialConfiguration config);
 	public void exit();
-	public boolean move(Move move);
+	public void move(Move move);
 	public void printGameObjectsList();
 	public boolean shootLaser();
 	public boolean shootSuperLaser();

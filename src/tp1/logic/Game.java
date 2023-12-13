@@ -87,9 +87,9 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
-	public boolean move(Move move) {
+	public void move(Move move) {
 		// Mueve player(UCMShip)
-		return player.move(move);
+		player.move(move);
 	}
 	
 	@Override

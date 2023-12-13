@@ -12,6 +12,7 @@ Un poco ambiguo
 
 LAS FUNCIONES BOOL DE UCMSHIP PASAN A SER VOID?? 
 
-throw new IllegalArgumentException(); - en MoveCommand se ve raro
+Reemplazar todos los System.out.println(error) por throw new Exception...
+
 
 !!!! VER DIAGRAMAS DEFINIER MAS METODOS ABSTACTOS !!

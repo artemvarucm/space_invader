@@ -50,18 +50,12 @@ public class MoveCommand extends Command {
 		if (this.matchCommandName(commandWords[0].toLowerCase())) {
 			if (commandWords.length == 2) {
 				try {
-					Move dir = null;
-				
 					// Convertimos a letras mayusculas
-					dir = Move.valueOf(commandWords[1].toUpperCase());
-					if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { 
-						// No se puede ir arriba o abajo
-						throw new IllegalArgumentException();
-					}
+					Move dir = Move.valueOf(commandWords[1].toUpperCase());
 					
 					com = new MoveCommand(dir);
 				} catch (IllegalArgumentException e) {
-					System.out.println(Messages.DIRECTION_ERROR + commandWords[1]);
+					throw new CommandParseException(Messages.DIRECTION_ERROR + commandWords[1]);
 				}
 			} else {
 				throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
