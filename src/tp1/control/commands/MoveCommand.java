@@ -1,6 +1,7 @@
 package tp1.control.commands;
 
-import tp1.control.ExecutionResult;
+import tp1.control.commands.exceptions.CommandExecuteException;
+import tp1.control.commands.exceptions.CommandParseException;
 import tp1.logic.GameModel;
 import tp1.logic.Move;
 import tp1.view.Messages;
@@ -16,13 +17,10 @@ public class MoveCommand extends Command {
 	}
 	
 	@Override
-	public ExecutionResult execute(GameModel game) {
+	public boolean execute(GameModel game) throws CommandExecuteException {
 		// Realiza el movimiento
-		if (!game.move(move)) {
-			return new ExecutionResult(Messages.MOVEMENT_ERROR);
-		} else {
-			return new ExecutionResult(true);
-		}
+		game.move(move);
+		return true;
 	}
 
 	@Override
@@ -46,29 +44,27 @@ public class MoveCommand extends Command {
 	}
 
 	@Override
-	public Command parse(String[] commandWords) {
+	public Command parse(String[] commandWords) throws CommandParseException {
 		// Vemos si player ha ordenado el comando move
 		Command com = null;
-		if (commandWords.length == 2 && this.matchCommandName(commandWords[0].toLowerCase())) {
-			boolean validDir = true;
-			Move dir = null;
-			try {
-				// Convertimos a letras mayusculas
-				dir = Move.valueOf(commandWords[1].toUpperCase());
-				if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { 
-					// No se puede ir arriba o abajo
-					validDir = false;
+		if (this.matchCommandName(commandWords[0].toLowerCase())) {
+			if (commandWords.length == 2) {
+				try {
+					Move dir = null;
+				
+					// Convertimos a letras mayusculas
+					dir = Move.valueOf(commandWords[1].toUpperCase());
+					if (dir.equals(Move.UP) || dir.equals(Move.DOWN)) { 
+						// No se puede ir arriba o abajo
+						throw new IllegalArgumentException();
+					}
+					
+					com = new MoveCommand(dir);
+				} catch (IllegalArgumentException e) {
+					System.out.println(Messages.DIRECTION_ERROR + commandWords[1]);
 				}
-			} catch (IllegalArgumentException e) {
-				validDir = false;
-			}
-			
-			if (!validDir) {
-				// Error en la direccion
-				System.out.println(Messages.DIRECTION_ERROR + commandWords[1]);
 			} else {
-				// Devolvemos el nuevo comando creado
-				com = new MoveCommand(dir);
+				throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 			}
 		}
 		return com;

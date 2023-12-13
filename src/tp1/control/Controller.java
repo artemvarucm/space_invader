@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import tp1.control.commands.Command;
 import tp1.control.commands.CommandGenerator;
+import tp1.control.commands.exceptions.CommandExecuteException;
+import tp1.control.commands.exceptions.CommandParseException;
 import tp1.logic.Game;
 import tp1.logic.GameModel;
 import tp1.view.BoardPrinter;
@@ -53,21 +55,19 @@ public class Controller {
 		while(!game.isFinished()) {
 			// Pedimos accion al usuario
 			String[] comandos = prompt();
-			Command command = CommandGenerator.parse(comandos);
-			if (command != null) {
-				ExecutionResult result = command.execute(game);
-				if (result.success()) {
-					if (result.draw()) {
-						game.update();
-						printGame();
-					}
+			try {
+				Command command = CommandGenerator.parse(comandos);
+				boolean draw = command.execute(game);
+				if (draw) {
+					game.update();
+					printGame();
 				} 
-				
-				else
-					System.out.println(result.errorMessage());
-			} else {
-				System.out.println(Messages.UNKNOWN_COMMAND);
-			}
+			} catch (CommandParseException | CommandExecuteException e) {
+	 			System.out.println(e.getMessage());
+	 			Throwable cause = e.getCause();
+	 			if (cause != null) 
+	 			    System.out.println(cause.getMessage());
+	 		}
 		}
 		// Mostramos mensaje de despedida
 		printEndMessage();

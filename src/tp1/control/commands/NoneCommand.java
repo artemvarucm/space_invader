@@ -1,6 +1,6 @@
 package tp1.control.commands;
 
-import tp1.control.ExecutionResult;
+import tp1.control.commands.exceptions.CommandExecuteException;
 import tp1.logic.GameModel;
 import tp1.view.Messages;
 
@@ -8,8 +8,8 @@ public class NoneCommand extends NoParamsCommand{
 		// Saltamos un ciclo
 		  		
 		@Override
-		public ExecutionResult execute(GameModel game) {
-			return new ExecutionResult(true);
+		public boolean execute(GameModel game) throws CommandExecuteException {
+			return true;
 		}
 
 		@Override

@@ -3,6 +3,9 @@ package tp1.control.commands;
 import java.util.Arrays;
 import java.util.List;
 
+import tp1.control.commands.exceptions.CommandParseException;
+import tp1.view.Messages;
+
 public class CommandGenerator {
 
 	private static final List<Command> availableCommands = Arrays.asList(
@@ -17,7 +20,7 @@ public class CommandGenerator {
 		new SuperLaserCommand()
 	);
 
-	public static Command parse(String[] commandWords) {		
+	public static Command parse(String[] commandWords) throws CommandParseException {		
 		Command command = null;
 		for (Command c: availableCommands) {
 			// Intenta convertir al comando
@@ -25,6 +28,11 @@ public class CommandGenerator {
 				command = c.parse(commandWords);
 			}
 		}
+		if (command == null) {
+			// Excepcion - comando irrecinocible
+			throw new CommandParseException(Messages.UNKNOWN_COMMAND);
+		}
+		
 		return command;
 	}
 		

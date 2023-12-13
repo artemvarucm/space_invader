@@ -1,6 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.GameWorld;
+import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -73,6 +74,16 @@ public class UCMShip extends Ship {
 		result.append("ShockWave: ").append(shock).append(Messages.LINE_SEPARATOR);
 		
 		return result.toString();
+	}
+	
+	public static String allowedMoves(String separator) {
+		StringBuilder sb = new StringBuilder();
+		for (Move m : Move.values()) {
+			if (!m.equals(Move.UP) && !m.equals(Move.DOWN))
+				sb.append(m.name() + separator);
+		}
+		String moves = sb.toString();
+		return moves.substring(0, moves.length()-separator.length());
 	}
 	
 	@Override
