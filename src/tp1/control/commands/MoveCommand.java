@@ -4,6 +4,7 @@ import tp1.control.commands.exceptions.CommandExecuteException;
 import tp1.control.commands.exceptions.CommandParseException;
 import tp1.logic.GameModel;
 import tp1.logic.Move;
+import tp1.logic.exceptions.GameModelException;
 import tp1.view.Messages;
 
 public class MoveCommand extends Command {
@@ -19,7 +20,11 @@ public class MoveCommand extends Command {
 	@Override
 	public boolean execute(GameModel game) throws CommandExecuteException {
 		// Realiza el movimiento
-		game.move(move);
+		try {
+			game.move(move);
+		} catch (GameModelException e){
+			throw new CommandExecuteException("Movement cannot be performed", e);
+		}
 		return true;
 	}
 

@@ -2,13 +2,19 @@ package tp1.control.commands;
 
 import tp1.control.commands.exceptions.CommandExecuteException;
 import tp1.logic.GameModel;
+import tp1.logic.exceptions.GameModelException;
 import tp1.view.Messages;
 
 public class SuperLaserCommand extends NoParamsCommand{
 		// Dispara super laser
 		@Override
 		public boolean execute(GameModel game) throws CommandExecuteException {
-			game.shootSuperLaser();
+			try {
+				game.shootSuperLaser();
+			} catch (GameModelException e) {
+				// FIXME CAMBIAR
+				throw new CommandExecuteException("", e);
+			}
 			return true;
 		}
 

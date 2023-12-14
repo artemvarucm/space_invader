@@ -3,6 +3,8 @@ package tp1.logic.gameobjects;
 import tp1.logic.GameWorld;
 import tp1.logic.Move;
 import tp1.logic.Position;
+import tp1.logic.exceptions.NotAllowedMoveException;
+import tp1.logic.exceptions.OffWorldException;
 
 public abstract class Ship extends GameObject{
 
@@ -14,7 +16,7 @@ public abstract class Ship extends GameObject{
 		super();
 	}
 	
-	public void move(Move move) {
+	public void move(Move move) throws OffWorldException, NotAllowedMoveException {
 		/* Realiza el movimiento en la direccion dir
 		 * Devuelve true si queda dentro del tablero despues de moverse
 		 */
@@ -23,7 +25,7 @@ public abstract class Ship extends GameObject{
 		if (hPos.isOnBoard()) {
 			performMovement(move);
 		} else {
-			//throw OffWorldException();
+			throw new OffWorldException(move, pos);
 		}
 	}
 }

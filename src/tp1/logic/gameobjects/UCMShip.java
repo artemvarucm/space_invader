@@ -6,6 +6,11 @@ import java.util.List;
 import tp1.logic.GameWorld;
 import tp1.logic.Move;
 import tp1.logic.Position;
+import tp1.logic.exceptions.LaserInFlightException;
+import tp1.logic.exceptions.NoShockWaveException;
+import tp1.logic.exceptions.NotAllowedMoveException;
+import tp1.logic.exceptions.NotEnoughPointsException;
+import tp1.logic.exceptions.OffWorldException;
 import tp1.view.Messages;
 
 public class UCMShip extends Ship {
@@ -129,55 +134,56 @@ public class UCMShip extends Ship {
 		// Devuelve true si puede lanzar laser
 		return canShoot;
 	}
+
 	@Override
-	public void move(Move move) {
+	public void move(Move move) throws OffWorldException, NotAllowedMoveException {
 		if (availableMoves.contains(move))
 			super.move(move);
 		else {
-			//throw NotAllowedMoveException();
+			throw new NotAllowedMoveException(move);
 		}
 	}
 	
-	public boolean shootLaser(GameWorld game) {
+	public void shootLaser(GameWorld game) throws LaserInFlightException {
 		// Realiza el disparo del laser
-		boolean res = false;
-		if (canShoot) {
-			// Si puede disparar
-			res = true;
-			// Crea el nuevo laser en la posicion de UCMShip
-			UCMLaser laser = new UCMLaser(game, pos);
-			game.addObject(laser);
-			this.canShoot = false;
+		if (!canShoot) {
+			throw new LaserInFlightException();
 		}
-		return res;
+		
+		// Crea el nuevo laser en la posicion de UCMShip
+		UCMLaser laser = new UCMLaser(game, pos);
+		game.addObject(laser);
+		this.canShoot = false;
 	}
 	
-	public boolean shootSuperLaser(GameWorld game) {
+	public void shootSuperLaser(GameWorld game) throws LaserInFlightException, NotEnoughPointsException {
 		// Realiza el disparo del super laser
-		boolean res = false;
-		if (canShoot && this.points >= UCMSuperLaser.POINTS_REQUIRED) {
-			// Si puede disparar
-			res = true;
-			// "pagamos" puntos
-			this.points -= UCMSuperLaser.POINTS_REQUIRED;
-			// Crea el nuevo laser en la posicion de UCMShip
-			UCMSuperLaser sLaser = new UCMSuperLaser(game, pos);
-			game.addObject(sLaser);
-			this.canShoot = false;
+		if (!canShoot) {
+			throw new LaserInFlightException();
 		}
-		return res;
+		
+		if (this.points < UCMSuperLaser.POINTS_REQUIRED) {
+			throw new NotEnoughPointsException(this.points);
+		}
+		
+		// "pagamos" puntos
+		this.points -= UCMSuperLaser.POINTS_REQUIRED;
+		// Crea el nuevo laser en la posicion de UCMShip
+		UCMSuperLaser sLaser = new UCMSuperLaser(game, pos);
+		game.addObject(sLaser);
+		this.canShoot = false;
+		
 	}
 	
-	public boolean executeShockWave(GameWorld game) {
+	public void executeShockWave(GameWorld game) throws NoShockWaveException {
 		// Ejecuta el disparo del ShockWave
-		boolean res = false;
 		if (hasShockWave()) {
 			disableShockWave();
 			ShockWave shockWave = new ShockWave(game);
 			game.addObject(shockWave);
-			res = true;
+		} else {
+			throw new NoShockWaveException();
 		}
-		return res;
 	}
 	
 	

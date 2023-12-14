@@ -4,6 +4,11 @@ import java.util.Random;
 
 import tp1.control.InitialConfiguration;
 import tp1.logic.exceptions.InitializationException;
+import tp1.logic.exceptions.LaserInFlightException;
+import tp1.logic.exceptions.NoShockWaveException;
+import tp1.logic.exceptions.NotAllowedMoveException;
+import tp1.logic.exceptions.NotEnoughPointsException;
+import tp1.logic.exceptions.OffWorldException;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.ExplosiveAlien;
 import tp1.logic.gameobjects.GameObject;
@@ -93,7 +98,7 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
-	public void move(Move move) {
+	public void move(Move move) throws OffWorldException, NotAllowedMoveException {
 		// Mueve player(UCMShip)
 		player.move(move);
 	}
@@ -105,15 +110,15 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
-	public boolean shootLaser() {
+	public void shootLaser() throws LaserInFlightException {
 		// Ejecuta disparo del laser
-		return player.shootLaser(this);
+		player.shootLaser(this);
 	}
 	
 	@Override
-	public boolean shootSuperLaser() {
+	public void shootSuperLaser() throws LaserInFlightException, NotEnoughPointsException {
 		// Ejecuta disparo del super laser
-		return player.shootSuperLaser(this);
+		player.shootSuperLaser(this);
 	}
 	
 	@Override
@@ -134,9 +139,9 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
-	public boolean shockWave() {
+	public void shockWave() throws NoShockWaveException {
 		// Ejecuta shockwave
-		return player.executeShockWave(this);
+		player.executeShockWave(this);
 	}
 
 	@Override

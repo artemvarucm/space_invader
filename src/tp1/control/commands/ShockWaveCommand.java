@@ -2,6 +2,7 @@ package tp1.control.commands;
 
 import tp1.control.commands.exceptions.CommandExecuteException;
 import tp1.logic.GameModel;
+import tp1.logic.exceptions.GameModelException;
 import tp1.view.Messages;
 
 public class ShockWaveCommand extends NoParamsCommand{
@@ -9,7 +10,12 @@ public class ShockWaveCommand extends NoParamsCommand{
 		  		
 		@Override
 		public boolean execute(GameModel game) throws CommandExecuteException {
-			game.shockWave();
+			try {
+				game.shockWave();
+			} catch (GameModelException e) {
+				// FIXME CAMBIAR
+				throw new CommandExecuteException("", e);
+			}
 			return true;
 		}
 		
