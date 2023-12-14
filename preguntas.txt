@@ -24,4 +24,6 @@ Pueden haber problemas si en custom initialize les ponemos justo en el borde
 
 Encapsulacion en AlienManager a la hora de revertir cambios en la costumedInitialization
 
+Reescrbir excepciones para que se ejecuten al inicio
+
 !!!! VER DIAGRAMAS DEFINIER MAS METODOS ABSTACTOS !!
