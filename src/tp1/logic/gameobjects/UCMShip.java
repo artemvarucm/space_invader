@@ -158,12 +158,12 @@ public class UCMShip extends Ship {
 	
 	public void shootSuperLaser(GameWorld game) throws LaserInFlightException, NotEnoughPointsException {
 		// Realiza el disparo del super laser
-		if (!canShoot) {
-			throw new LaserInFlightException();
-		}
-		
 		if (this.points < UCMSuperLaser.POINTS_REQUIRED) {
 			throw new NotEnoughPointsException(this.points);
+		}
+		
+		if (!canShoot) {
+			throw new LaserInFlightException();
 		}
 		
 		// "pagamos" puntos

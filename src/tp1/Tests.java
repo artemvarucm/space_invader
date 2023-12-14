@@ -96,4 +96,12 @@ public class Tests {
 		parameterizedTest(Paths.get("tests/p2/01-easy_25-custom-input.txt"), Paths.get("tests/p2/01-insane_25-expected.txt"),
 				Paths.get("tests/p2/01-easy_25-custom-output.txt"), new String[] { "EASY", "25" });
 	}
+	
+	// Pr 3
+	@Test
+	public void test05() {
+		parameterizedTest(Paths.get("tests/p3/03-easy_25-erroresComandos-input.txt"), Paths.get("tests/p3/03-easy_25-erroresComandos-expected.txt"),
+				Paths.get("tests/p3/03-easy_25-erroresComandos-output.txt"), new String[] { "EASY", "25" });
+	}
+
 }
