@@ -12,8 +12,7 @@ public class SuperLaserCommand extends NoParamsCommand{
 			try {
 				game.shootSuperLaser();
 			} catch (GameModelException e) {
-				// FIXME CAMBIAR
-				throw new CommandExecuteException("", e);
+				throw new CommandExecuteException(Messages.SUPER_LASER_ERROR, e);
 			}
 			return true;
 		}

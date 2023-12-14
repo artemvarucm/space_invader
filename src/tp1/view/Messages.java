@@ -88,6 +88,8 @@ public class Messages {
 	
 	public static final String SHOCKWAVE_ERROR = "ShockWave cannot be shot";
 	
+	public static final String NO_SHOCKWAVE_ERROR = "Kill the UFO to enable ShockWave";
+	
 	public static final String MOVEMENT_ERROR = "Movement cannot be performed";
 	
 	public static final String DIRECTION_ERROR = "Wrong direction: ";

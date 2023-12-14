@@ -13,8 +13,7 @@ public class ShockWaveCommand extends NoParamsCommand{
 			try {
 				game.shockWave();
 			} catch (GameModelException e) {
-				// FIXME CAMBIAR
-				throw new CommandExecuteException("", e);
+				throw new CommandExecuteException(Messages.SHOCKWAVE_ERROR, e);
 			}
 			return true;
 		}

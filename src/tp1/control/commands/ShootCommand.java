@@ -12,8 +12,7 @@ public class ShootCommand extends NoParamsCommand{
 			try {
 				game.shootLaser();
 			} catch (GameModelException e) {
-				// FIXME CAMBIAR
-				throw new CommandExecuteException("", e);
+				throw new CommandExecuteException(Messages.LASER_ERROR, e);
 			}
 			return true;
 		}
