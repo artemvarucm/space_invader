@@ -39,8 +39,12 @@ public class AlienManager {
 		initializeOvni(container);
 		
 		if (config.equals(InitialConfiguration.NONE)) {
+			
 			this.remainingAliens = 0;
+			this.shipsOnBorder = 0;
+			this.squadInFinalRow = false;
 			this.onBorder = false;
+			
 			initializeRegularAliens(container);
 			initializeDestroyerAliens(container);		
 		} else {
@@ -103,12 +107,25 @@ public class AlienManager {
 	}
 	
 	private void costumedInitialization(GameObjectContainer container, InitialConfiguration conf) throws InitializationException {
- 		for (String shipDescription : conf.getShipDescription()) {
+ 		// Para volver atras en caso de error
+		int shipsOnBorderNew = 0;
+		boolean squadInFinalRowNew = false;
+		boolean onBorderNew = false;
+		for (String shipDescription : conf.getShipDescription()) {
  			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
  			if (words.length == 3) {
  				try {
  					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2])), this);
  					container.add(ship);
+ 				    // la direccion por defecto es a la izquierda, por tanto si esta en la primera columna, toca el borde
+ 					if (Integer.valueOf(words[1]) == 0) {
+ 						onBorderNew = true;
+						// Contador - numero de aliens que quedan por bajar 
+ 						shipsOnBorderNew = conf.getShipDescription().size();
+ 					}
+ 					if (Integer.valueOf(words[2]) == Game.DIM_Y - 1) {
+ 						squadInFinalRowNew = true;
+ 					}
  				} catch (NumberFormatException e) {
  					throw new InitializationException(Messages.INVALID_POSITION.formatted(words[1], words[2]));
  				}
@@ -118,7 +135,9 @@ public class AlienManager {
  		}
  		
  		this.remainingAliens = conf.getShipDescription().size();
- 		this.onBorder = false;
+ 		this.onBorder = onBorderNew;
+ 		this.shipsOnBorder = shipsOnBorderNew;
+ 		this.squadInFinalRow = squadInFinalRowNew;
  	}
 
 	

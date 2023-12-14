@@ -22,4 +22,6 @@ Si se queda a medias en la carga del fichero?
 
 Pueden haber problemas si en custom initialize les ponemos justo en el borde
 
+Encapsulacion en AlienManager a la hora de revertir cambios en la costumedInitialization
+
 !!!! VER DIAGRAMAS DEFINIER MAS METODOS ABSTACTOS !!
