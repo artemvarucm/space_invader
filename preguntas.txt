@@ -14,5 +14,10 @@ LAS FUNCIONES BOOL DE UCMSHIP PASAN A SER VOID??
 
 Reemplazar todos los System.out.println(error) por throw new Exception...
 
+Ver todos los parse de todos los commands, puede faltar excepcion
+
+Reemplazar Initialization Exception por mas especificas en ShipFactory?
+
+Si se queda a medias en la carga del fichero?
 
 !!!! VER DIAGRAMAS DEFINIER MAS METODOS ABSTACTOS !!

@@ -1,11 +1,13 @@
 package tp1.logic;
 
 import tp1.control.InitialConfiguration;
+import tp1.control.InitializationException;
 import tp1.logic.gameobjects.AlienShip;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.RegularAlien;
 import tp1.logic.gameobjects.ShipFactory;
 import tp1.logic.gameobjects.Ufo;
+import tp1.view.Messages;
 
 /**
  * 
@@ -29,7 +31,7 @@ public class AlienManager {
 		this.game = game;
 	}
 	
-	public GameObjectContainer initialize(InitialConfiguration config) {
+	public GameObjectContainer initialize(InitialConfiguration config) throws InitializationException {
 		this.remainingAliens = 0;
 		this.onBorder = false;
 		GameObjectContainer container = new GameObjectContainer();
@@ -99,13 +101,19 @@ public class AlienManager {
 		remainingAliens += level.getNumDestroyerAliens();
 	}
 	
-	private void costumedInitialization(GameObjectContainer container, InitialConfiguration conf) {
+	private void costumedInitialization(GameObjectContainer container, InitialConfiguration conf) throws InitializationException {
  		for (String shipDescription : conf.getShipDescription()) {
  			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
  			if (words.length == 3) {
- 				AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2])), this);
-				container.add(ship);
- 				this.remainingAliens++;
+ 				try {
+ 					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2])), this);
+ 					container.add(ship);
+ 					this.remainingAliens++;
+ 				} catch (NumberFormatException e) {
+ 					throw new InitializationException(Messages.INVALID_POSITION.formatted(words[1], words[2]));
+ 				}
+ 			} else {
+ 				throw new InitializationException(Messages.INCORRECT_ENTRY.formatted(shipDescription));
  			}
  		}
  	}

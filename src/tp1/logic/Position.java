@@ -1,5 +1,7 @@
 package tp1.logic;
 
+import tp1.view.Messages;
+
 /**
  * 
  * Immutable class to encapsulate and manipulate positions in the game board
@@ -26,6 +28,11 @@ public class Position {
 	public int getRow() {
 		// Devuelve la fila
 		return row;
+	}
+	
+	@Override
+	public String toString() {
+		return Messages.POSITION.formatted(col, row);
 	}
 	
 	public boolean isOnBoard() {

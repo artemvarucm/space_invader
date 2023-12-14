@@ -3,6 +3,7 @@ package tp1.logic;
 import java.util.Random;
 
 import tp1.control.InitialConfiguration;
+import tp1.control.InitializationException;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.ExplosiveAlien;
 import tp1.logic.gameobjects.GameObject;
@@ -31,17 +32,23 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		this.level = level;
 		this.seed = seed;
 		this.config = InitialConfiguration.NONE;
-		initGame();
+		// FIXME alienManager init movido de initGame
+		this.alienManager = new AlienManager(this, level);
+		try {
+			initGame();
+		} catch (InitializationException e) {
+			// vacio, nunca entra
+		}
 	}
 	
-	private void initGame () {	
+	private void initGame () throws InitializationException {
+		// primero el alienmanager por si hay error
+		container = alienManager.initialize(config);
+		
 		rand = new Random(seed);
 		doExit = false;
 		currentCycle = 0;
 		cycleDescend = false;
-		
-		alienManager = new AlienManager(this, level);
-		container = alienManager.initialize(config);
 		player = new UCMShip(this, new Position(DIM_X / 2, DIM_Y - 1));
 		container.add(player);
 	}
@@ -63,7 +70,6 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	public void update() {
 		if (reset) {
 			// Reseteamos partida
-			initGame();
 			reset = false;
 		} else {
 			// Ejecuta un ciclo del juego
@@ -213,9 +219,10 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	}
 	
 	@Override
-	public void reset(InitialConfiguration config) {
+	public void reset(InitialConfiguration config) throws InitializationException {
 		// Reseteamos configuracion y partida
 		this.config = config;
+		initGame();
 		this.reset = true;
 	}
 	

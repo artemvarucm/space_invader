@@ -6,4 +6,8 @@ public class CommandExecuteException extends Exception {
 	public CommandExecuteException(String msg) {
 		super(msg);
 	}
+	
+	public CommandExecuteException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
 }

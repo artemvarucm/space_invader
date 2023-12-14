@@ -58,6 +58,9 @@ public class Messages {
 	public static final String INVALID_GAME_OBJECT = String.format("Invalid object%n");
 
 	public static final String INVALID_COMMAND = "Invalid command";
+	
+	public static final String INVALID_INI_CONF = "Invalid initial configuration";
+
 
 	public static final String NUMBER_OF_CYCLES = "Number of cycles:";
 
