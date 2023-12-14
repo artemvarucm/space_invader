@@ -111,19 +111,22 @@ public class AlienManager {
 		int shipsOnBorderNew = 0;
 		boolean squadInFinalRowNew = false;
 		boolean onBorderNew = false;
+		
 		for (String shipDescription : conf.getShipDescription()) {
  			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
  			if (words.length == 3) {
  				try {
- 					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2])), this);
+ 					Position posit = new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2]));
+ 					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, posit, this);
  					container.add(ship);
  				    // la direccion por defecto es a la izquierda, por tanto si esta en la primera columna, toca el borde
- 					if (Integer.valueOf(words[1]) == 0) {
+ 					if (posit.getCol() == 0) {
  						onBorderNew = true;
 						// Contador - numero de aliens que quedan por bajar 
  						shipsOnBorderNew = conf.getShipDescription().size();
  					}
- 					if (Integer.valueOf(words[2]) == Game.DIM_Y - 1) {
+ 					
+ 					if (posit.getRow() == Game.DIM_Y - 1) {
  						squadInFinalRowNew = true;
  					}
  				} catch (NumberFormatException e) {

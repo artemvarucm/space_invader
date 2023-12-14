@@ -140,7 +140,7 @@ public class UCMShip extends Ship {
 		if (availableMoves.contains(move))
 			super.move(move);
 		else {
-			throw new NotAllowedMoveException(move);
+			throw new NotAllowedMoveException();
 		}
 	}
 	

@@ -20,16 +20,16 @@ public class ShipFactory {
 		AlienShip alien = null;
 		for (AlienShip a: AVAILABLE_ALIEN_SHIPS) {
 			// Intenta convertir al alien
-			if (alien == null) {
-				if (a.getSymbol().equalsIgnoreCase(input)) {
-					if (pos.isOnBoard()) {
-						// Si el simbolo coincide con el input
-						alien = a.copy(game, speed, pos, am);
-					} else {
-						throw new InitializationException(Messages.OFF_WORLD_POSITION.formatted(pos.toString()));
-					}
+			if (a.getSymbol().equalsIgnoreCase(input)) {
+				if (pos.isOnBoard()) {
+					// Si el simbolo coincide con el input
+					alien = a.copy(game, speed, pos, am);
+				
+				} else {
+					throw new InitializationException(Messages.OFF_WORLD_POSITION.formatted(pos.toString()));
 				}
 			}
+			
 		}
 		
 		if (alien == null) { 
