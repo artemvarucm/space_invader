@@ -20,4 +20,6 @@ Reemplazar Initialization Exception por mas especificas en ShipFactory?
 
 Si se queda a medias en la carga del fichero?
 
+Pueden haber problemas si en custom initialize les ponemos justo en el borde
+
 !!!! VER DIAGRAMAS DEFINIER MAS METODOS ABSTACTOS !!

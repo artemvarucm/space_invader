@@ -32,14 +32,15 @@ public class AlienManager {
 	}
 	
 	public GameObjectContainer initialize(InitialConfiguration config) throws InitializationException {
-		this.remainingAliens = 0;
-		this.onBorder = false;
+		
 		GameObjectContainer container = new GameObjectContainer();
 		
 		// Ufo spawnea independientemente de configuracion
 		initializeOvni(container);
 		
 		if (config.equals(InitialConfiguration.NONE)) {
+			this.remainingAliens = 0;
+			this.onBorder = false;
 			initializeRegularAliens(container);
 			initializeDestroyerAliens(container);		
 		} else {
@@ -108,7 +109,6 @@ public class AlienManager {
  				try {
  					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2])), this);
  					container.add(ship);
- 					this.remainingAliens++;
  				} catch (NumberFormatException e) {
  					throw new InitializationException(Messages.INVALID_POSITION.formatted(words[1], words[2]));
  				}
@@ -116,6 +116,9 @@ public class AlienManager {
  				throw new InitializationException(Messages.INCORRECT_ENTRY.formatted(shipDescription));
  			}
  		}
+ 		
+ 		this.remainingAliens = conf.getShipDescription().size();
+ 		this.onBorder = false;
  	}
 
 	
