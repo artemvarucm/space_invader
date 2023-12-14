@@ -3,10 +3,10 @@ package tp1.logic.gameobjects;
 import java.util.Arrays;
 import java.util.List;
 
-import tp1.control.InitializationException;
 import tp1.logic.AlienManager;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
+import tp1.logic.exceptions.InitializationException;
 import tp1.view.Messages;
 
 public class ShipFactory {

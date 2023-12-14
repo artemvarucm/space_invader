@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import tp1.control.InitialConfiguration;
-import tp1.control.InitializationException;
 import tp1.control.commands.exceptions.CommandExecuteException;
 import tp1.control.commands.exceptions.CommandParseException;
 import tp1.logic.GameModel;
+import tp1.logic.exceptions.InitializationException;
 import tp1.view.Messages;
 
 public class ResetCommand extends Command{

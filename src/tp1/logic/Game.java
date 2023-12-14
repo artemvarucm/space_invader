@@ -3,7 +3,7 @@ package tp1.logic;
 import java.util.Random;
 
 import tp1.control.InitialConfiguration;
-import tp1.control.InitializationException;
+import tp1.logic.exceptions.InitializationException;
 import tp1.logic.gameobjects.DestroyerAlien;
 import tp1.logic.gameobjects.ExplosiveAlien;
 import tp1.logic.gameobjects.GameObject;

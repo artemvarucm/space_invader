@@ -1,7 +1,7 @@
 package tp1.logic;
 
 import tp1.control.InitialConfiguration;
-import tp1.control.InitializationException;
+import tp1.logic.exceptions.InitializationException;
 
 // Se usa en Controller y en cada Command
 public interface GameModel {
