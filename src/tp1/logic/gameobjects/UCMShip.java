@@ -137,11 +137,10 @@ public class UCMShip extends Ship {
 
 	@Override
 	public void move(Move move) throws OffWorldException, NotAllowedMoveException {
-		if (availableMoves.contains(move))
-			super.move(move);
-		else {
+		if (!availableMoves.contains(move)) {
 			throw new NotAllowedMoveException();
 		}
+		super.move(move);
 	}
 	
 	public void shootLaser(GameWorld game) throws LaserInFlightException {
@@ -177,13 +176,13 @@ public class UCMShip extends Ship {
 	
 	public void executeShockWave(GameWorld game) throws NoShockWaveException {
 		// Ejecuta el disparo del ShockWave
-		if (hasShockWave()) {
-			disableShockWave();
-			ShockWave shockWave = new ShockWave(game);
-			game.addObject(shockWave);
-		} else {
+		if (!hasShockWave()) {
 			throw new NoShockWaveException();
 		}
+		
+		disableShockWave();
+		ShockWave shockWave = new ShockWave(game);
+		game.addObject(shockWave);
 	}
 	
 	

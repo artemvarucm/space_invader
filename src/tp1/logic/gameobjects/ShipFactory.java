@@ -17,25 +17,20 @@ public class ShipFactory {
 	);
 	
 	public static AlienShip spawnAlienShip(String input, int speed, GameWorld game, Position pos, AlienManager am) throws InitializationException {
-		AlienShip alien = null;
+		if (!pos.isOnBoard()) {
+			throw new InitializationException(Messages.OFF_WORLD_POSITION.formatted(pos.toString()));
+		}
+		
 		for (AlienShip a: AVAILABLE_ALIEN_SHIPS) {
 			// Intenta convertir al alien
 			if (a.getSymbol().equalsIgnoreCase(input)) {
-				if (pos.isOnBoard()) {
-					// Si el simbolo coincide con el input
-					alien = a.copy(game, speed, pos, am);
-				
-				} else {
-					throw new InitializationException(Messages.OFF_WORLD_POSITION.formatted(pos.toString()));
-				}
+				// Si el simbolo coincide con el input
+				return a.copy(game, speed, pos, am);
 			}
-			
 		}
 		
-		if (alien == null) { 
-			throw new InitializationException(Messages.UNKNOWN_SHIP.formatted(input));
-		}
-		return alien;
+		// si no ha devuelto nada, error
+		throw new InitializationException(Messages.UNKNOWN_SHIP.formatted(input));
 	}
 	
 }

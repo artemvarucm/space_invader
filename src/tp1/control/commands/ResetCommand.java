@@ -22,6 +22,8 @@ public class ResetCommand extends Command{
 		  		
 		@Override
 		public boolean execute(GameModel game) throws CommandExecuteException {
+			// Reinicia el juego o bien con la configuracion por defecto(NONE)
+			// o bien cargandolo desde el archivo especificado
 			try {
 				game.reset(config);
 			} catch (InitializationException e) {

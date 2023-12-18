@@ -20,10 +20,11 @@ public class MoveCommand extends Command {
 	
 	@Override
 	public boolean execute(GameModel game) throws CommandExecuteException {
-		// Realiza el movimiento
+		// Realiza el movimiento de la UCMShip
 		try {
-			game.move(move); // hacer distincion de casos
+			game.move(move);
 		} catch(NotAllowedMoveException e) {
+			// Direccion incorrecta
 			throw new CommandExecuteException(Messages.DIRECTION_ERROR + move.toString(), e);
 		} catch (GameModelException e){
 			throw new CommandExecuteException(Messages.MOVEMENT_ERROR, e);

@@ -56,19 +56,23 @@ public class Controller {
 			// Pedimos accion al usuario
 			String[] comandos = prompt();
 			try {
+				// Detectamos el caracter del comando solicitado
 				Command command = CommandGenerator.parse(comandos);
+				// Vemos si tenemos que realizar un ciclo de juego y pintar el tablero
 				boolean draw = command.execute(game);
 				if (draw) {
 					game.update();
 					printGame();
 				} 
 			} catch (CommandParseException | CommandExecuteException e) {
+				// Si hay alguna excepcion durante la lectura o ejecucion del comando
 	 			System.out.println(e.getMessage());
 	 			Throwable cause = e.getCause();
 	 			if (cause != null) 
 	 			    System.out.println(cause.getMessage());
 	 		}
 		}
+		
 		// Mostramos mensaje de despedida
 		printEndMessage();
 	}

@@ -20,12 +20,13 @@ public abstract class Ship extends GameObject{
 		/* Realiza el movimiento en la direccion dir
 		 * Devuelve true si queda dentro del tablero despues de moverse
 		 */
-		boolean validMove = true;
+		
 		Position hPos = pos.move(move);
-		if (hPos.isOnBoard()) {
-			performMovement(move);
-		} else {
+		
+		if (!hPos.isOnBoard()) {
 			throw new OffWorldException(move, pos);
 		}
+		
+		performMovement(move);
 	}
 }

@@ -6,12 +6,14 @@ import tp1.logic.exceptions.GameModelException;
 import tp1.view.Messages;
 
 public class SuperLaserCommand extends NoParamsCommand{
-		// Dispara super laser
+		
 		@Override
 		public boolean execute(GameModel game) throws CommandExecuteException {
+			// Dispara super laser
 			try {
 				game.shootSuperLaser();
 			} catch (GameModelException e) {
+				// No puede disparar
 				throw new CommandExecuteException(Messages.SUPER_LASER_ERROR, e);
 			}
 			return true;

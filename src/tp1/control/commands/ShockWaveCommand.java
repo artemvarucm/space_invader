@@ -6,13 +6,14 @@ import tp1.logic.exceptions.GameModelException;
 import tp1.view.Messages;
 
 public class ShockWaveCommand extends NoParamsCommand{
-		// Lanza shockwave
 		  		
 		@Override
 		public boolean execute(GameModel game) throws CommandExecuteException {
+			// Lanza ShockWave
 			try {
 				game.shockWave();
 			} catch (GameModelException e) {
+				// No tiene habilitado el ShockWaves
 				throw new CommandExecuteException(Messages.SHOCKWAVE_ERROR, e);
 			}
 			return true;
