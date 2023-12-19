@@ -37,7 +37,7 @@ public class Controller {
 	private String[] prompt() {
 		System.out.print(Messages.PROMPT);
 		String line = scanner.nextLine();
-		String[] words = line.toLowerCase().trim().split("\\s+");
+		String[] words = line.trim().split("\\s+");
 
 		System.out.println(debug(line));
 

@@ -114,7 +114,7 @@ public class AlienManager {
 		boolean onBorderNew = false;
 		// No
 		for (String shipDescription : conf.getShipDescription()) {
- 			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
+ 			String[] words = shipDescription.trim().split("\\s+");
  			if (words.length == 3) {
  				try {
  					// Posicion en la que insertaremos objeto
