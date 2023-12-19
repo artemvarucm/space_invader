@@ -63,13 +63,6 @@ public abstract class AlienShip extends EnemyShip {
 		UCMWeapon weapon = shockWave;
 		return receiveAttack(weapon);
 	}
-
-	@Override
-	public boolean receiveAttack(UCMWeapon weapon) {
-		// Recibe ataque del weapon
-		receiveDamage(weapon.getDamage());
-		return true;
-	}
 	
 	@Override
 	public void automaticMove() {

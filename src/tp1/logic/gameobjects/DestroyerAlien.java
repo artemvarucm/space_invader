@@ -38,7 +38,7 @@ public class DestroyerAlien extends AlienShip {
 	}
 	
 	@Override
-	public int getPoints() {
+	protected int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
@@ -56,7 +56,7 @@ public class DestroyerAlien extends AlienShip {
 		return Messages.DESTROYER_ALIEN_DESCRIPTION;
 	}
 	
-	public void enableBomb() {
+	protected void enableBomb() {
 		// Se ejecuta despues de que la bomba se muera
 		// Puede disparar otra vez el Destroyer
 		canShootBomb = true;
@@ -80,7 +80,7 @@ public class DestroyerAlien extends AlienShip {
 		}
 	}
 	
-	protected void shootBomb() {
+	private void shootBomb() {
 		// Si tiene que lanzar la bomba, la lanzas despues de realizar movimiento
 		Bomb templateBomb = new Bomb(this, game, pos);
 		game.addObject(templateBomb);

@@ -35,7 +35,7 @@ public class RegularAlien extends AlienShip {
 	}
 	
 	@Override
-	public int getPoints() {
+	protected int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}

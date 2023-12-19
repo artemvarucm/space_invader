@@ -30,4 +30,11 @@ public abstract class EnemyShip extends Ship {
 	}
 	
 	abstract protected int getPoints();
+	
+	@Override
+	public boolean receiveAttack(UCMWeapon weapon) {
+		// Recibe ataque del weapon
+		receiveDamage(weapon.getDamage());
+		return true;
+	}
 }

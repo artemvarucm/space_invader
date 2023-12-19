@@ -33,7 +33,7 @@ public class Ufo extends EnemyShip {
 	}
 	
 	@Override
-	public int getPoints() {
+	protected int getPoints() {
 		// Devuelve los puntos por matarlo
 		return POINTS;
 	}
@@ -59,7 +59,7 @@ public class Ufo extends EnemyShip {
 	
 	@Override
 	public String toString() {
-		// Devuelve la representacion de la Bomba
+		// Devuelve la representacion de UFO
 		String str = "";
 		if (enabled) {
 			str = super.toString();
@@ -104,7 +104,7 @@ public class Ufo extends EnemyShip {
 	public void automaticMove() {
 		// Realiza el movimiento
 		if (isAlive()) {
-			performMovement(Move.LEFT);
+			performMovement(dir);
 			if (!pos.isOnBoard())
 				die();
 		}
