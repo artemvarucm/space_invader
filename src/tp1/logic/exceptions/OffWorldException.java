@@ -4,7 +4,10 @@ import tp1.logic.Move;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-// Error se produce al inicializar con una configuracion custom
+/**
+ * 
+ * Clase que representa la excepcion que se produce al salir fuera de los bordes del tablero
+ */
 
 public class OffWorldException extends GameModelException {
 	public OffWorldException(Move dir, Position pos) {

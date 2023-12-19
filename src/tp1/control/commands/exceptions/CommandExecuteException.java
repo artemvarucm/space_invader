@@ -1,6 +1,11 @@
 package tp1.control.commands.exceptions;
 
-// Error se produce al parsear el comando
+
+/**
+ * 
+ * Clase que representa la excepcion que se produce al ejecutar el comando
+ *
+ */
 
 public class CommandExecuteException extends Exception {
 	public CommandExecuteException(String msg) {

@@ -39,7 +39,6 @@ public class AlienManager {
 		initializeOvni(container);
 		
 		if (config.equals(InitialConfiguration.NONE)) {
-			
 			this.remainingAliens = 0;
 			this.shipsOnBorder = 0;
 			this.squadInFinalRow = false;
@@ -107,16 +106,20 @@ public class AlienManager {
 	}
 	
 	private void costumedInitialization(GameObjectContainer container, InitialConfiguration conf) throws InitializationException {
- 		// Para volver atras en caso de error
+ 		// Realizamos reinicio del juego a partir del archivo de configuracion
+		
+		// Variables auxiliares para volver atras en caso de error
 		int shipsOnBorderNew = 0;
 		boolean squadInFinalRowNew = false;
 		boolean onBorderNew = false;
-		
+		// No
 		for (String shipDescription : conf.getShipDescription()) {
  			String[] words = shipDescription.toLowerCase().trim().split("\\s+");
  			if (words.length == 3) {
  				try {
+ 					// Posicion en la que insertaremos objeto
  					Position posit = new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2]));
+ 					
  					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, posit, this);
  					container.add(ship);
  				    // la direccion por defecto es a la izquierda, por tanto si esta en la primera columna, toca el borde
@@ -125,18 +128,21 @@ public class AlienManager {
 						// Contador - numero de aliens que quedan por bajar 
  						shipsOnBorderNew = conf.getShipDescription().size();
  					}
- 					
+ 					// si aparece justo en el borde, ganan automaticamente
  					if (posit.getRow() == Game.DIM_Y - 1) {
  						squadInFinalRowNew = true;
  					}
  				} catch (NumberFormatException e) {
+ 					// Alguna de las coordenadas no es un numero
  					throw new InitializationException(Messages.INVALID_POSITION.formatted(words[1], words[2]));
  				}
  			} else {
+ 				// Sobran o faltan parametros
  				throw new InitializationException(Messages.INCORRECT_ENTRY.formatted(shipDescription));
  			}
  		}
- 		
+		
+ 		// si ha tenido exito, sobreescribimos las variables, reiniciando la configuracion
  		this.remainingAliens = conf.getShipDescription().size();
  		this.onBorder = onBorderNew;
  		this.shipsOnBorder = shipsOnBorderNew;

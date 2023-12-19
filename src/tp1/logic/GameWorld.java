@@ -5,7 +5,7 @@ import java.util.Random;
 import tp1.logic.gameobjects.GameObject;
 import tp1.logic.gameobjects.Weapon;
 
-// Se usa en Controller y en cada Command
+// Se usa en GameObjects
 public interface GameWorld {
 	
 	// Para random

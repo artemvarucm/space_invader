@@ -1,5 +1,7 @@
 package tp1.logic;
 
+// Se usa para pintar el estado
+
 public interface GameStatus {
 
 	public String positionToString(int x, int y);

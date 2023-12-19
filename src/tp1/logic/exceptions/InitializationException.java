@@ -1,6 +1,10 @@
 package tp1.logic.exceptions;
 
-// Error se produce al inicializar con una configuracion custom
+/**
+ * 
+ * Clase que representa la excepcion que se produce al inicializar con una configuracion custom
+ *
+ */
 
 public class InitializationException extends GameModelException {
 	public InitializationException(String msg) {
