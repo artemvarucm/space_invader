@@ -12,7 +12,7 @@ import tp1.view.Messages;
  */
 public class UCMLaser extends UCMWeapon {
 	private static int ARMOR = 1;
-	public static int DAMAGE = 1;
+	private static int DAMAGE = 1;
 	public UCMLaser(GameWorld game, Position pos) {
 		super(Move.UP, game, new Position(pos), ARMOR);
 	}
@@ -25,7 +25,7 @@ public class UCMLaser extends UCMWeapon {
 	@Override
 	public int getDamage() {
 		// Devuelve el dano
-		return UCMLaser.DAMAGE;
+		return DAMAGE;
 	}
 	
 	@Override

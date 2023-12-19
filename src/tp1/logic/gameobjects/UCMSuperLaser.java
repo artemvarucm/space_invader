@@ -10,7 +10,7 @@ import tp1.view.Messages;
  *
  */
 public class UCMSuperLaser extends UCMLaser {
-	public static int DAMAGE = 2;
+	private static int DAMAGE = 2;
 	public static int POINTS_REQUIRED = 5;
 	public UCMSuperLaser(GameWorld game, Position pos) {
 		super(game, new Position(pos));

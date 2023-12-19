@@ -7,7 +7,7 @@ import tp1.view.Messages;
 
 public class Bomb extends EnemyWeapon {
 	private static int ARMOR = 1;
-	public static int DAMAGE = 1;
+	private static int DAMAGE = 1;
 	private DestroyerAlien owner;
 	public Bomb(DestroyerAlien owner, GameWorld game, Position pos) {
 		// La direccion de movimiento es hacia abajo
@@ -28,7 +28,7 @@ public class Bomb extends EnemyWeapon {
 	}
 	
 	@Override
-	public int getDamage() {
+	protected int getDamage() {
 		// Devuelve el dano
 		return Bomb.DAMAGE;
 	}
