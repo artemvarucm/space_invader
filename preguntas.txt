@@ -27,3 +27,11 @@ Encapsulacion en AlienManager a la hora de revertir cambios en la costumedInitia
 Reescrbir excepciones para que se ejecuten al inicio
 
 !!!! VER DIAGRAMAS DEFINIER MAS METODOS ABSTACTOS !!
+
+UFO reescribimos asi o no
+try {
+	performMovement(Move.LEFT);
+} catch (OffWorldException e) {
+	// Morir si ha quedado fuera del tablero
+	die();
+}
