@@ -20,7 +20,7 @@ public abstract class Weapon extends GameObject {
 		return getSymbol();
 	}
 	
-	protected void die() {
+	private void die() {
 		// Quita toda la vida (explicitamente)
 		this.life = 0;
 		onDelete();

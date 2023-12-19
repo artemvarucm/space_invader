@@ -8,7 +8,7 @@ public interface GameItem {
 	
 	public boolean receiveAttack(EnemyWeapon weapon);
 	public boolean receiveAttack(UCMWeapon weapon);
-	// Se utiliza porque se anade al container el shockWave
+	// Se utiliza porque el shockWave no puede atacar a UFO y a EnemyWeapon
 	public boolean receiveAttack(ShockWave weapon);
 
 	public boolean isAlive();

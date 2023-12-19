@@ -139,6 +139,7 @@ public class UCMShip extends Ship {
 
 	@Override
 	public void move(Move move) throws OffWorldException, NotAllowedMoveException {
+		// Realiza el movimiento de la nave
 		if (!availableMoves.contains(move)) {
 			throw new NotAllowedMoveException();
 		}
@@ -184,7 +185,7 @@ public class UCMShip extends Ship {
 		
 		disableShockWave();
 		ShockWave shockWave = new ShockWave(game);
-		game.addObject(shockWave);
+		game.performAttack(shockWave);
 	}
 	
 	

@@ -71,12 +71,6 @@ public class Ufo extends EnemyShip {
 		return game.getRandom().nextDouble() < game.getLevel().getUfoFrequency();
 	}
 	
-	private void die() {
-		// Sirve para matar de forma explicita
-		this.life = 0;
-		onDelete();
-	}
-	
 	@Override
 	public void onDelete() {
 		// Al morir, puede volver a generarse
@@ -98,6 +92,12 @@ public class Ufo extends EnemyShip {
 			// Si se puede, lo habilita
 			enable();
 		}
+	}
+	
+	private void die() {
+		// Sirve para matar de forma explicita
+		this.life = 0;
+		onDelete();
 	}
 	
 	@Override

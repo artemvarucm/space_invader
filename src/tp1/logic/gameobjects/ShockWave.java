@@ -2,7 +2,6 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.GameWorld;
 import tp1.logic.Move;
-import tp1.logic.Position;
 
 /**
  * 
@@ -12,8 +11,7 @@ import tp1.logic.Position;
 public class ShockWave extends UCMWeapon {
 	private static int DAMAGE = 1;
 	public ShockWave(GameWorld game) {
-		// Posicion inexistente en vez de nulo para que no fallen los metodos que usan pos
-		super(Move.NONE, game, new Position(-1, -1), 1);
+		super(Move.NONE, game, null, 1);
 		this.game = game;
 	}
 
@@ -49,13 +47,6 @@ public class ShockWave extends UCMWeapon {
 			weaponAttack(other);
 		}
 		return false;
-	}	
-	
-	@Override
-	public void computerAction() {
-		// Realiza los ataques y muere
-		game.performAttack(this);
-		die();
 	}
 	
 	@Override
