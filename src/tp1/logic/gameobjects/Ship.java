@@ -16,6 +16,10 @@ public abstract class Ship extends GameObject{
 		super();
 	}
 	
+	protected abstract String getDescription();
+	
+	public abstract String getInfo();
+	
 	public void move(Move move) throws OffWorldException, NotAllowedMoveException {
 		/* Realiza el movimiento en la direccion dir
 		 * Devuelve true si queda dentro del tablero despues de moverse

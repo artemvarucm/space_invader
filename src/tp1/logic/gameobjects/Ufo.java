@@ -17,6 +17,10 @@ public class Ufo extends EnemyShip {
 		this.enabled = false;
 	}
 	
+	public Ufo() {
+		super();
+	}
+	
 	@Override
 	protected int getArmour() {
 		return ARMOR;
@@ -40,12 +44,14 @@ public class Ufo extends EnemyShip {
 		return Messages.UFO_SYMBOL;
 	}
 
-	public static String getInfo() {
+	@Override
+	public String getInfo() {
 		// Devuelve la descripcion formateada de UFO
-		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
+		return Messages.alienDescription(getDescription(), getPoints(), 0, getArmour());
 	}
 	
-	private static String getDescription() {
+	@Override
+	protected String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.UFO_DESCRIPTION;
 	}

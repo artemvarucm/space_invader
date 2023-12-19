@@ -46,12 +46,9 @@ public class RegularAlien extends AlienShip {
 		return Messages.REGULAR_ALIEN_SYMBOL;
 	}
 	
-	public static String getInfo() {
-		// Devuelve la descripcion formateada de RegularAlien
-		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
-	}
 	
-	private static String getDescription() {
+	@Override
+	protected String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.REGULAR_ALIEN_DESCRIPTION;
 	}

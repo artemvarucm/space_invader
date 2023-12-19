@@ -33,4 +33,12 @@ public class ShipFactory {
 		throw new InitializationException(Messages.UNKNOWN_SHIP.formatted(input));
 	}
 	
+	public static String infoToString() {
+		StringBuilder stBuild = new StringBuilder();
+		for (AlienShip ship: AVAILABLE_ALIEN_SHIPS) {
+			stBuild.append(ship.getInfo()).append("\n");
+		} 
+		return stBuild.toString();
+	}
+	
 }

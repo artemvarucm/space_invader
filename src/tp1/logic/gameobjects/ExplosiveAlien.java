@@ -46,13 +46,10 @@ public class ExplosiveAlien extends AlienShip {
 		// Devuelve la representacion ASCII de RegularAlien
 		return Messages.EXPLOSIVE_ALIEN_SYMBOL;
 	}
+
 	
-	public static String getInfo() {
-		// Devuelve la descripcion formateada de RegularAlien
-		return Messages.alienDescription(getDescription(), POINTS, 0, ARMOR);
-	}
-	
-	private static String getDescription() {
+	@Override
+	protected String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.EXPLOSIVE_ALIEN_DESCRIPTION;
 	}

@@ -49,12 +49,9 @@ public class DestroyerAlien extends AlienShip {
 		return Messages.DESTROYER_ALIEN_SYMBOL;
 	}
 	
-	public static String getInfo() {
-		// Devuelve la descripcion formateada de DestroyerAlien
-		return Messages.alienDescription(getDescription(), POINTS, DAMAGE, ARMOR);
-	}
 	
-	private static String getDescription() {
+	@Override
+	protected String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.DESTROYER_ALIEN_DESCRIPTION;
 	}

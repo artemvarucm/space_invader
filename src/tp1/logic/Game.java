@@ -9,10 +9,8 @@ import tp1.logic.exceptions.NoShockWaveException;
 import tp1.logic.exceptions.NotAllowedMoveException;
 import tp1.logic.exceptions.NotEnoughPointsException;
 import tp1.logic.exceptions.OffWorldException;
-import tp1.logic.gameobjects.DestroyerAlien;
-import tp1.logic.gameobjects.ExplosiveAlien;
 import tp1.logic.gameobjects.GameObject;
-import tp1.logic.gameobjects.RegularAlien;
+import tp1.logic.gameobjects.ShipFactory;
 import tp1.logic.gameobjects.UCMShip;
 import tp1.logic.gameobjects.Ufo;
 import tp1.logic.gameobjects.Weapon;
@@ -213,13 +211,9 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	@Override
 	public void printGameObjectsList() {
 		// Imprime la lista de las naves con su descripcion
-		StringBuilder str = new StringBuilder();
-		// str.append(Messages.AVAILABLE_SHIPS).append(NEW_LINE);
-		str.append(UCMShip.getInfo()).append("\n");
-		str.append(RegularAlien.getInfo()).append("\n");					
-		str.append(DestroyerAlien.getInfo()).append("\n");
-		str.append(Ufo.getInfo()).append("\n");
-		str.append(ExplosiveAlien.getInfo()).append("\n");
+		StringBuilder str = new StringBuilder(ShipFactory.infoToString()); // Todas las AlienShip posibles
+		str.append(player.getInfo()).append("\n");
+		str.append((new Ufo()).getInfo()).append("\n");
 		System.out.print(str.toString());
 	}
 	

@@ -64,12 +64,14 @@ public class UCMShip extends Ship {
 		return res;
 	}
 
-	public static String getInfo() {
+	@Override
+	public String getInfo() {
 		// Devuelve la descripcion formateada de UCMShip
 		return Messages.ucmShipDescription(getDescription(), DAMAGE, ARMOR);
 	}
 	
-	public static String getDescription() {
+	@Override
+	protected String getDescription() {
 		// Devuelve el texto de la descripcion 
 		return Messages.UCMSHIP_DESCRIPTION;
 	}
