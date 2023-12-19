@@ -56,7 +56,7 @@ public class MoveCommand extends Command {
 	public Command parse(String[] commandWords) throws CommandParseException {
 		// Vemos si player ha ordenado el comando move
 		Command com = null;
-		if (this.matchCommandName(commandWords[0].toLowerCase())) {
+		if (this.matchCommandName(commandWords[0])) {
 			if (commandWords.length == 2) {
 				try {
 					// Convertimos a letras mayusculas

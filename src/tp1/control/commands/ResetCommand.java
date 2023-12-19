@@ -58,7 +58,7 @@ public class ResetCommand extends Command{
 			// Reset vacio o del fichero seleccionado
 			Command com = null;
 			
-			if (this.matchCommandName(commandWords[0].toLowerCase())) {
+			if (this.matchCommandName(commandWords[0])) {
 				if (commandWords.length == 1) {
 					// reset sin parametro
 					com = new ResetCommand(); 

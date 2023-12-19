@@ -9,7 +9,7 @@ public abstract class NoParamsCommand extends Command {
 	public Command parse(String[] commandWords) throws CommandParseException {
 		// Determina el comando segun commandWords
 		Command com = null;
-		if (this.matchCommandName(commandWords[0].toLowerCase())) {
+		if (this.matchCommandName(commandWords[0])) {
 			if (commandWords.length == 1) {
 				com = this;
 			} else {
