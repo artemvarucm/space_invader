@@ -31,7 +31,7 @@ public class Messages {
 
 	public static final String CONFIGURED_LEVEL = "Level: %s";
 
-	public static final String ALLOWED_UCMSHIP_MOVES = "<%s>".formatted(UCMShip.allowedMoves("|"));
+	public static final String ALLOWED_UCMSHIP_MOVES = "<%s>".formatted(UCMShip.allowedMoves("|").toLowerCase());
 	
 	public static final String CONFIGURED_SEED = "Random generator initialized with seed: %d";
 
