@@ -64,7 +64,7 @@ public class MoveCommand extends Command {
 					
 					com = new MoveCommand(dir);
 				} catch (IllegalArgumentException e) {
-					throw new CommandParseException(Messages.DIRECTION_ERROR + commandWords[1]);
+					throw new CommandParseException(Messages.DIRECTION_ERROR + commandWords[1] + "\n" + Messages.ALLOWED_MOVES_MESSAGE);
 				}
 			} else {
 				throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
