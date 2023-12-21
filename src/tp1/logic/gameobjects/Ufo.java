@@ -113,10 +113,8 @@ public class Ufo extends EnemyShip {
 	@Override
 	public boolean receiveAttack(UCMWeapon weapon) {
 		// Recibe ataque del weapon
-		
 		receiveDamage(weapon.getDamage());
-		boolean died = !isAlive();
-		if (died) {
+		if (!isAlive()) {
 			game.enableShockWave();
 			// recibe puntos
 			game.receivePoints(getPoints());
