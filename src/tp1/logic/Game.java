@@ -229,24 +229,4 @@ public class Game implements GameStatus, GameModel, GameWorld {
 	public boolean isCycleDescend() {
 		return cycleDescend;
 	}
-	
-	/*public void automaticMoves() {
-	// Realizamos moviemiento de objetos
-	
-	// En este ciclo los aliens se moveran hacia abajo, 
-	// necesitamos ver si el laser puede atacarles despues de moverlos
-	boolean isDescending = alienManager.onBorder(); 
-	
-	regularAliens.automaticMoves();
-	destroyerAliens.automaticMoves();
-	if (isDescending) {
-		// Atacamos con el laser, para que no se entrecruze la nave y el laser,
-		// y sigan vivos, al enfrentarse
-		performAttack(laser);
-	}
-	
-	ufo.automaticMove();
-	bombs.automaticMoves();
-	laser.automaticMove();
-	}*/
 }
