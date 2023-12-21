@@ -35,13 +35,10 @@ public class Game implements GameStatus, GameModel, GameWorld {
 		this.level = level;
 		this.seed = seed;
 		this.config = InitialConfiguration.NONE;
-		// FIXME alienManager init movido de initGame
 		this.alienManager = new AlienManager(this, level);
 		try {
 			initGame();
-		} catch (InitializationException e) {
-			// vacio, nunca entra
-		}
+		} catch (InitializationException e) {/*nunca entra, vacio*/}
 	}
 	
 	private void initGame () throws InitializationException {

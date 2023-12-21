@@ -10,7 +10,7 @@ import tp1.logic.GameModel;
 import tp1.logic.exceptions.InitializationException;
 import tp1.view.Messages;
 
-public class ResetCommand extends Command{
+public class ResetCommand extends Command {
 		private InitialConfiguration config;
 		public ResetCommand() {
 			this(InitialConfiguration.NONE);
@@ -72,7 +72,6 @@ public class ResetCommand extends Command{
 					} catch(FileNotFoundException e) {
 						throw new CommandParseException(Messages.FILE_NOT_FOUND.formatted(commandWords[1]));
 					} catch(IOException e) {
-						// FIXME - esta correcto
 						throw new CommandParseException(Messages.READ_ERROR.formatted(e.getMessage()));
 					}
 				} else {

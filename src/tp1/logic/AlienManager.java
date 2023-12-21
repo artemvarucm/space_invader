@@ -112,34 +112,33 @@ public class AlienManager {
 		int shipsOnBorderNew = 0;
 		boolean squadInFinalRowNew = false;
 		boolean onBorderNew = false;
-		// No
 		for (String shipDescription : conf.getShipDescription()) {
  			String[] words = shipDescription.trim().split("\\s+");
- 			if (words.length == 3) {
- 				try {
- 					// Posicion en la que insertaremos objeto
- 					Position posit = new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2]));
- 					
- 					AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, posit, this);
- 					container.add(ship);
- 				    // la direccion por defecto es a la izquierda, por tanto si esta en la primera columna, toca el borde
- 					if (posit.getCol() == 0) {
- 						onBorderNew = true;
-						// Contador - numero de aliens que quedan por bajar 
- 						shipsOnBorderNew = conf.getShipDescription().size();
- 					}
- 					// si aparece justo en el borde, ganan automaticamente
- 					if (posit.getRow() == Game.DIM_Y - 1) {
- 						squadInFinalRowNew = true;
- 					}
- 				} catch (NumberFormatException e) {
- 					// Alguna de las coordenadas no es un numero
- 					throw new InitializationException(Messages.INVALID_POSITION.formatted(words[1], words[2]));
- 				}
- 			} else {
- 				// Sobran o faltan parametros
+ 			if (words.length != 3) {
+ 			    // Sobran o faltan parametros
  				throw new InitializationException(Messages.INCORRECT_ENTRY.formatted(shipDescription));
  			}
+
+			try {
+				// Posicion en la que insertaremos objeto
+				Position posit = new Position(Integer.valueOf(words[1]), Integer.valueOf(words[2]));
+				
+				AlienShip ship = ShipFactory.spawnAlienShip(words[0], level.getNumCyclesToMoveOneCell(), game, posit, this);
+				container.add(ship);
+			    // la direccion por defecto es a la izquierda, por tanto si esta en la primera columna, toca el borde
+				if (posit.getCol() == 0) {
+					onBorderNew = true;
+					// Contador - numero de aliens que quedan por bajar 
+					shipsOnBorderNew = conf.getShipDescription().size();
+				}
+				// si aparece justo en el borde, ganan automaticamente
+				if (posit.getRow() == Game.DIM_Y - 1) {
+					squadInFinalRowNew = true;
+				}
+			} catch (NumberFormatException e) {
+				// Alguna de las coordenadas no es un numero
+				throw new InitializationException(Messages.INVALID_POSITION.formatted(words[1], words[2]));
+			}
  		}
 		
  		// si ha tenido exito, sobreescribimos las variables, reiniciando la configuracion
